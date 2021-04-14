@@ -33,10 +33,12 @@ Then, we modified the Apache config file (/etc/apache2/apache2.con)  to change t
 
 
 ### Modifying HTTP Header Server
+```
 <IfModule security2_module>
     SecRuleEngine on
     ServerTokens Min
     SecServerSignature "CSE135 Server"
 </IfModule>
+``` 
 
 
