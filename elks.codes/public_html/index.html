@@ -33,8 +33,24 @@
 
     .homework {
         margin-left: 3%;
+        background-color: rgb(208, 211, 214);
+        padding: 5px;
+        margin-top: 20px;
     }
 
+    ul {
+        padding-left: 0px;
+    }
+
+    th {
+        text-align: left;
+    }
+
+    td {
+        padding-right: 80px;
+        padding-left: 15px;
+        vertical-align: text-top;
+    }
 </style>
 
 </head>
@@ -62,16 +78,79 @@
         <div class="homework">
             <h4>Homework 1</h4>
             <ol>
-		<li><a href="hw1/hello.php">PHP</a></li>
-		<li><a href="robots.txt">Node</a></li>
-		<li><a href="hw1/report.html">Analytics</a></li>
+                <li><a href="hw1/hello.php">PHP</a></li>
+                <li><a href="robots.txt">Node</a></li>
+                <li><a href="hw1/report.html">Analytics</a></li>
             </ol>
         </div>
         <div class="homework">
             <h4>Homework 2</h4>
-            <p>
-                TBD
-            </p>
+            <table>
+                <thead>
+                    <th>Perl</th>
+                    <th>C</th>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>
+                            <ul>
+                                <li>
+                                    <a href="hw2/perl/perl-html-world.pl">Hello, Perl!</a>
+                                </li>
+                                <li>
+                                    <a href="hw2/perl/perl-json-world.pl">Hello, Perl! (JSON)</a>
+                                </li>
+                                <li>
+                                    <a href="hw2/perl/perl-env.pl">Environment Variables</a>
+                                </li>
+                                <li>
+                                    <a href="hw2/perl/perl-get-echo.pl">GET Echo</a>
+                                </li>
+                                <li>
+                                    <a href="hw2/perl/perl-post-echo.pl">POST Echo</a>
+                                </li>
+                                <li>
+                                    <a href="hw2/perl/perl-general-echo.pl">General Echo</a>
+                                </li>
+                                <li>
+                                    <a href="hw2/perl/perl-sessions-1.pl">Sessioning(1)</a>
+                                </li>
+                                <li>
+                                    <a href="hw2/perl/perl-sessions-2.pl">Sessioning(2)</a>
+                                </li>
+                                <li>
+                                    <a href="hw2/perl/perl-destroy-session.pl">Sessioning(destroy)</a>
+                                </li>
+                            </ul>
+                        </td>
+                        <td>
+                            <ul>
+                                <li>
+                                    <a href="hw2/c/c-hello-html-world.c">Hello, C!</a>
+                                </li>
+                                <li>
+                                    <a href="hw2/c/c-hello-json-world.c">Hello, C! (JSON)</a>
+                                </li>
+                                <li>
+                                    <a href="hw2/c/c-env.c">Environment Variables</a>
+                                </li>
+                                <li>
+                                    <a href="hw2/c/c-get-echo.c">GET Echo</a>
+                                </li>
+                                <li>
+                                    <a href="hw2/c/c-post-echo.c">POST Echo</a>
+                                </li>
+                                <li>
+                                    <a href="hw2/c/c-general-request-echo.c">General Echo</a>
+                                </li>
+                                <li>
+                                    <a>Sessioning</a>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </section>
     <hr/>
