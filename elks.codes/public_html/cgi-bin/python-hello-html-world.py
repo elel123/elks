@@ -3,15 +3,15 @@ import datetime
 import os
 
 #Print HTML header
-print("Cache-Control: no-cache\n");
-print("Content-type: text/html\n\n");
+print("Cache-Control: no-cache\n")
+print("Content-type: text/html\n\n")
 print("<html><head><title>Hello CGI World</title></head>\
 <body><h1 align=center>Hello HTML World</h1>\
-<hr/>\n");
+<hr/>\n")
 
- print("Hello World<br/>\n");
- print("This program was generated at: %s\n<br/>", ctime(&t));
- print("Your current IP address is: %s<br/>", getenv("REMOTE_ADDR"));
+ print("Hello World<br/>\n")
+ print("This program was generated at: %s\n<br/>", 'a')
+ print("Your current IP address is: %s<br/>", 'a')
  
  # Print HTML footer
- print("</body></html>");
+ print("</body></html>")
