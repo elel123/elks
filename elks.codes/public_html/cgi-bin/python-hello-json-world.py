@@ -11,4 +11,4 @@ x = {
     "date": datetime.datetime.now(),
     "currentIP": os.environ['REMOTE_ADDR']
 }
-print(json.dumps(x))
+print(x)
