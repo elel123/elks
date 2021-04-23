@@ -4,8 +4,8 @@ import os
 import json
 
 #Print HTML header
-print("Cache-Control: no-cache") 
-print("Content-type: application/json")
+# print("Cache-Control: no-cache") 
+# print("Content-type: application/json")
 x = {
     "message": "Hello World",
     "date": datetime.datetime.now(),
