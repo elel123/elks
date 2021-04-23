@@ -10,8 +10,8 @@ print("<html><head><title>Hello CGI World</title></head>\
 <hr/>\n")
 
  print("Hello World<br/>\n")
- print("This program was generated at: %s\n<br/>", 'a')
- print("Your current IP address is: %s<br/>", 'a')
+ print("This program was generated at: {}\n<br/>".format('a'))
+ print("Your current IP address is: {}<br/>".format('a'))
  
  # Print HTML footer
  print("</body></html>")
