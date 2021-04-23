@@ -14,8 +14,8 @@
 
 
   echo "<h2> Server Variables: </h2>"; 
-  foreach ($apache_getenv() as $key => $val ) { 
-    echo "<b>" . $key . ":</b>" . $val . "<br />\n";
+  foreach ($apache_getenv("", true) as $a_key => $a_val ) { 
+    echo "<b>" . $a_key . ":</b>" . $a_val . "<br />\n";
   }
 
 
