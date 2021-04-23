@@ -1,7 +1,7 @@
 #!/usr/bin/env php
-<?php 
-  echo "Cache-Control: no-cache\n";
-  echo "Content-type: text/html\n\n";
+<?php @ob_end_clean(); if(ini_get('output_buffering')) ob_start();
+  header("Cache-Control: no-cache");
+  header("Content-type: application/json");
 
   $title = "Hello, PHP!";
   $heading = "Amrit, Elton, and Kelly were here - Hello PHP";
@@ -10,7 +10,4 @@
 
   $obj_arr = array("title"=>$title, "heading"=>$heading, "message"=>$curr_time, "IP"=>$ip_address); 
 
-  echo json_encode($obj_arr) . "\n";
-
-?>
-
+  echo json_encode($obj_arr);

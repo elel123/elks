@@ -1,17 +1,16 @@
 #!/usr/bin/env php
-<?php 
-  echo "Cache-Control: no-cache\n";
-  echo "Content-type: text/html\n\n";
+<?php @ob_end_clean(); if(ini_get('output_buffering')) ob_start();
+  header("Cache-Control: no-cache");
+  header("Content-type: text/html");
 
   echo "<html>"; 
 
   echo "<head>"; 
-  echo "<title>Hello, PHP!</title>"; 
-  echo "Amrit, Elton, and Kelly were here - Hello PHP"; 
+  echo "<title>Hello, HTML World, PHP!</title>"; 
   echo "</head>"; 
 
   echo "<body>"; 
-  echo "<h1> Amrit, Elton, and Kelly were here - Hello, PHP! </h1>"; 
+  echo "<h1> Amrit, Elton, and Kelly were here - Hello HTML World, PHP! </h1>"; 
   echo "<p> This page was generated with the PHP programming language </p>"; 
 
   echo "The current time is " . date('l') . " " . date('m/d/Y') . " " . date("h:i:sa"); 
@@ -21,5 +20,3 @@
 
   echo "</body>"; 
   echo "</html>"; 
-
-?>
