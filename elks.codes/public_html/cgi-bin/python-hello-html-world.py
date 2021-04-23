@@ -4,6 +4,8 @@ import os
 
 #Print HTML header
 print('''
+Cache-Control: no-cache
+Content-type: text/html
 <html>
 <head>
 <title>Hello CGI World</title>
@@ -13,7 +15,7 @@ print('''
 <hr/>
 Hello World<br/>
 </body>
-</html>
+</html>\n
 ''')
 # print("Content-type: text/html\n\n")
 # print("<html><head><title>Hello CGI World</title></head>\<body><h1 align=center>Hello HTML World</h1>\<hr/>\n")
