@@ -5,9 +5,16 @@ import os
 #Print HTML header
 print('''Cache-Control: no-cache\n
 Content-type: text/html\n\n
-<html><head><title>Hello CGI World</title></head>\<body><h1 align=center>Hello HTML World</h1>\<hr/>\n
-Hello World<br/>\n
-</body></html>
+<html>
+<head>
+<title>Hello CGI World</title>
+</head>
+<body>
+<h1 align=center>Hello HTML World</h1>
+<hr/>
+Hello World<br/>
+</body>
+</html>
 ''')
 # print("Content-type: text/html\n\n")
 # print("<html><head><title>Hello CGI World</title></head>\<body><h1 align=center>Hello HTML World</h1>\<hr/>\n")
@@ -17,4 +24,4 @@ Hello World<br/>\n
 #  print("Your current IP address is: {}<br/>".format(os.environ['REMOTE_ADDR']))
  
 # Print HTML footer
-print("</body></html>")
+# print("</body></html>")
