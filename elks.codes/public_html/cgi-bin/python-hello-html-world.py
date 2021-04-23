@@ -8,7 +8,7 @@ Cache-Control: no-cache\n
 Content-type: text/html\n\n
 <html><head><title>Hello CGI World</title></head>\
 <body><h1 align=center>Hello HTML World</h1>\
-<hr/
+<hr/>
 Hello World<br/>
 This program was generated at: a\n<br/>
 Your current IP address is: {}<br/>
