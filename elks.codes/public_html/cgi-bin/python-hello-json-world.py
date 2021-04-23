@@ -9,6 +9,6 @@ print("Content-type: application/json")
 x = {
     "message": "Hello World",
     "date": datetime.datetime.now(),
-    "currentIP": os.environ['REMOTE_ADDR']
+    "currentIP": "os.environ['REMOTE_ADDR']"
 }
 print(x)
