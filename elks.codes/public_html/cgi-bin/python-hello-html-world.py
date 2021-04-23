@@ -10,7 +10,7 @@ print('''
 <body><h1 align=center>Hello HTML World</h1>\
 <hr/>
 Hello World<br/>
-This program was generated at: a\n<br/>
+This program was generated at: {}\n<br/>
 Your current IP address is: {}<br/>
 </body></html>
-'''.format('hello :)'))
+'''.format(datetime.datetime.now(), os.environ['REMOTE_ADDR']))
