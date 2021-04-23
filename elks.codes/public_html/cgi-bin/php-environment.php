@@ -1,4 +1,4 @@
-#!/usr/bin/env php
+#!/usr/bin/php
 <?php 
   echo "Cache-Control: no-cache\n";
   echo "Content-type: text/html\n\n";
