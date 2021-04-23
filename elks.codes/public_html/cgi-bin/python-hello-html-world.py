@@ -3,8 +3,8 @@ import datetime
 import os
 
 #Print HTML header
-print('''Cache-Control: no-cache\n
-Content-type: text/html\n\n
+print('''Cache-Control: no-cache
+Content-type: text/html
 <html>
 <head>
 <title>Hello CGI World</title>
