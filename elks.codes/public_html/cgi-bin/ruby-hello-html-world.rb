@@ -11,3 +11,6 @@ puts "<p>Hello World</p>"
 puts "<p>This page was generated with the Ruby programming language</p>"
 puts "<p>This program was generated at: " + time.inspect + "</p>"
 puts "<p>Your IP Address: " + ENV['REMOTE_ADDR'] + "</p>"
+
+puts "</body>"
+puts "</html>"
