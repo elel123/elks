@@ -13,4 +13,9 @@ json1 = '{"heading":"Amrit, Elton, and Kelly were here - Hello Ruby"}'
 json2 = '{"message":"'+ time.inspect+'"}'
 json3 = '{"IP":"' + 'ENV["REMOTE_ADDR"]' + '"}'
 
-puts JSON.parse(json)
+puts ({
+    title: "Hello, Ruby!", 
+    heading: "Amrit, Elton, and Kelly were here - Hello Ruby",
+    message: time.inspect,
+    IP: ENV["REMOTE_ADDR"]
+}).to_json
