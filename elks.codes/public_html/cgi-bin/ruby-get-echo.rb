@@ -11,7 +11,12 @@ puts "<h1 align=center>GET Query String</h1><hr/>\n"
 
 puts "<p><b>Query String: </b>" + cgi.query_string + "</p>"
 
-puts cgi.query_string.split("&")
+puts "<p>"
+cgi.query_string.split("&").each { |var|
+    puts var + "<br/>"
+}
+
+puts "</p>"
 
 puts "</body>"
 puts "</html>"
