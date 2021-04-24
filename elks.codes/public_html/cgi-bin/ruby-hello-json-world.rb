@@ -13,6 +13,8 @@ json1 = '{"heading":"Amrit, Elton, and Kelly were here - Hello Ruby"}'
 json2 = '{"message":"'+ time.inspect+'"}'
 json3 = '{"IP":"' + 'ENV["REMOTE_ADDR"]' + '"}'
 
+puts cgi.header("type" => "application/json")
+puts ""
 puts ({
     title: "Hello, Ruby!", 
     heading: "Amrit, Elton, and Kelly were here - Hello Ruby",
