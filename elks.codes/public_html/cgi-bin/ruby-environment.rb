@@ -7,7 +7,7 @@ puts "<body>"
 puts "<h1 align=center>Environment Variables from Amrit, Elton, and Kelly</h1><hr/>\n"
 
 ENV.keys.each { |env|
-    puts "<p>" + env + "</p>"
+    puts "<p><b>" + env + "</b>: " + ENV[env] + "</p>"
 }
 
 puts "</body>"
