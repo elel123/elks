@@ -16,7 +16,7 @@ puts "<p><b>Message Body: </b>" + cgi.params + "</p>"
 #     puts var + "<br/>"
 # }
 
-puts "</p>"
+# puts "</p>"
 
 puts "</body>"
 puts "</html>"
