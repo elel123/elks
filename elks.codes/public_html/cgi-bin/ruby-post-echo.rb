@@ -9,7 +9,9 @@ puts "<html><head><title>POST Echo</title></head>"
 puts "<body>"
 puts "<h1 align=center>POST Message Body</h1><hr/>\n"
 
-puts "<p><b>Message Body: </b>" + cgi.params.keys + "</p>"
+puts "<p><b>Message Body: </b></p>"
+
+puts  cgi.params.inspect
 
 puts "</body>"
 puts "</html>"
