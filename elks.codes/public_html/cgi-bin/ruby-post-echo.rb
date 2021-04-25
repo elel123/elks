@@ -17,7 +17,7 @@ puts "\n----------\n"
 
 puts "<ul>"
 cgi.params.each do |key, value|
-    puts "<li> #{key} = #{value.inspect}</li>"
+    puts "<li> #{key} = #{cgi.params[key]}</li>"
 end
 
 puts "</ul>"
