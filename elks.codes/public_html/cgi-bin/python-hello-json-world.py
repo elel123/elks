@@ -6,7 +6,7 @@ import json
 
 #Print HTML header
 cgitb.enable()
-print("Content-Type: text/html")
+print("Content-Type: text/json")
 print()
 x = {
     "message": "Hello World",
