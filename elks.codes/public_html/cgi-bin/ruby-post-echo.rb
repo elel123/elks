@@ -15,7 +15,7 @@ puts "<p><b>Message Body: </b></p>"
 puts  cgi.params.inspect
 
 puts "<p>"
-cgi.params.split("&").each { |var|
+cgi.params.each { |var|
     puts var + "<br/>"
 }
 
