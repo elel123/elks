@@ -29,7 +29,7 @@ puts sess.session_id
 
 # puts "Session ID: #{sess["ID"]}"
 
-if sess['saved'].empty?
+if sess['saved'][2..-3].empty?
     puts "<b>Name:</b> You do not have a name set"
 else 
     puts "<b>Name:</b> #{sess['saved']}"
