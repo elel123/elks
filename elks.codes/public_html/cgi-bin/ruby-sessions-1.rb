@@ -7,14 +7,13 @@ cgi = CGI.new("html4")
 
 # username = cgi.params["username"]
 
-begin
-    sess = CGI::Session.new(cgi, "session_key" => "test", 'new_session' => false)
-    sess["No"] = "No"
-rescue ArgumentError  # if no old session
-    sess = CGI::Session.new(cgi, "session_key" => "test", 'new_session' => true)
-    sess["Yes"] = "Yes"
-end
+sess = CGI::Session.new(cgi)
 
+
+cookie = CGI::Cookie.new('sess_id' => sess.session_id)
+
+#Save the cookie
+cgi.out("cookie" => cookie)
 
 puts "Cache-Control: no-cache\n"
 puts "Content-type: text/html\n\n"
