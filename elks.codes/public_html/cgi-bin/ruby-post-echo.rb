@@ -11,7 +11,7 @@ puts "<h1 align=center>POST Message Body</h1><hr/>\n"
 
 puts "<p><b>Message Body: </b></p>"
 
-puts cgi.params
+puts cgi.params.keys
 
 puts "----------"
 
