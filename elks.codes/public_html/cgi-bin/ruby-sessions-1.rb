@@ -9,6 +9,7 @@ cgi = CGI.new("html4")
 
 session = CGI::Session.new(cgi, "prefix" => "rubysess.")
 
+session["hi"] = cgi.query_string
 
 puts "Cache-Control: no-cache\n"
 puts "Content-type: text/html\n\n"
@@ -21,7 +22,8 @@ puts "<body>"
 puts "<h1>Ruby Sessions Page 1</h1>"
 
 puts session
-session.delete
+
+puts session["hi"]
 
 # if ($name){
 # 	puts("<p><b>Name:</b> $name")
