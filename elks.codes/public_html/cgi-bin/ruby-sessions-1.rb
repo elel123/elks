@@ -23,7 +23,7 @@ puts "<h1>Ruby Sessions Page 1</h1>"
 
 puts session
 
-puts session["hi"]
+puts session["session_id"]
 
 # if ($name){
 # 	puts("<p><b>Name:</b> $name")
