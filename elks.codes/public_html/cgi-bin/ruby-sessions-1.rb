@@ -20,7 +20,7 @@ puts "<body>"
 
 puts "<h1>Ruby Sessions Page 1</h1>"
 
-puts session.inspect
+puts session
 session.delete
 
 # if ($name){
