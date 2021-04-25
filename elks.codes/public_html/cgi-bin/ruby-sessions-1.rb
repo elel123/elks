@@ -36,7 +36,7 @@ puts
 if sess['saved'].inspect[2..-3].empty?
     puts "<b>Name:</b> You do not have a name set"
 else 
-    puts "<b>Name:</b> #{sess['saved']}"
+    puts "<b>Name:</b> #{sess['saved'].inspect[2..-3]}"
 end
 
 
