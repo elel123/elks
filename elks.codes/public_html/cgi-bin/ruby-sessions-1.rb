@@ -5,9 +5,9 @@ require 'cgi/session'
 
 cgi = CGI.new("html4")
 
-username = cgi.params["username"]
+# username = cgi.params["username"]
 
-sess = CGI::Session.new(cgi, "session_key" => username, "prefix" => "rubysess.")
+sess = CGI::Session.new(cgi, "session_key" => "test", "prefix" => "rubysess.")
 
 if not cgi.query_string.empty?
     sess["hi"] = cgi.query_string
