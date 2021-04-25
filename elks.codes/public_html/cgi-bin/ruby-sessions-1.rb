@@ -5,11 +5,10 @@ require 'cgi/session'
 
 cgi = CGI.new("html4")
 
-username = cgi.params["username"]
+# username = cgi.params["username"]
 
-sess = CGI::Session.new(cgi, "session_key" => username, "prefix" => "rubysess.")
+sess = CGI::Session.new(cgi, "session_key" => "test", "prefix" => "rubysess.")
 
-sess["hi"] = cgi.query_string
 
 puts "Cache-Control: no-cache\n"
 puts "Content-type: text/html\n\n"
@@ -21,9 +20,21 @@ puts "<body>"
 
 puts "<h1>Ruby Sessions Page 1</h1>"
 
-puts sess
+if not cgi.query_string.empty?
+    puts "empty query string\n"
+    sess["hi"] = cgi.query_string
+end
 
-puts "Session ID: #{sess["ID"]}"
+puts
+
+puts sess
+puts
+
+# puts "Session ID: #{sess["ID"]}"
+
+puts "Session 'hi': #{sess['hi']}"
+
+sess.close
 
 # if ($name){
 # 	puts("<p><b>Name:</b> $name")

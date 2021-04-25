@@ -1,3 +1,6 @@
+import LogRocket from 'logrocket';
+LogRocket.init('wrgz7h/elkscodes');
+
 window.addEventListener("DOMContentLoaded", function() {
     console.log("Hello World!");
 });
