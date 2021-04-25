@@ -6,9 +6,11 @@ import json
 
 #Print HTML header
 cgitb.enable()
-print("Content-Type: application/json")
+print("Content-Type: text/html")
 print()
-date = datetime.datetime.now()
+print("<html><head><title>Environment Variables</title></head> \
+	<body><h1 align=center>Environment Variables</h1> \
+  	<hr/>")
 x = {
     "message": "Hello World",
     "date": str(date),
