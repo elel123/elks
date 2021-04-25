@@ -1,7 +1,7 @@
 require 'cgi'
 require 'cgi/session'
 
-cgi = CGI.new
+cgi = CGI.new("html4")
 
 # username = cgi.params["username"]
 
