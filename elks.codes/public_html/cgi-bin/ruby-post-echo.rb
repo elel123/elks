@@ -11,7 +11,15 @@ puts "<h1 align=center>POST Message Body</h1><hr/>\n"
 
 puts "<p><b>Message Body: </b></p>"
 
+
 puts  cgi.params.inspect
+
+puts "<p>"
+cgi.params.split("&").each { |var|
+    puts var + "<br/>"
+}
+
+puts "</p>"
 
 puts "</body>"
 puts "</html>"
