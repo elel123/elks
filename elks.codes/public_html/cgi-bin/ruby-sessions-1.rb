@@ -36,7 +36,7 @@ end
 puts
 
 puts sess.session_id
-puts
+puts sess.session_key
 
 # puts "Session ID: #{sess["ID"]}"
 
