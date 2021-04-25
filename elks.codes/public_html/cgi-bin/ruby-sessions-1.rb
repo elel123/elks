@@ -25,6 +25,10 @@ puts sess
 
 puts "Session ID: #{sess["ID"]}"
 
+puts "Session 'hi': #{sess['hi']}"
+
+sess.close
+
 # if ($name){
 # 	puts("<p><b>Name:</b> $name")
 # }else{
