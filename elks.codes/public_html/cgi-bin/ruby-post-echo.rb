@@ -13,18 +13,14 @@ puts "<p><b>Message Body: </b></p>"
 
 puts cgi.params.keys
 
-puts "----------"
+puts "\n----------\n"
 
-puts cgi.params.inspect
-
-puts  type(cgi.params)
-
-puts "<p>"
-cgi.params.each { |var|
-    puts var + "<br/>"
+puts "<ul>"
+cgi.params.keys.each { |var|
+    puts "<li>" + var + " = " + cgi.params[var] + "</li>"
 }
 
-puts "</p>"
+puts "</ul>"
 
 puts "</body>"
 puts "</html>"
