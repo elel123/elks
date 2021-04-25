@@ -13,7 +13,8 @@ puts "<p><b>Message Body: </b></p>"
 
 puts "<ul>"
 cgi.params.each do |key, value|
-    puts "<li> #{key} = #{cgi.params[key]}</li>"
+    new_value = value.inspect[2..-2]
+    puts "<li> #{key} = #{new_value}</li>"
 end
 
 puts "</ul>"
