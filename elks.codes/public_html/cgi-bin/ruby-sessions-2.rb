@@ -43,7 +43,7 @@ sess.close
 
 puts "</pre>"
 puts "<br/><br/>"
-puts "<a href=\"/cgi-bin/ruby-sessions-2.rb\">Session Page 2</a><br/>"
+puts "<a href=\"/cgi-bin/ruby-sessions-1.rb\">Session Page 1</a><br/>"
 puts "<a href=\"../hw2/ruby-cgiform.html\">Ruby CGI Form</a><br />"
 puts "<form style=\"margin-top:30px\" action=\"/cgi-bin/ruby-destroy-session.rb\" method=\"get\">"
 puts "<button type=\"submit\">Destroy Session</button>"
