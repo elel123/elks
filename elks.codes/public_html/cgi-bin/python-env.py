@@ -6,7 +6,7 @@ import json
 
 #Print HTML header
 cgitb.enable()
-print("Content-Type: application/html")
+print("Content-Type: text/html")
 print()
 print('''<html><head><title>Environment Variables</title></head>
 <body><h1 align=center>Environment Variables</h1>
