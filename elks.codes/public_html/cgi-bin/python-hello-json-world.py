@@ -5,10 +5,12 @@ import json
 
 #Print HTML header
 # print("Cache-Control: no-cache") 
-# print("Content-type: application/json")
+date = datetime.datetime.now()
+env = os.environ['REMOTE_ADDR']
+print("Content-type: application/json")
 x = {
     "message": "Hello World",
-    "date": datetime.datetime.now(),
-    "currentIP": "os.environ['REMOTE_ADDR']"
+    "date": date,
+    "currentIP": env
 }
 print(x)
