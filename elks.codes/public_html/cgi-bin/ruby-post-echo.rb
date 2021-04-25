@@ -12,7 +12,7 @@ puts "<h1 align=center>POST Message Body</h1><hr/>\n"
 puts "<p><b>Message Body: </b></p>"
 
 
-puts  type(cgi.params.inspect)
+puts  type(cgi.params)
 
 puts "<p>"
 cgi.params.each { |var|
