@@ -5,7 +5,6 @@ require 'cgi/session'
 
 cgi = CGI.new("html4")
 
-# username = cgi.params["username"]
 
 sess = CGI::Session.new(cgi)
 
@@ -25,9 +24,8 @@ puts "<h1>Ruby Sessions Page 1</h1>"
 
 puts "<pre>"
 
-if not cgi.query_string.empty?
-    puts "query string\n"
-    sess["hi"] = cgi.query_string
+if cgi.param.has_key?("username") and not cgi.params["username"].empty?
+    sess["saved"] = cgi.params["username"]
 end
 
 puts
@@ -36,10 +34,9 @@ puts sess.session_id
 
 # puts "Session ID: #{sess["ID"]}"
 
-puts "Session 'hi': #{sess['hi']}"
+puts "Session 'saved': #{sess['saved']}"
 
 
-sess.update
 
 sess.close
 
