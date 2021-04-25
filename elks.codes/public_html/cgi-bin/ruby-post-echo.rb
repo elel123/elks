@@ -11,10 +11,6 @@ puts "<h1 align=center>POST Message Body</h1><hr/>\n"
 
 puts "<p><b>Message Body: </b></p>"
 
-puts cgi.params.keys
-
-puts "\n----------\n"
-
 puts "<ul>"
 cgi.params.each do |key, value|
     puts "<li> #{key} = #{cgi.params[key]}</li>"
