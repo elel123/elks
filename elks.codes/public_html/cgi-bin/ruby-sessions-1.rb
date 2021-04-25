@@ -5,9 +5,9 @@ require 'cgi/session'
 
 cgi = CGI.new("html4")
 
-# username = cgi.params["username"]
+username = cgi.params["username"]
 
-sess = CGI::Session.new(cgi, "session_key" => "ID", "prefix" => "rubysess.")
+sess = CGI::Session.new(cgi, "session_key" => username, "prefix" => "rubysess.")
 
 sess["hi"] = cgi.query_string
 
@@ -23,7 +23,7 @@ puts "<h1>Ruby Sessions Page 1</h1>"
 
 puts sess
 
-puts "Session ID: #{sess["ID"].to_s}"
+puts "Session ID: #{sess["ID"]}"
 
 # if ($name){
 # 	puts("<p><b>Name:</b> $name")
