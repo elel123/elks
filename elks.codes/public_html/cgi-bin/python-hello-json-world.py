@@ -6,11 +6,11 @@ import json
 
 #Print HTML header
 cgitb.enable()
-print("Content-Type: text/json")
+print("Content-Type: application/json")
 print()
 x = {
     "message": "Hello World",
-    "date": str(date),
+    "date": str(datetime.datetime.now()),
     "currentIP": str(os.environ["REMOTE_ADDR"])
 }
 print(json.dumps(x, indent=4))
