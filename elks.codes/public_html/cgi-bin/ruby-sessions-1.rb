@@ -22,7 +22,7 @@ puts "<body>"
 
 puts "<h1>Ruby Sessions Page 1</h1>"
 
-puts "<pre>"
+puts "<p>"
 
 if cgi.params.has_key?("username") and not cgi.params["username"].empty?
     sess["saved"] = cgi.params["username"]
@@ -30,23 +30,22 @@ end
 
 puts
 
-puts sess.session_id
 
 # puts "Session ID: #{sess["ID"]}"
 
-puts "Session 'saved': #{sess['saved']}"
+if sess['saved'].empty?
+    puts "<b>Name:</b> You do not have a name set"
+else 
+    puts "<b>Name:</b> #{sess['saved']}"
+end
+
 
 
 
 sess.close
 
-# if ($name){
-# 	puts("<p><b>Name:</b> $name")
-# }else{
-# 	puts "<p><b>Name:</b> You do not have a name set</p>"
-# }
 
-puts "</pre>"
+puts "</p>"
 puts "<br/><br/>"
 puts "<a href=\"/cgi-bin/ruby-sessions-2.rb\">Session Page 2</a><br/>"
 puts "<a href=\"../hw2/ruby-cgiform.html\">Ruby CGI Form</a><br />"
