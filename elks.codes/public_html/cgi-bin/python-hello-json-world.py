@@ -8,9 +8,6 @@ import json
 cgitb.enable()
 print("Content-Type: text/html")
 print()
-print("<html><head><title>Environment Variables</title></head> \
-	<body><h1 align=center>Environment Variables</h1> \
-  	<hr/>")
 x = {
     "message": "Hello World",
     "date": str(date),
