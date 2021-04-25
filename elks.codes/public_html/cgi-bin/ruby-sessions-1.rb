@@ -9,7 +9,9 @@ username = cgi.params["username"]
 
 sess = CGI::Session.new(cgi, "session_key" => username, "prefix" => "rubysess.")
 
-sess["hi"] = cgi.query_string
+if not cgi.query_string.empty?
+    sess["hi"] = cgi.query_string
+end
 
 puts "Cache-Control: no-cache\n"
 puts "Content-type: text/html\n\n"
