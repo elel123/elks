@@ -7,7 +7,13 @@ cgi = CGI.new("html4")
 
 # username = cgi.params["username"]
 
-sess = CGI::Session.new(cgi, "session_key" => "test", "prefix" => "rubysess.")
+begin
+    sess = CGI::Session.new(cgi, "session_key" => "test", 'new_session' => false)
+    sess["new"] = "No"
+rescue ArgumentError  # if no old session
+    sess = CGI::Session.new(cgi, "session_key" => "test", 'new_session' => true)
+    sess["new"] = "Yes"
+end
 
 
 puts "Cache-Control: no-cache\n"
@@ -20,8 +26,10 @@ puts "<body>"
 
 puts "<h1>Ruby Sessions Page 1</h1>"
 
+puts "<pre>"
+
 if not cgi.query_string.empty?
-    puts "empty query string\n"
+    puts "query string\n"
     sess["hi"] = cgi.query_string
 end
 
@@ -34,6 +42,8 @@ puts
 
 puts "Session 'hi': #{sess['hi']}"
 
+puts "New Session: #{sess['new']}"
+
 sess.close
 
 # if ($name){
@@ -41,6 +51,8 @@ sess.close
 # }else{
 # 	puts "<p><b>Name:</b> You do not have a name set</p>"
 # }
+
+puts "</pre>"
 puts "<br/><br/>"
 puts "<a href=\"/cgi-bin/ruby-sessions-2.rb\">Session Page 2</a><br/>"
 puts "<a href=\"../hw2/ruby-cgiform.html\">Ruby CGI Form</a><br />"
