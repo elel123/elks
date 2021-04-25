@@ -9,10 +9,10 @@ cgi = CGI.new("html4")
 
 begin
     sess = CGI::Session.new(cgi, "session_key" => "test", 'new_session' => false)
-    sess["new"] = "No"
+    sess["No"] = "No"
 rescue ArgumentError  # if no old session
     sess = CGI::Session.new(cgi, "session_key" => "test", 'new_session' => true)
-    sess["new"] = "Yes"
+    sess["Yes"] = "Yes"
 end
 
 
@@ -42,7 +42,8 @@ puts
 
 puts "Session 'hi': #{sess['hi']}"
 
-puts "New Session: #{sess['new']}"
+puts "New Session: #{sess['Yes']}"
+puts "Old Session: #{sess['No']}"
 
 sess.close
 
