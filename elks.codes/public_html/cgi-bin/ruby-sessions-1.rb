@@ -20,8 +20,10 @@ puts "<body>"
 
 puts "<h1>Ruby Sessions Page 1</h1>"
 
+puts "<pre>"
+
 if not cgi.query_string.empty?
-    puts "empty query string\n"
+    puts "query string\n"
     sess["hi"] = cgi.query_string
 end
 
@@ -41,6 +43,8 @@ sess.close
 # }else{
 # 	puts "<p><b>Name:</b> You do not have a name set</p>"
 # }
+
+puts "</pre>"
 puts "<br/><br/>"
 puts "<a href=\"/cgi-bin/ruby-sessions-2.rb\">Session Page 2</a><br/>"
 puts "<a href=\"../hw2/ruby-cgiform.html\">Ruby CGI Form</a><br />"
