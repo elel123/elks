@@ -33,14 +33,11 @@ end
 puts
 
 puts sess.session_id
-puts sess.instance_variables
 
 # puts "Session ID: #{sess["ID"]}"
 
 puts "Session 'hi': #{sess['hi']}"
 
-puts "New Session: #{sess['Yes']}"
-puts "Old Session: #{sess['No']}"
 
 sess.update
 
