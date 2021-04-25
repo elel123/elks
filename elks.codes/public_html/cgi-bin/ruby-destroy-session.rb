@@ -6,10 +6,12 @@ cgi = CGI.new("html4")
 
 sess = CGI::Session.new(cgi)
 
+cookie = CGI::Cookie.new('name' => 'mycookie')
+
 sess.delete
 
-puts "Cache-Control: no-cache\n"
-puts "Content-type: text/html\n\n"
+cgi.out("cookie" => cookie, "Cache-Control" => "no-cache", "type" => "text/html") { "" }
+
 print "<html>";
 print "<head>";
 print "<title>Perl Session Destroyed</title>";
