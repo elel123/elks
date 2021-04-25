@@ -7,7 +7,13 @@ cgi = CGI.new("html4")
 
 # username = cgi.params["username"]
 
-sess = CGI::Session.new(cgi, "session_key" => "test", "prefix" => "rubysess.")
+begin
+    sess = CGI::Session.new(cgi, "session_key" => "test", 'new_session' => false)
+    sess["new"] = "No"
+rescue ArgumentError  # if no old session
+    sess = CGI::Session.new(cgi, "session_key" => "test", 'new_session' => true)
+    sess["new"] = "Yes"
+end
 
 
 puts "Cache-Control: no-cache\n"
@@ -35,6 +41,8 @@ puts
 # puts "Session ID: #{sess["ID"]}"
 
 puts "Session 'hi': #{sess['hi']}"
+
+puts "New Session: #{sess['new']}"
 
 sess.close
 
