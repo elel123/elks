@@ -10,7 +10,7 @@ env = os.environ['REMOTE_ADDR']
 #print("Content-type: application/json")
 x = {
     "message": "Hello World",
-    "date": date,
-    "currentIP": env
+    "date": str(date),
+    "currentIP": str(env)
 }
 print(json.dumps(x))
