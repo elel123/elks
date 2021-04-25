@@ -16,9 +16,9 @@ puts cgi.params.keys
 puts "\n----------\n"
 
 puts "<ul>"
-cgi.params.keys.each { |var|
-    puts "<li>" + var + " = " + cgi.params[var] + "</li>"
-}
+cgi.params.each do |key, value|
+    puts "<li> #{key} = #{value}</li>"
+end
 
 puts "</ul>"
 
