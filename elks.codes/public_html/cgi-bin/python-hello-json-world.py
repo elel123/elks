@@ -13,4 +13,4 @@ x = {
     "date": date,
     "currentIP": env
 }
-print(x)
+print(json.dumps(x))
