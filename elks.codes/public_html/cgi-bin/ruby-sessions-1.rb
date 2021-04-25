@@ -13,7 +13,7 @@ sess = CGI::Session.new(cgi)
 cookie = CGI::Cookie.new('sess_id' => sess.session_id)
 
 #Save the cookie
-cgi.out("cookie" => cookie)
+cgi.out("cookie" => cookie) { "" }
 
 puts "Cache-Control: no-cache\n"
 puts "Content-type: text/html\n\n"
