@@ -45,7 +45,9 @@ puts "Session 'hi': #{sess['hi']}"
 puts "New Session: #{sess['Yes']}"
 puts "Old Session: #{sess['No']}"
 
-# sess.close
+sess.update
+
+sess.close
 
 # if ($name){
 # 	puts("<p><b>Name:</b> $name")
