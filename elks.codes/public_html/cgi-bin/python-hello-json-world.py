@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
+import cgitb
 import datetime
 import os
 import json
 
 #Print HTML header
-# print("Cache-Control: no-cache") 
+cgitb.enable()
+print("Content-Type: application/json")
+print()
 date = datetime.datetime.now()
-env = os.environ['REMOTE_ADDR']
-#print("Content-type: application/json")
 x = {
     "message": "Hello World",
     "date": str(date),
-    "currentIP": str(env)
+    "currentIP": str(os.environ["REMOTE_ADDR"])
 }
-print(json.dumps(x))
+print(json.dumps(x, indent=4))
