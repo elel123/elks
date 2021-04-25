@@ -10,7 +10,7 @@ cgi = CGI.new("html4")
 sess = CGI::Session.new(cgi)
 
 
-cookie = CGI::Cookie.new('sess_id' => sess.session_id)
+cookie = CGI::Cookie.new('name' => 'mycookie', 'sess_id' => sess.session_id)
 
 #Save the cookie
 cgi.out("cookie" => cookie) { "" }
