@@ -8,6 +8,8 @@ sess = CGI::Session.new(cgi)
 
 sess.delete
 
+puts "Cache-Control: no-cache\n"
+puts "Content-type: text/html\n\n"
 print "<html>";
 print "<head>";
 print "<title>Perl Session Destroyed</title>";
