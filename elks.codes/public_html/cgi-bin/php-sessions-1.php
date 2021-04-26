@@ -5,9 +5,6 @@
 
   // Create new Cookie from Session ID 
 
-  // Store Data in PHP Session 
-
-
 
   header("Cache-Control: no-cache");
   header("Content-type: text/html");
@@ -16,7 +13,8 @@
 
   // check if form is submitted 
   if( isset( $_POST['username'] ) ) { 
-    $name = $_REQUEST['name']; 
+    // Store Data in PHP Session 
+    $name = $_POST['name']; 
     $_SESSION['USERNAME'] = $name; 
     echo "<p><b>Name:</b>" . $_SESSION['USERNAME'] . "</p>";
   }
