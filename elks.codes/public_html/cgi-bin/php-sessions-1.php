@@ -25,6 +25,7 @@
     echo "<p><b>Name:</b>" . $_SESSION['USERNAME'] . "</p>";
   }
   else { // Form was not submitted, check if username exists in session 
+    echo "I was here too"; 
     if( isset( $_SESSION['USERNAME'] ) ) {
       echo "<p><b>Name:</b>" . $_SESSION['USERNAME'] . "</p>";
     } 
