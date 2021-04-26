@@ -14,6 +14,9 @@
 
   echo "<html><head><title>PHP Sessions </title></head><body><h1 align=center>PHP Sessions Page 1</h1><hr/>\n";
 
+  echo "<p><b>Name:</b> " . $name . " HIIII " . " </p>";
+  echo "<p><b>Session id:</b> " . session_id() . " HIIII2 " . " </p>";
+
   // check if form is submitted 
   if( isset( $_POST['submit'] ) ) { 
     $name = $_REQUEST['name']; 
