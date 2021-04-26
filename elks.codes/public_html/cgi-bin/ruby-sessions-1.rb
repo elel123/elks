@@ -24,7 +24,7 @@ puts "<h1>Ruby Sessions Page 1</h1>"
 
 puts "<p>"
 
-if cgi.params.has_key?("username") and cgi.params["username"] != ""
+if cgi.params.has_key?("username") and cgi.params["username"][0] != ""
     puts "not empty: #{cgi.params["username"]}</br>"
     sess["saved"] = cgi.params["username"]
 end
