@@ -8,21 +8,23 @@
 
   echo "<html><head><title>PHP Sessions </title></head><body><h1 align=center>PHP Sessions Page 1</h1><hr/>\n";
 
-  // check if form is submitted 
-  if( isset( $_POST['username'] ) ) { 
-    // Store Data in PHP Session 
-    $_SESSION['USERNAME'] = $_POST['username']; 
-    echo "<p><b>Name:</b>" . $_SESSION['USERNAME'] . "</p>";
-  }
-  else { // Form was not submitted, check if username exists in session 
-    if( isset( $_SESSION['USERNAME'] ) ) {
+  // Case 1: Name is stored in session 
+  if( isset( $_SESSION['USERNAME'] ) ) { 
       echo "<p><b>Name:</b>" . $_SESSION['USERNAME'] . "</p>";
-    } 
+  }
+  // Case 2: Name not stored in session 
+  else { 
+    // Form was submitted  => new name submitted, must be saved in session 
+    if( isset( $_POST['username'] ) ) { 
+      // Store Data in PHP Session 
+      $_SESSION['USERNAME'] = $_POST['username']; 
+      echo "<p><b>Name:</b>" . $_SESSION['USERNAME'] . "</p>";
+    }
+    // No name in session at all 
     else { 
       echo "<p><b>Name:</b> You do not have a name set </p>";
     }
   }
-
   
   echo "<br/><br/>";
   echo "<a href=\"/cgi-bin/php-sessions-2.php\">Session Page 2</a><br/>";
