@@ -4,24 +4,17 @@
   //$session_id = session_id($_COOKIE['PHPSESSID']); 
   session_start(); // session is started 
 
-  $name = "";
-  if( isset( $_SESSION['USERNAME'] )) { 
-    $name = $_SESSION['USERNAME']; 
-  }
-
   header("Cache-Control: no-cache");
   header("Content-type: text/html");
 
 
-
-
   echo "<html><head><title>PHP Sessions </title></head><body><h1 align=center>PHP Sessions Page 2</h1><hr/>\n";
 
-  if( $name == "") {
+  if( isset( $_SESSION['USERNAME'] )) { 
     echo "<p><b>Name:</b> You do not have a name set </p>";
-  } 
+  }
   else { 
-    echo "<p><b>Name:</b>" . $name . "</p>";
+    echo "<p><b>Name:</b>" . $_SESSION['USERNAME'] . "</p>";
   }
   
   echo "<br/><br/>";
