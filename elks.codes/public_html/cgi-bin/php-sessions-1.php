@@ -19,6 +19,7 @@
 
   // check if form is submitted 
   if( isset( $_POST['submit'] ) ) { 
+    echo "I was here"; 
     $name = $_REQUEST['name']; 
     $_SESSION['USERNAME'] = $name; 
     echo "<p><b>Name:</b>" . $_SESSION['USERNAME'] . "</p>";
