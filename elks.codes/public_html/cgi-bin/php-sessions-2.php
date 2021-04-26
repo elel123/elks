@@ -11,10 +11,10 @@
   echo "<html><head><title>PHP Sessions </title></head><body><h1 align=center>PHP Sessions Page 2</h1><hr/>\n";
 
   if( isset( $_SESSION['USERNAME'] )) { 
-    echo "<p><b>Name:</b> You do not have a name set </p>";
+    echo "<p><b>Name:</b>" . $_SESSION['USERNAME'] . "</p>";
   }
   else { 
-    echo "<p><b>Name:</b>" . $_SESSION['USERNAME'] . "</p>";
+    echo "<p><b>Name:</b> You do not have a name set </p>";
   }
   
   echo "<br/><br/>";
