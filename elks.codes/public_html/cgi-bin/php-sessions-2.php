@@ -17,9 +17,6 @@
 
   echo "<html><head><title>PHP Sessions </title></head><body><h1 align=center>PHP Sessions Page 2</h1><hr/>\n";
 
-  echo "<p><b>Name:</b> " . $name . " HIIII " . " </p>";
-  echo "<p><b>Session id:</b> " . session_id() . " HIIII2 " . " </p>";
-
   if( $name == "") {
     echo "<p><b>Name:</b> You do not have a name set </p>";
   } 

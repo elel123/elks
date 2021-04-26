@@ -14,25 +14,19 @@
 
   echo "<html><head><title>PHP Sessions </title></head><body><h1 align=center>PHP Sessions Page 1</h1><hr/>\n";
 
-  echo "<p><b>Name:</b> " . $name . " HIIII " . " </p>";
-  echo "<p><b>Session id:</b> " . session_id() . " HIIII2 " . " </p>";
-
   // check if form is submitted 
-  if( isset( $_POST['submit'] ) ) { 
-    echo "I was here"; 
+  if( isset( $_POST['username'] ) ) { 
     $name = $_REQUEST['name']; 
     $_SESSION['USERNAME'] = $name; 
     echo "<p><b>Name:</b>" . $_SESSION['USERNAME'] . "</p>";
   }
   else { // Form was not submitted, check if username exists in session 
-    echo "I was here too"; 
     if( isset( $_SESSION['USERNAME'] ) ) {
       echo "<p><b>Name:</b>" . $_SESSION['USERNAME'] . "</p>";
     } 
     else { 
       echo "<p><b>Name:</b> You do not have a name set </p>";
     }
-
   }
 
   
