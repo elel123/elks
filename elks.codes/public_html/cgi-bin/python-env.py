@@ -11,5 +11,5 @@ print('''
 <hr/>
 ''')
 for key, value in os.environ.items():
-print("{}={}\n<br/>".format(key, value))
+  print("{}={}\n<br/>".format(key, value))
 print('''</body></html>''')
