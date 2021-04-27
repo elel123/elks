@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from urllib.parse import urlparse, parse_qs
+# from urllib.parse import urlparse, parse_qs
 import os
 
 #URL='https://someurl.com/with/query_string?i=main&mode=front&sid=12ab&enc=+Hello'
