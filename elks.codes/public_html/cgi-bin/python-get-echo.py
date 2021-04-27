@@ -3,7 +3,6 @@ from urllib.parse import urlparse, parse_qs
 import os
 
 #URL='https://someurl.com/with/query_string?i=main&mode=front&sid=12ab&enc=+Hello'
-URL = os.environ['QUERY_STRING']
 
 print("Cache-Control: no-cache")
 print("Content-type: text/html\n")
@@ -13,13 +12,13 @@ print('''
 <hr/>
 Raw query string: {} <br/><br/>
 <table> Formatted Query String:
-'''.format(URL))
+'''.format(os.environ['QUERY_STRING']))
 
-parsed_url = urlparse(URL)
-json = parse_qs(parsed_url.query)
+# parsed_url = urlparse(URL)
+# json = parse_qs(parsed_url.query)
 
-for item in json:
-    print('''<tr><td>{}:</td><td>{}</td></tr>'''.format(item, json[item]))
+# for item in json:
+#     print('''<tr><td>{}:</td><td>{}</td></tr>'''.format(item, json[item]))
 
 print('''
 </table>
