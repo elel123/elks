@@ -6,7 +6,7 @@ URL='https://someurl.com/with/query_string?i=main&mode=front&sid=12ab&enc=+Hello
 # URL = os.environ['QUERY_STRING']
 
 print("Cache-Control: no-cache")
-print("Content-type: text/html")
+print("Content-type: text/html\n")
 print('''
 <html><head><title>GET query string</title></head>\
 <body><h1 align=center>GET query string</h1>\
