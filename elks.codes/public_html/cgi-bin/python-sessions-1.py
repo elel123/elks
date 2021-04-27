@@ -38,16 +38,17 @@ print('''
 
 
 # Check if username is stored in session 
-session = shelve.open(f"/tmp/.session/sess_{session_id}", writeback=True)
+session = shelve.open(f"/tmp/.session/python_sess", writeback=True)
 
-name = session.get('name')
-if 'name' in session: # name is stored in session 
+name = ""
+if session_id in session: # name is stored in session 
+  name = session[session_id]
   print(f"<p><b>Name:</b> {name}</p>")
 else:  # Name is not stored in session
   form = cgi.FieldStorage()
   if "username" in form: 
     name = form["username"]
-    session['name'] = name
+    session[session_id] = name
 
     print(f"<p><b>Name:</b> {name}</p>")
   else:
