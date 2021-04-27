@@ -9,9 +9,16 @@ print('''
 <body><h1 align=center>General Request Echo</h1> \
 <hr/>
 <table>
-<tr><td>Protocol:</td><td>{}</td></tr>
-<tr><td>Method:</td><td>{}</td></tr>
-<tr><td>Message Body:</td><td> {}</td></tr>
-</body>
-</html>
-'''.format(os.environ['SERVER_PROTOCOL'], os.environ['REQUEST_METHOD'], sys.stdin.readlines()))
+<tbody>
+<tr><td><b>Protocol:</b></td><td>{}</td></tr>
+<tr><td><b>Method:</b></td><td>{}</td></tr>
+<tr><td><b>Query String:</b></td><td>{}</td></tr>
+<tr><td><b>Message Body:</b></td><td> {}</td></tr>
+</tbody>
+</table>
+'''.format(os.environ['SERVER_PROTOCOL'], os.environ['REQUEST_METHOD'], os.environ['QUERY_STRING'], sys.stdin.readlines()))
+
+
+
+
+print("</body></html>")
