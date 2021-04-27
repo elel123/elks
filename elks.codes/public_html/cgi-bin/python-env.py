@@ -5,7 +5,6 @@ import os
 import json
 
 #Print HTML header
-cgitb.enable()
 print("Cache-Control: no-cache")
 print("Content-type: text/html")
 # print('''
