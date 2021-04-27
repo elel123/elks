@@ -38,8 +38,7 @@ print('''
 
 
 # Check if username is stored in session 
-#session = shelve.open(f"/tmp/.session/python_sess", writeback=True)
-session = shelve.open(f".python_sess", writeback=True)
+session = shelve.open(f"/tmp/.session/python_sess", writeback=True)
 
 name = ""
 if session_id in session: # name is stored in session 
