@@ -24,7 +24,7 @@ if 'HTTP_COOKIE' in os.environ:
     session_id = str(uuid.uuid1())
     http_cookies[PY_SESSION_COOKIE] = session_id
 
-    print(http_cookie)  # Set-Cookie 
+    print(http_cookies)  # Set-Cookie 
   else: 
     session_id = http_cookies[PY_SESSION_COOKIE]
 
