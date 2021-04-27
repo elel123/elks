@@ -17,7 +17,7 @@ Message Body: {} <br/>
 print('<ul>')
 
 try:
-    for item in msg_body.split("&"):
+    for item in msg_body[0].split("&"):
         print(f"<li>{item}</li>")
 except Exception as e:
     print(f"<pre>{e}</pre>")
