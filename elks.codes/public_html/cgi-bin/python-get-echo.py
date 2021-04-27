@@ -18,7 +18,7 @@ Raw query string: {} <br/><br/>
 json = parse_qs(URL)
 
 for item in json:
-    print('''<tr><td>{}:</td><td>{}</td></tr>'''.format(item, json[item]))
+    print('''<tr><td>{}:</td><td>{}</td></tr>'''.format(item, json[item][0]))
 
 print('''
 </table>
