@@ -10,4 +10,6 @@ print('''
 <body><h1 align=center>Environment Variables</h1>\
 <hr/>
 ''')
+for key, value in os.environ.items():
+print("{}={}\n<br/>".format(key, value))
 print('''</body></html>''')
