@@ -15,8 +15,8 @@ Raw query string: {} <br/><br/>
 <table> Formatted Query String:
 '''.format(URL))
 
-parsed_url = urlparse(URL)
-json = parse_qs(parsed_url.query)
+#parsed_url = urlparse(URL)
+json = parse_qs(URL)
 
 for item in json:
     print('''<tr><td>{}:</td><td>{}</td></tr>'''.format(item, json[item]))
