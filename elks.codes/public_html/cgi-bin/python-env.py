@@ -1,5 +1,4 @@
   #!/usr/bin/env python3
-import cgitb
 import datetime
 import os
 import json
