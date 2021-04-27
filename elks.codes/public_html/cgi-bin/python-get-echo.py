@@ -12,16 +12,19 @@ print('''
 <body><h1 align=center>GET query string</h1>\
 <hr/>
 Raw query string: {} <br/><br/>
-<table> Formatted Query String:
+<p><b>Formatted Query String:</b></p>
 '''.format(URL))
 
 json = parse_qs(URL)
 
+print("<ul>")
+
 for item in json:
-    print('''<tr><td>{}:</td><td>{}</td></tr>'''.format(item, json[item][0]))
+    print('''<li>{} : {}</li>'''.format(item, json[item][0]))
+
+print("</ul>")
 
 print('''
-</table>
 </body>
 </html>
 ''')
