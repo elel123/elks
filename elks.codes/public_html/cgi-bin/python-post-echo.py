@@ -11,7 +11,7 @@ print('''
 <html><head><title>POST Message Body</title></head>\
 <body><h1 align=center>POST Message Body</h1>\
 <hr/>
-Message Body: {} <br/>
+<p><b>Message Body:</b> {} </p>
 '''.format(msg_body))
 
 print('<ul>')
