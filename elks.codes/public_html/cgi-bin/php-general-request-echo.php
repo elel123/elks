@@ -22,7 +22,7 @@
     foreach ($query_arr as $token) {
       if( $token != "" ) {
         $token_arr = explode("=", $token, 2);
-        echo "<li>" . $token_arr[0] . ":" . $token_arr[1] . "</li>";
+        echo "<li><b>" . $token_arr[0] . "</b>: " . $token_arr[1] . "</li>";
       }
     }
     echo "</ul>";
@@ -33,7 +33,7 @@
   if ( getenv('REQUEST_METHOD') == 'POST' ) {
     echo "<ul>";
     foreach ($_POST as $key => $val ) {
-      echo "<li>" . $key . ":" . $val . "</li>";
+      echo "<li><b>" . $key . "</b>: " . $val . "</li>";
     }
     echo "</ul>";
 

@@ -5,12 +5,9 @@
 
   echo "<html><head><title> POST Request Echo </title></head><body><h1 align=center>POST Request Echo</h1><hr/>\n";
 
-  $query_string = getenv("QUERY_STRING");
-  echo "<b>Message Body:</b>" . $query_string;
-
   echo "<ul>";
   foreach ($_POST as $key => $val ) {
-    echo "<li><b>" . $key . "</b>:" . $val . "</li>";
+    echo "<li><b>" . $key . "</b>: " . $val . "</li>";
   }
   echo "</ul>";
 
