@@ -1,7 +1,6 @@
-  #!/usr/bin/env python3
+#!/usr/bin/env python3
 import datetime
 import os
-import json
 
 #Print HTML header
 print("Cache-Control: no-cache")
@@ -15,9 +14,3 @@ This program was generated at: {}\n<br/>
 Your current IP address is: {}<br/>
 </body></html>
 '''.format(datetime.datetime.now(), os.environ['REMOTE_ADDR']))
-# print('''
-# <html><head><title>Environment Variables</title></head>\
-# <body><h1 align=center>Environment Variables</h1>\
-# <hr/> </body></html>''')
-# for key, value in os.environ.items():
-#     print("{}={}\n<br/>".format(key, value))
