@@ -13,16 +13,16 @@ print("Content-type: text/html\n")
 PY_SESSION_COOKIE = "python-session-id"; 
 session_id = "" 
 if 'HTTP_COOKIE' in os.environ:
-  cookies = cookie.SimpleCookie(os.environ['HTTP_COOKIE'])
+  http_cookies = cookies.SimpleCookie(os.environ['HTTP_COOKIE'])
 
   # Python session id cookie not found, set one
-  if PY_SESSION_COOKIE not in cookies:
+  if PY_SESSION_COOKIE not in http_cookies:
     session_id = str(uuid.uuid1())
-    cookies[PY_SESSION_COOKIE] = session_id
+    http_cookies[PY_SESSION_COOKIE] = session_id
 
-    print(cookie)  # Set-Cookie 
+    print(http_cookie)  # Set-Cookie 
   else: 
-    session_id = cookies[PY_SESSION_COOKIE]
+    session_id = http_cookies[PY_SESSION_COOKIE]
 
 
   
