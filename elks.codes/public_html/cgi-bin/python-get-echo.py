@@ -11,7 +11,7 @@ print('''
 <html><head><title>GET query string</title></head>\
 <body><h1 align=center>GET query string</h1>\
 <hr/>
-Raw query string: {} <br/><br/>
+<p><b>Raw query string:</b> {} </p>
 <p><b>Formatted Query String:</b></p>
 '''.format(URL))
 
