@@ -34,10 +34,10 @@ print('''
 
 
 # Check if username is stored in session 
-session = shelve.open(f"/tmp/.session/sess_{session_id}", writeback=True)
+session = shelve.open(f"/tmp/.session/python_sess", writeback=True)
 
-if 'name' in session:
-  del d['name']
+if session_id in session:
+  del session[session_id]
 
 session.close() 
 
