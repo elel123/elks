@@ -7,6 +7,9 @@
 
  const performanceSchema = new mongoose.Schema(
    {
+    sessionId: {
+        type: String
+    },
        timingObject: {
            type: Object
        }, 

@@ -39,6 +39,7 @@ async (req, res, next) => {
         const rBody = req.body;
 
       const info = {
+        sessionId: req.session.id,
         agent: rBody.agent, 
         language: rBody.language,
         acceptsCookies: rBody.acceptsCookies,

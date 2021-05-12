@@ -33,6 +33,7 @@ async (req, res, next) => {
         const rBody = req.body;
 
       const info = {
+        sessionId: req.session.id,
         timingObject: rBody.timingObject, 
         loadTime: {
             start: rBody.startTime,

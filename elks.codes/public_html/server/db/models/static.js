@@ -7,6 +7,9 @@
 
  const staticSchema = new mongoose.Schema(
    {
+       sessionId: {
+           type: String
+       },
        agent: {
            type: String,
            default: ''
