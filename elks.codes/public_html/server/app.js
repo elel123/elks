@@ -7,7 +7,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const http = require('http');
-//const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 const config = require("./config");
 
 // MongoDB Connection via Mongoose
