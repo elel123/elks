@@ -32,26 +32,16 @@ app.use(express.static(path.join(__dirname,"public")));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(cors({methods:["GET", "POST", "PUT", "DELETE"]}));
-app.use(session({ secret: 'keyboard cat'}))
+app.use(session({ secret: config.session.secret}))
 
 // Routes
 app.use("/static", require("./routes/static"));
 app.use("/performance", require("./routes/performance"));
 
+// retrieve the unique session id for this user (auto set as a cookie)
 app.get('/session', function(req, res) {
 
-  return res.status(200).json(req.session.id);
-
-  // // session cookie already exists, return 
-  // if (req.session.id) {
-  //   return res.status(200).json(req.cookies.sessionId);
-  // }
-
-  // // create unique session cookie
-  // const id = uuid();
-  // res.cookie('sessionId', id, { httpOnly: true });
-
-  // return res.status(200).json(id);
+  return res.status(200).json(req.session.id || 'none');
 });
 
 app.get('/', function(req, res) {
