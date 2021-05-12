@@ -41,9 +41,9 @@ app.get('/session', function(req, res) {
 
   // session cookie already exists, return 
   if (req.cookies.sessionId) {
-    return res.status(200).json(req.cookie.id);
+    return res.status(200).json(req.cookie.sessionId);
   }
-  
+
   // create unique session cookie
   const id = uuid();
   res.cookie('sessionId', id, { httpOnly: true });
