@@ -1,6 +1,8 @@
 const express = require("express");
 //const { body } = require("express-validator");
 
+const router = express.Router();
+
 /**
  * Gets the primary email in the DB.
  *
@@ -10,7 +12,7 @@ const express = require("express");
     try {
       // returns email or error if there is an error
       res.status(200).json("Static is working!!!!!");
-      
+
     //   const email = await findPrimaryEmail();
     //   res.status(200).json({
     //     email,
@@ -20,3 +22,5 @@ const express = require("express");
       res.status(500).send("Server err");
     }
 });
+
+module.exports = router;
