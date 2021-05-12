@@ -1,6 +1,5 @@
 #!/usr/bin/env nodejs
 
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const logger = require('morgan');
@@ -8,12 +7,21 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const http = require('http');
+const mongoose = require("mongoose");
+const config = require("./config");
+
+// MongoDB Connection via Mongoose
+mongoose.set("useUnifiedTopology", true);
+mongoose.set("useNewUrlParser", true);
+mongoose.connect(config.db.uri);
+mongoose.connection.once("open", async () => {
+  console.log("Established connection to MongoDB.");
+  // console.log(config.db.uri);
+  // console.log(`Server starting at Port: ${config.app.port}`);
+});
 
 
 const app = express();
-
-const port = 9000;
-
 
 app.use(logger('dev'));
 app.use(express.json({limit:'5mb'}));
@@ -39,9 +47,9 @@ app.get('/test', function(req, res) {
 
 
 //Create the server with the express app
-app.set('port', port);
+app.set('port', config.app.port);
 const server = http.createServer(app);
 
 server.listen(port, function() {
-  console.log(`Listening to requests on port ${port}`);
+  console.log(`Listening to requests on port ${config.app.port}`);
 });
