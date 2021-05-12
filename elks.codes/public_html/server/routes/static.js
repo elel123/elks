@@ -1,16 +1,13 @@
 const express = require("express");
-//const { body } = require("express-validator");
+const { body } = require("express-validator");
+const { isValidated } = require("../middleware/validation");
 const {
     getAllEntries,
     addEntry
   } = require("../db/services/static");
 const router = express.Router();
 
-/**
- * Gets the primary email in the DB.
- *
- * @returns {status/object}} - 200 with the primary email in the DB / 500 err
- */
+
  router.get("/", async (req, res, next) => {
     try {
         const entries = await getAllEntries();
@@ -22,19 +19,48 @@ const router = express.Router();
     }
 });
 
-router.get("/post", async (req, res, next) => {
+router.post("/", 
+[
+    body("agent").isString(),
+    body("language").isString(),
+    body("acceptsCookies").isBoolean(),
+    body("allowsJavascript").isBoolean(),
+    body("allowsImages").isBoolean(),
+    body("screenWidth").isNumber(),
+    body("screenHeight").isNumber(),
+    body("windowWidth").isNumber(),
+    body("windowHeight").isNumber(),
+    body("networkType").isString(),
+    isValidated,
+  ],
+async (req, res, next) => {
     try {
 
+        const body = req.body;
+
       const info = {
-          "language": "English"
+        agent: body.agent, 
+        language: body.language,
+        acceptsCookies: body.acceptsCookies,
+        allowsJavascript: body.allowsJavascript,
+        allowsImages: body.allowsImages,
+        screenDimensions: {
+            width: body.screenWidth,
+            height: body.screenHeight
+        },
+        windowDimensions: {
+            width: body.windowWidth,
+            height: body.windowHeight
+        },
+        networkType: body.networkType
       };
 
       const addedEntry = await addEntry(info);
-      res.status(200).json(addedEntry);
+      return res.status(200).json(addedEntry);
 
     } catch (err) {
       console.error(err.message);
-      res.status(500).send("Server err");
+      return res.status(500).send("Server err");
     }
 });
 
