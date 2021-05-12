@@ -33,6 +33,10 @@ app.get('/static', function(req, res) {
   res.status(200).json({ description: "Retreive every entry logged in the static table"});
 });
 
+app.get('/test', function(req, res) {
+  res.status(200).json({ description: "Hello hunnay"});
+});
+
 
 //Create the server with the express app
 app.set('port', port);
@@ -41,19 +45,3 @@ const server = http.createServer(app);
 server.listen(port, function() {
   console.log(`Listening to requests on port ${port}`);
 });
-
-
-
-
-/*
-const http = require('http');
-http.createServer(function(req, res) {
-
-  res.writeHead(200, {'Content-Type':'text/plain'});
-  res.end('Hello World!\n');
-
-}).listen(9000);
-
-console.log('server running on port 9000');
-
-*/
