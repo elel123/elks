@@ -7,7 +7,7 @@ const cors = require('cors');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 const http = require('http');
-const mongoose = require("mongoose");
+//const mongoose = require("mongoose");
 const config = require("./config");
 
 // MongoDB Connection via Mongoose
@@ -20,6 +20,7 @@ const config = require("./config");
 //   // console.log(`Server starting at Port: ${config.app.port}`);
 // });
 
+port = 9000;
 
 const app = express();
 
@@ -47,9 +48,9 @@ app.get('/test', function(req, res) {
 
 
 //Create the server with the express app
-app.set('port', config.app.port);
+app.set('port', port);
 const server = http.createServer(app);
 
 server.listen(port, function() {
-  console.log(`Listening to requests on port ${config.app.port}`);
+  console.log(`Listening to requests on port ${port}`);
 });
