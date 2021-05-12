@@ -31,7 +31,7 @@ router.post("/",
     body("windowWidth").isNumber(),
     body("windowHeight").isNumber(),
     body("networkType").isString(),
-    isValidated,
+    // isValidated,
   ],
 async (req, res, next) => {
     try {
