@@ -26,8 +26,7 @@ router.get("/post", async (req, res, next) => {
     try {
 
       const info = {
-          "Name": "Amrit Singh",
-          "Age": 21
+          "language": "English"
       };
 
       const addedEntry = await addEntry(info);

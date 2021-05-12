@@ -7,13 +7,49 @@
 
  const staticSchema = new mongoose.Schema(
    {
-       Name: {
+       agent: {
            type: String,
            default: ''
        }, 
-       Age: {
-           type: Number, 
-           default: 0
+       language: {
+           type: String, 
+           default: ''
+       },
+       acceptsCookies: {
+           type: Boolean,
+           default: false
+       },
+       allowsJavascript: {
+           type: Boolean,
+           default: false
+       },
+       allowsImages: {
+           type: Boolean, 
+           default: false
+       },
+       screenDimensions: {
+           width: {
+               type: Number, 
+               default: 0
+           },
+           height: {
+               type: Number,
+               default: 0
+           }
+       },
+       windowDimensions: {
+           width: {
+               type: Number,
+               default: 0
+           },
+           height: {
+               type: Number,
+               default: 0
+           }
+       },
+       networkType: {
+           type: String, 
+           default: ''
        }
    },
    { timestamps: true }
