@@ -1,7 +1,8 @@
 const express = require("express");
 //const { body } = require("express-validator");
 const {
-    getAllEntries
+    getAllEntries,
+    addEntry
   } = require("../db/services/static");
 const router = express.Router();
 
@@ -23,8 +24,14 @@ const router = express.Router();
 
 router.get("/post", async (req, res, next) => {
     try {
-      
-      res.status(200).json("Static is working!!!!!");
+
+      const info = {
+          "Name": "Amrit Singh",
+          "Age": 21
+      };
+
+      const addedEntry = await addEntry(info);
+      res.status(200).json(addedEntry);
 
     } catch (err) {
       console.error(err.message);

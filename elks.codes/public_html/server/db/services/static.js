@@ -7,8 +7,17 @@ const { Static } = require("../models/static");
       return false;
     }
   }
+
+ async function addEntry(info){
+     try{
+         return await Static.create(info);
+     } catch(err){
+         return false;
+     }
+ }
  
  module.exports = {
-   getAllEntries
+   getAllEntries,
+   addEntry
  };
  
