@@ -1,7 +1,7 @@
 // Init the data structs to save the user info here
 const start = Date.now();
 let enterTime = start;
-let currentPage = window.location;
+let currentPage = window.location.pathname;
 let leaveTime = null;
 
 let activityData = [];
@@ -61,7 +61,7 @@ window.addEventListener('load', function (event) {
     //Append page entry data
     activityData.push({
         category : 'Navigation',
-        event : 'Page Entry',
+        event : 'PageEntry',
         details : {
             'enterTime' : enterTime,
             'currentPage' : currentPage
@@ -79,7 +79,7 @@ window.addEventListener("beforeunload", function(event) {
     //Append page leave data
     activityData.push({
         category : 'Navigation',
-        event : 'Page Leave',
+        event : 'PageLeave',
         details : {
             'leaveTime' : leaveTime,
             'currentPage' : currentPage
@@ -127,7 +127,7 @@ function collectPerformanceInfo() {
     return performanceData;
 }
 
-// ----- Methods to collect Performance (Collected after page has loaded) data -----
+// // ----- Methods to collect Performance (Collected after page has loaded) data -----
 function recordPageLoadPerformance() {
 
   let perfObj = new Object();
@@ -151,22 +151,31 @@ function recordPageLoadPerformance() {
   pageLoadObj = perfObj;
 }
 
-window.addEventListener('load', (event) => {
-    setTimeout(function() {
-      recordPageLoadPerformance();
-    }, 0);
-});
+// window.addEventListener('load', (event) => {
+//     setTimeout(function() {
+//       recordPageLoadPerformance();
+//     }, 0);
+// });
 
 
 // ----- Methods to collect (Key, Mouse, Idle) Activity data -----
 
 function recordCursorPosition(e) {
-  recordIdle(e);
+    recordIdle(e);
 
-  //e.offsetX and e.offsetY give (x, y) offset of mouse pointer between event and padding edge
-  // of target (window)
-  //console.log(`Cursor Coord: (${e.offsetX}, ${e.offsetY})`);
-  mousePositions.push([e.offsetX, e.offsetY]);
+    //e.offsetX and e.offsetY give (x, y) offset of mouse pointer between event and padding edge
+    // of target (window)
+    // console.log(`Cursor Coord: (${e.offsetX}, ${e.offsetY})`);
+    mousePositions.push([e.offsetX, e.offsetY]);
+    
+    activityData.push({
+        category : 'Mouse',
+        event : 'MouseMove',
+        details : {
+            'mousePosition' : [e.offsetX, e.offsetY],
+            'currentPage' : currentPage
+        }
+    });
 }
 
 /*
@@ -178,35 +187,73 @@ function recordCursorPosition(e) {
     4: Fifth button, typically the Browser Forward button
 */
 function recordMouseClick(e) {
-  recordIdle(e);
+    recordIdle(e);
 
-  //console.log(`Click ${e.button}`);
-  mouseClicks.push(e.button);
+    console.log(e);
+    mouseClicks.push(e.button);
 
+    activityData.push({
+        category : 'Mouse',
+        event : 'MouseClick',
+        details : {
+            'mouseButton' : e.button,
+            'mousePositionX' : e.offsetX,
+            'mousePositionY' : e.offsetY,
+            'currentPage' : currentPage
+        }
+    });
 }
 
 function recordMouseScroll(e) {
-  recordIdle(e);
+    recordIdle(e);
 
 
-  // window.scrollY = # of pixels the document is currently scrolled vertically
-  //console.log(`Horiz Scroll Dist:  ${window.scrollX}`);
-  //console.log(`Vert Scroll Dist:  ${window.scrollY}`);
-  mouseScrolls.push([window.scrollX, window.scrollY]);
+    // window.scrollY = # of pixels the document is currently scrolled vertically
+    //console.log(`Horiz Scroll Dist:  ${window.scrollX}`);
+    //console.log(`Vert Scroll Dist:  ${window.scrollY}`);
+    mouseScrolls.push([window.scrollX, window.scrollY]);
+
+    activityData.push({
+        category : 'Mouse',
+        event : 'MouseScroll',
+        details : {
+            'windowScrollX' : window.scrollX,
+            'windowScrollX' : window.scrollY,
+            'currentPage' : currentPage
+        }
+    });
 }
 
 function recordKeyDown(e) {
-  recordIdle(e);
+    recordIdle(e);
 
-  console.log(`Key Down Code: ${e.code}`);
-  keyDown.push(e.code);
+    // console.log(`Key Down Code: ${e.code}`);
+    keyDown.push(e.code);
+
+    activityData.push({
+        category : 'Keyboard',
+        event : 'KeyDown',
+        details : {
+            'keyCode' : e.code,
+            'currentPage' : currentPage
+        }
+    });
 }
 
 function recordKeyUp(e) {
-  recordIdle(e);
+    recordIdle(e);
 
-  //console.log(`Key Up Code: ${e.code}`);
-  keyUp.push(e.code);
+    //console.log(`Key Up Code: ${e.code}`);
+    keyUp.push(e.code);
+
+    activityData.push({
+        category : 'Keyboard',
+        event : 'KeyUp',
+        details : {
+            'keyCode' : e.code,
+            'currentPage' : currentPage
+        }
+    });
 }
 
 
@@ -215,19 +262,29 @@ function recordKeyUp(e) {
 // event.timestamp() is milliseconds since epoch, which depending on the implementation is
 // time since system start (curr doc lifetime) or 1st Jan 1970.
 function recordIdle(e) {
-  let idleEndTs = Date.now(); // milliseconds elpased since Jan 1. 1970
+    let idleEndTs = Date.now(); // milliseconds elpased since Jan 1. 1970
 
-  let currTs = e.timeStamp;
-  if ( lastActivityTs < currTs ) {
-    idleDuration = currTs - lastActivityTs;
-    lastActivityTs = currTs;
+    let currTs = e.timeStamp;
+    if ( lastActivityTs < currTs ) {
+        idleDuration = currTs - lastActivityTs;
+        lastActivityTs = currTs;
 
-    if( idleDuration > 2000 ) {  // idle for more than 2 seconds
-      //console.log(`End of Idle Activity Timestamp: ${idleEndTs}`);
-      //console.log(`Idle for ${idleDuration}`);
-      idle.push([idleDuration, idleEndTs]);
+        if( idleDuration > 2000 ) {  // idle for more than 2 seconds
+            //console.log(`End of Idle Activity Timestamp: ${idleEndTs}`);
+            //console.log(`Idle for ${idleDuration}`);
+            idle.push([idleDuration, idleEndTs]);
+
+            activityData.push({
+                category : 'Idle',
+                event : 'Idle',
+                details : {
+                    'idleDuration' : idleDuration,
+                    'idleEndTime' : idleEndTs,
+                    'currentPage' : currentPage
+                }
+            });
+        }
     }
-  }
 }
 
 document.addEventListener('keyup', recordKeyUp);
