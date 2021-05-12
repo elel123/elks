@@ -2,15 +2,15 @@ const express = require("express");
 const { body } = require("express-validator");
 const { isValidated } = require("../middleware/validation");
 const {
-    getAllEntries,
-    addEntry
+    getAllStaticEntries,
+    addStaticEntry
   } = require("../db/services/static");
 const router = express.Router();
 
 
  router.get("/", async (req, res, next) => {
     try {
-        const entries = await getAllEntries();
+        const entries = await getAllStaticEntries();
         res.status(200).json(entries);
 
     } catch (err) {
@@ -55,7 +55,7 @@ async (req, res, next) => {
         networkType: rBody.networkType
       };
 
-      const addedEntry = await addEntry(info);
+      const addedEntry = await addStaticEntry(info);
       return res.status(200).json(addedEntry);
 
     } catch (err) {

@@ -43,6 +43,7 @@ app.get('/test', function(req, res) {
 });
 
 app.use("/static", require("./routes/static"));
+app.use("/performance", require("./routes/performance"));
 
 
 //Create the server with the express app

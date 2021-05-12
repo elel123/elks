@@ -1,6 +1,6 @@
 const { Static } = require("../models/static");
  
- async function getAllEntries() {
+ async function getAllStaticEntries() {
     try {
       return await Static.find({}).exec();
     } catch (err) {
@@ -8,7 +8,7 @@ const { Static } = require("../models/static");
     }
   }
 
- async function addEntry(info){
+ async function addStaticEntry(info){
      try{
          return await Static.create(info);
      } catch(err){
@@ -17,7 +17,7 @@ const { Static } = require("../models/static");
  }
  
  module.exports = {
-   getAllEntries,
-   addEntry
+   getAllStaticEntries,
+   addStaticEntry
  };
  
