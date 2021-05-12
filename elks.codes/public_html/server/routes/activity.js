@@ -32,7 +32,7 @@ async (req, res, next) => {
 
       const addedEntries = [];
 
-      for(const activity of req.body.arr){
+      for(const activity of req.body.data){
 
         const info = {
             sessionId: req.session.id,
