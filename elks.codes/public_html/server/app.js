@@ -40,10 +40,10 @@ app.use("/performance", require("./routes/performance"));
 app.get('/session', function(req, res) {
 
   // session cookie already exists, return 
-  if (req.cookie.sessionId) {
+  if (req.cookies.sessionId) {
     return res.status(200).json(req.cookie.id);
   }
-
+  
   // create unique session cookie
   const id = uuid();
   res.cookie('sessionId', id, { httpOnly: true });
