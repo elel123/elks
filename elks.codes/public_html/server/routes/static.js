@@ -20,39 +20,39 @@ const router = express.Router();
 });
 
 router.post("/", 
-// [
-//     body("agent").isString(),
-//     body("language").isString(),
-//     body("acceptsCookies").isBoolean(),
-//     body("allowsJavascript").isBoolean(),
-//     body("allowsImages").isBoolean(),
-//     body("screenWidth").isNumber(),
-//     body("screenHeight").isNumber(),
-//     body("windowWidth").isNumber(),
-//     body("windowHeight").isNumber(),
-//     body("networkType").isString(),
-//     isValidated,
-//   ],
+[
+    body("agent").isString(),
+    body("language").isString(),
+    body("acceptsCookies").isBoolean(),
+    body("allowsJavascript").isBoolean(),
+    body("allowsImages").isBoolean(),
+    body("screenWidth").isNumber(),
+    body("screenHeight").isNumber(),
+    body("windowWidth").isNumber(),
+    body("windowHeight").isNumber(),
+    body("networkType").isString(),
+    isValidated,
+  ],
 async (req, res, next) => {
     try {
 
-        const body = req.body;
+        const rBody = req.body;
 
       const info = {
-        agent: body.agent, 
-        language: body.language,
-        acceptsCookies: body.acceptsCookies,
-        allowsJavascript: body.allowsJavascript,
-        allowsImages: body.allowsImages,
+        agent: rBody.agent, 
+        language: rBody.language,
+        acceptsCookies: rBody.acceptsCookies,
+        allowsJavascript: rBody.allowsJavascript,
+        allowsImages: rBody.allowsImages,
         screenDimensions: {
-            width: body.screenWidth,
-            height: body.screenHeight
+            width: rBody.screenWidth,
+            height: rBody.screenHeight
         },
         windowDimensions: {
-            width: body.windowWidth,
-            height: body.windowHeight
+            width: rBody.windowWidth,
+            height: rBody.windowHeight
         },
-        networkType: body.networkType
+        networkType: rBody.networkType
       };
 
       const addedEntry = await addEntry(info);
