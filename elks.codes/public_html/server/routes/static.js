@@ -1,6 +1,6 @@
 const express = require("express");
 const { body } = require("express-validator");
-// const { isValidated } = require("../middleware/validation");
+const { isValidated } = require("../middleware/validation");
 const {
     getAllEntries,
     addEntry
