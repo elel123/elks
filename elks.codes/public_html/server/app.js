@@ -41,7 +41,7 @@ app.get('/session', function(req, res) {
 
   // session cookie already exists, return 
   if (req.cookies.sessionId) {
-    return res.status(200).json(req.cookie.sessionId);
+    return res.status(200).json(req.cookies.sessionId);
   }
 
   // create unique session cookie
