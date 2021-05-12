@@ -20,7 +20,7 @@ const config = require("./config");
 //   // console.log(`Server starting at Port: ${config.app.port}`);
 // });
 
-port = 9000;
+port = config.app.port;
 
 const app = express();
 
