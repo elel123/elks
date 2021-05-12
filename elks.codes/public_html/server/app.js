@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 const http = require('http');
 const mongoose = require("mongoose");
-const { uuid } = require('uuidv4');
+const session = require('express-session')
 const config = require("./config");
 
 // MongoDB Connection via Mongoose
@@ -32,6 +32,7 @@ app.use(express.static(path.join(__dirname,"public")));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(cors({methods:["GET", "POST", "PUT", "DELETE"]}));
+app.use(session({ secret: 'keyboard cat'}))
 
 // Routes
 app.use("/static", require("./routes/static"));
@@ -39,16 +40,18 @@ app.use("/performance", require("./routes/performance"));
 
 app.get('/session', function(req, res) {
 
-  // session cookie already exists, return 
-  if (req.cookies.sessionId) {
-    return res.status(200).json(req.cookies.sessionId);
-  }
+  return res.status(200).json(req.session.id);
 
-  // create unique session cookie
-  const id = uuid();
-  res.cookie('sessionId', id, { httpOnly: true });
+  // // session cookie already exists, return 
+  // if (req.session.id) {
+  //   return res.status(200).json(req.cookies.sessionId);
+  // }
 
-  return res.status(200).json(id);
+  // // create unique session cookie
+  // const id = uuid();
+  // res.cookie('sessionId', id, { httpOnly: true });
+
+  // return res.status(200).json(id);
 });
 
 app.get('/', function(req, res) {
