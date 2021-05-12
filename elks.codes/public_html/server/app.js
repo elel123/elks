@@ -38,7 +38,7 @@ app.get('/', function(req, res) {
   res.status(200).json({ message: "Welcome to the Node.js Express root"});
 });
 
-app.get('/static', function(req, res) {
+app.get('/test', function(req, res) {
   res.status(200).json({ description: "Retreive every entry logged in the static table"});
 });
 
