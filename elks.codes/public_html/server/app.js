@@ -42,9 +42,7 @@ app.get('/static', function(req, res) {
   res.status(200).json({ description: "Retreive every entry logged in the static table"});
 });
 
-app.get('/test', function(req, res) {
-  res.status(200).json({ description: "Hello hunnay"});
-});
+app.use("/static", require("./routes/static"));
 
 
 //Create the server with the express app
