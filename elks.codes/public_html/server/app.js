@@ -35,8 +35,9 @@ app.use(cors({methods:["GET", "POST", "PUT", "DELETE"]}));
 app.use(session({ secret: config.session.secret}))
 
 // Routes
-app.use("/static", require("./routes/static"));
-app.use("/performance", require("./routes/performance"));
+app.use("/api/static", require("./routes/static"));
+app.use("/api/performance", require("./routes/performance"));
+app.use("/api/activity", require("./routes/activity"));
 
 // retrieve the unique session id for this user (auto set as a cookie)
 app.get('/session', function(req, res) {
