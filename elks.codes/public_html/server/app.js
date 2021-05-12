@@ -8,7 +8,7 @@ const cookieParser = require('cookie-parser');
 const path = require('path');
 const http = require('http');
 const mongoose = require("mongoose");
-const uuid = require('uuid/v4');
+const uuid = require('uuidv4');
 const config = require("./config");
 
 // MongoDB Connection via Mongoose
