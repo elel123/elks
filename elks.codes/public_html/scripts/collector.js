@@ -1,5 +1,10 @@
 // Init the data structs to save the user info here
 const start = Date.now();
+let enterTime = start;
+let currentPage = window.location;
+let leaveTime = null;
+
+let activityData = [];
 
 
 //Use to post data to the server (note this function is async)
@@ -12,39 +17,51 @@ function postData(url, jsonData, callback) {
     })
 }
 
+//Use this function to send the activity data to the server.
+function sendDataToServer() {
+    console.log("Sending Data...");
+
+    //Flush the activity data
+    activityData = [];
+}
+
 
 
 //When the window first loads, this function is called
 window.addEventListener('load', function (event) {
-    let initialData = {
-        ...(collectPerformanceInfo()),
-        ...(collectStaticInfo())
-    }
-    console.log(initialData);   
+    let performanceData = collectPerformanceInfo();
+    let staticData = collectStaticInfo();
+    /* TODO: send performance and static data to the server */
+
+    //Call sendDataToServer every 30 seconds
+    this.setInterval(sendDataToServer, 30000);
 });
 
 
-//When the user is about to leave the page
+//When the user is about to leave the page, this function is called
 window.addEventListener("beforeunload", function(event) {
-    
+    leaveTime = Date.now();
+    sendDataToServer();
 });
+
+
 
 
 function collectStaticInfo() {
     let connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
 
     let staticData = {
-        'agent-string' : navigator.userAgent,
+        'agent' : navigator.userAgent,
         'language' : navigator.language,
-        'accepts-cookies' : navigator.cookieEnabled,
-        'allows-js' : true,
-        'screen-width' : screen.width,
-        'screen-height' : screen.height,
-        'window-width' : window.innerWidth,
-        'window-height' : window.innerHeight,
-        'connection-type' : (connection === undefined ? null : connection.effectiveType),
-        'allows-images' : !(document.getElementById('flag').width === 0),
-        'allows-styles' : (window.getComputedStyle(document.getElementById('flag')).visibility === 'hidden')
+        'acceptsCookies' : navigator.cookieEnabled,
+        'allowsJavascript' : true,
+        'screenWidth' : screen.width,
+        'screenHeight' : screen.height,
+        'windowWidth' : window.innerWidth,
+        'windowHeight' : window.innerHeight,
+        'networkType' : (connection === undefined ? null : connection.effectiveType),
+        'allowsImages' : !(document.getElementById('flag').width === 0),
+        'allowsStyles' : (window.getComputedStyle(document.getElementById('flag')).visibility === 'hidden')
     }
 
     // console.log("allows images: " + staticData['allows-images']);
@@ -56,9 +73,9 @@ function collectStaticInfo() {
 function collectPerformanceInfo() {
     let end = Date.now();
     let performanceData = {
-        'start-load' : start,
-        'end-load' : end,
-        'total-load' : end - start 
+        'startTime' : start,
+        'endTime' : end,
+        'totalTime' : end - start 
     }
 
     // console.log(performanceData);
