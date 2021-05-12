@@ -1,4 +1,5 @@
 // Init the data structs to save the user info here
+const start = Date.now();
 
 
 //Use to post data to the server (note this function is async)
@@ -14,9 +15,12 @@ function postData(url, jsonData, callback) {
 
 
 //When the window first loads, this function is called
-window.addEventListener('DOMContentLoaded', function (event) {
-    collectStaticInfo();
-
+window.addEventListener('load', function (event) {
+    let initialData = {
+        ...(collectPerformanceInfo()),
+        ...(collectStaticInfo())
+    }
+    console.log(initialData);   
 });
 
 
@@ -42,9 +46,22 @@ function collectStaticInfo() {
         'allows-images' : !(document.getElementById('flag').width === 0),
         'allows-styles' : (window.getComputedStyle(document.getElementById('flag')).visibility === 'hidden')
     }
-    
-    console.log(staticData);
 
-    console.log("allows images: " + staticData['allows-images']);
-    console.log("allows css: " + staticData['allows-styles']);
+    // console.log("allows images: " + staticData['allows-images']);
+    // console.log("allows css: " + staticData['allows-styles']);
+
+    return staticData;
+}
+
+function collectPerformanceInfo() {
+    let end = Date.now();
+    let performanceData = {
+        'start-load' : start,
+        'end-load' : end,
+        'total-load' : end - start 
+    }
+
+    // console.log(performanceData);
+
+    return performanceData;
 }
