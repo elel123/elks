@@ -1,6 +1,8 @@
 const express = require("express");
 //const { body } = require("express-validator");
-
+const {
+    getAllEntries
+  } = require("../db/services/static");
 const router = express.Router();
 
 /**
@@ -10,13 +12,20 @@ const router = express.Router();
  */
  router.get("/", async (req, res, next) => {
     try {
-      // returns email or error if there is an error
+        const entries = await getAllEntries();
+        res.status(200).json(entries);
+
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server err");
+    }
+});
+
+router.get("/post", async (req, res, next) => {
+    try {
+      
       res.status(200).json("Static is working!!!!!");
 
-    //   const email = await findPrimaryEmail();
-    //   res.status(200).json({
-    //     email,
-    //   });
     } catch (err) {
       console.error(err.message);
       res.status(500).send("Server err");
