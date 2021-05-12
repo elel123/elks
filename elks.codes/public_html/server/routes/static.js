@@ -1,6 +1,6 @@
 const express = require("express");
-const { body } = require("express-validator");
-const { isValidated } = require("../middleware/validation");
+// const { body } = require("express-validator");
+// const { isValidated } = require("../middleware/validation");
 const {
     getAllEntries,
     addEntry
@@ -20,19 +20,19 @@ const router = express.Router();
 });
 
 router.post("/", 
-[
-    body("agent").isString(),
-    body("language").isString(),
-    body("acceptsCookies").isBoolean(),
-    body("allowsJavascript").isBoolean(),
-    body("allowsImages").isBoolean(),
-    body("screenWidth").isNumber(),
-    body("screenHeight").isNumber(),
-    body("windowWidth").isNumber(),
-    body("windowHeight").isNumber(),
-    body("networkType").isString(),
-    isValidated,
-  ],
+// [
+//     body("agent").isString(),
+//     body("language").isString(),
+//     body("acceptsCookies").isBoolean(),
+//     body("allowsJavascript").isBoolean(),
+//     body("allowsImages").isBoolean(),
+//     body("screenWidth").isNumber(),
+//     body("screenHeight").isNumber(),
+//     body("windowWidth").isNumber(),
+//     body("windowHeight").isNumber(),
+//     body("networkType").isString(),
+//     isValidated,
+//   ],
 async (req, res, next) => {
     try {
 
