@@ -21,7 +21,8 @@ function postData(url, jsonData, callback) {
 function sendDataToServer() {
     console.log("Sending Data...");
 
-    //Flush the activity data
+    //Flush the activity data 
+    // (later we'll only flush once we get the OK from the server)
     activityData = [];
 }
 
@@ -33,6 +34,17 @@ window.addEventListener('load', function (event) {
     let staticData = collectStaticInfo();
     /* TODO: send performance and static data to the server */
 
+
+    //Append page entry data
+    activityData.push({
+        category : 'Navigation',
+        event : 'Page Entry',
+        details : {
+            'enterTime' : enterTime,
+            'currentPage' : currentPage
+        }
+    });
+
     //Call sendDataToServer every 30 seconds
     this.setInterval(sendDataToServer, 30000);
 });
@@ -41,6 +53,15 @@ window.addEventListener('load', function (event) {
 //When the user is about to leave the page, this function is called
 window.addEventListener("beforeunload", function(event) {
     leaveTime = Date.now();
+    //Append page leave data
+    activityData.push({
+        category : 'Navigation',
+        event : 'Page Leave',
+        details : {
+            'leaveTime' : leaveTime,
+            'currentPage' : currentPage
+        }
+    });
     sendDataToServer();
 });
 
