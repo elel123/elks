@@ -15,16 +15,16 @@ const router = express.Router();
 
     } catch (err) {
       console.error(err.message);
-      res.status(500).send("Server err");
+      res.status(500).send(err.message);
     }
 });
 
 router.post("/", 
 [
-    body("timingObject").notEmpty(),
-    body("startTime").notEmpty(),
-    body("endTime").notEmpty(),
-    body("totalTime").notEmpty(),
+    // body("timingObject").notEmpty(),
+    // body("startTime").notEmpty(),
+    // body("endTime").notEmpty(),
+    // body("totalTime").notEmpty(),
     isValidated,
   ],
 async (req, res, next) => {
@@ -47,7 +47,7 @@ async (req, res, next) => {
 
     } catch (err) {
       console.error(err.message);
-      return res.status(500).send("Server err");
+      return res.status(500).send(err.message);
     }
 });
 

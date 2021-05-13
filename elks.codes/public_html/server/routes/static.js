@@ -15,23 +15,23 @@ const router = express.Router();
 
     } catch (err) {
       console.error(err.message);
-      res.status(500).send("Server err");
+      res.status(500).send(err.message);
     }
 });
 
 router.post("/", 
 [
-    body("agent").isString(),
-    body("language").isString(),
-    body("acceptsCookies").notEmpty(),
-    body("allowsJavascript").notEmpty(),
-    body("allowsImages").notEmpty(),
-    body("allowsCSS").notEmpty(),
-    body("screenWidth").notEmpty(),
-    body("screenHeight").notEmpty(),
-    body("windowWidth").notEmpty(),
-    body("windowHeight").notEmpty(),
-    body("networkType").isString(),
+    // body("agent").isString(),
+    // body("language").isString(),
+    // body("acceptsCookies").notEmpty(),
+    // body("allowsJavascript").notEmpty(),
+    // body("allowsImages").notEmpty(),
+    // body("allowsCSS").notEmpty(),
+    // body("screenWidth").notEmpty(),
+    // body("screenHeight").notEmpty(),
+    // body("windowWidth").notEmpty(),
+    // body("windowHeight").notEmpty(),
+    // body("networkType").isString(),
     isValidated,
   ],
 async (req, res, next) => {
@@ -63,7 +63,7 @@ async (req, res, next) => {
 
     } catch (err) {
       console.error(err.message);
-      return res.status(500).send("Server err");
+      return res.status(500).send(err.message);
     }
 });
 
