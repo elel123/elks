@@ -37,6 +37,7 @@
     <h1> Database </h1>
     <zing-grid  
         id="example-grid"
+        data='[]'
         theme="default"  
         caption="Meet the Doe Family">
     </zing-grid>
@@ -57,6 +58,7 @@
             }
             ];
             zingGridRef.setAttribute('data', JSON.stringify(newData));
+            alert("Update");
         }, 1000);
         });
     </script>
