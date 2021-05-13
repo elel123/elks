@@ -53,7 +53,21 @@
   <script>
     window.addEventListener('load', () => {
       const zingGridRef = document.querySelector('#static-grid');
-      zingGridRef.executeOnLoad(function() {
+      zingGridRef.executeOnLoad(async function() {
+          
+        const newData = await fetch(`https://www.elks.codes/server/api/static`, {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'},
+            }).then(async (res) => {
+                const json = await res.json();
+                // successful response, return predictions
+                if(res.status === 200){
+                    return json;
+                // error occurred 
+                } 
+            })
+          zingGridRef.setAttribute('data', JSON.stringify(newData));
+
         setInterval(async function() {
 
             const newData = await fetch(`https://www.elks.codes/server/api/static`, {
@@ -68,7 +82,7 @@
                 } 
             })
           zingGridRef.setAttribute('data', JSON.stringify(newData));
-        }, 1000);
+        }, 20000);
       });
     });
   </script>
@@ -90,7 +104,21 @@
   <script>
     window.addEventListener('load', () => {
       const zingGridRef = document.querySelector('#performance-grid');
-      zingGridRef.executeOnLoad(function() {
+      zingGridRef.executeOnLoad(async function() {
+
+        const newData = await fetch(`https://www.elks.codes/server/api/performance`, {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'},
+            }).then(async (res) => {
+                const json = await res.json();
+                // successful response, return predictions
+                if(res.status === 200){
+                    return json;
+                // error occurred 
+                } 
+            })
+          zingGridRef.setAttribute('data', JSON.stringify(newData));
+
         setInterval(async function() {
 
             const newData = await fetch(`https://www.elks.codes/server/api/performance`, {
@@ -105,7 +133,7 @@
                 } 
             })
           zingGridRef.setAttribute('data', JSON.stringify(newData));
-        }, 1000);
+        }, 20000);
       });
     });
   </script>
@@ -127,7 +155,21 @@
   <script>
     window.addEventListener('load', () => {
       const zingGridRef = document.querySelector('#activity-grid');
-      zingGridRef.executeOnLoad(function() {
+      zingGridRef.executeOnLoad(async function() {
+            
+        const newData = await fetch(`https://www.elks.codes/server/api/activity`, {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'},
+            }).then(async (res) => {
+                const json = await res.json();
+                // successful response, return predictions
+                if(res.status === 200){
+                    return json;
+                // error occurred 
+                } 
+            })
+          zingGridRef.setAttribute('data', JSON.stringify(newData));
+
         setInterval(async function() {
 
             const newData = await fetch(`https://www.elks.codes/server/api/activity`, {
@@ -142,7 +184,7 @@
                 } 
             })
           zingGridRef.setAttribute('data', JSON.stringify(newData));
-        }, 1000);
+        }, 20000);
       });
     });
   </script>
