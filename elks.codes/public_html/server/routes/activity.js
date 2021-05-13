@@ -21,7 +21,9 @@ const router = express.Router();
 
 router.post("/", 
 [
-    //body("data").exists(),
+    // body("data").custom((value) => {
+    //   if(typeof value === )
+    // }),
     isValidated,
   ],
 async (req, res, next) => {
@@ -46,7 +48,7 @@ async (req, res, next) => {
 
     } catch (err) {
       console.error(err.message);
-      return res.status(500).send("Server err");
+      return res.status(500).send(err.message);
     }
 });
 
