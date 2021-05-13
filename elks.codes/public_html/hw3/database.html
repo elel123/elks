@@ -38,12 +38,13 @@
     <script>
         function myFunction() {
           alert("Hello");
+          return '[{"first": "Amrit", "last": "Singh"}]';
         }
     </script>
     <button onclick="myFunction()"> Click me</button>
     <zing-grid  
         id="example-grid"
-        data="test()"
+        data="myFunction()"
         theme="default"  
         caption="Meet the Doe Family">
     </zing-grid>
