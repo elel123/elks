@@ -177,7 +177,7 @@ function recordCursorPosition(e) {
 function recordMouseClick(e) {
     recordIdle(e);
 
-    console.log(e);
+    // console.log(e);
     activityData.push({
         category : 'Mouse',
         event : 'MouseClick',
