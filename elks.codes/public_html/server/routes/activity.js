@@ -21,7 +21,7 @@ const router = express.Router();
 
 router.post("/", 
 [
-    body("data").exists(),
+    //body("data").exists(),
     isValidated,
   ],
 async (req, res, next) => {
