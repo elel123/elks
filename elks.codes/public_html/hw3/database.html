@@ -36,43 +36,6 @@
 <body>
     <h1> Database </h1>
 
-    <!-- Activity Table -->
-    <zing-grid id="activity-grid" data='[
-        {
-          "firstName": "John",
-          "lastName": "Doe",
-          "age": 45
-        },
-        {
-          "firstName": "Jane",
-          "lastName": "Doe",
-          "age": 44
-        }
-      ]' theme="default" caption="Activity Data">
-  </zing-grid>
-  <script>
-    window.addEventListener('load', () => {
-      const zingGridRef = document.querySelector('#activity-grid');
-      zingGridRef.executeOnLoad(function() {
-        setInterval(async function() {
-
-            const newData = await fetch(`https://www.elks.codes/server/api/activity`, {
-                method: 'GET',
-                headers: {'Content-Type': 'application/json'},
-            }).then(async (res) => {
-                const json = await res.json();
-                // successful response, return predictions
-                if(res.status === 200){
-                    return json;
-                // error occurred 
-                } 
-            })
-          zingGridRef.setAttribute('data', JSON.stringify(newData));
-        }, 1000);
-      });
-    });
-  </script>
-
 <!-- Static Table -->
    <zing-grid id="static-grid" data='[
         {
@@ -131,6 +94,43 @@
         setInterval(async function() {
 
             const newData = await fetch(`https://www.elks.codes/server/api/performance`, {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'},
+            }).then(async (res) => {
+                const json = await res.json();
+                // successful response, return predictions
+                if(res.status === 200){
+                    return json;
+                // error occurred 
+                } 
+            })
+          zingGridRef.setAttribute('data', JSON.stringify(newData));
+        }, 1000);
+      });
+    });
+  </script>
+
+    <!-- Activity Table -->
+    <zing-grid id="activity-grid" data='[
+        {
+          "firstName": "John",
+          "lastName": "Doe",
+          "age": 45
+        },
+        {
+          "firstName": "Jane",
+          "lastName": "Doe",
+          "age": 44
+        }
+      ]' theme="default" caption="Activity Data">
+  </zing-grid>
+  <script>
+    window.addEventListener('load', () => {
+      const zingGridRef = document.querySelector('#activity-grid');
+      zingGridRef.executeOnLoad(function() {
+        setInterval(async function() {
+
+            const newData = await fetch(`https://www.elks.codes/server/api/activity`, {
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
             }).then(async (res) => {
