@@ -26,6 +26,7 @@ router.post("/",
     body("acceptsCookies").notEmpty(),
     body("allowsJavascript").notEmpty(),
     body("allowsImages").notEmpty(),
+    body("allowsCSS").notEmpty(),
     body("screenWidth").notEmpty(),
     body("screenHeight").notEmpty(),
     body("windowWidth").notEmpty(),
@@ -36,7 +37,7 @@ router.post("/",
 async (req, res, next) => {
     try {
 
-        const rBody = req.body;
+      const rBody = req.body;
 
       const info = {
         sessionId: req.session.id,
@@ -44,6 +45,7 @@ async (req, res, next) => {
         language: rBody.language,
         acceptsCookies: rBody.acceptsCookies,
         allowsJavascript: rBody.allowsJavascript,
+        allowsCSS: rBody.allowsImages,
         allowsImages: rBody.allowsImages,
         screenDimensions: {
             width: rBody.screenWidth,

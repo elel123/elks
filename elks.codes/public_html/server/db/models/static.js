@@ -30,6 +30,10 @@
            type: Boolean, 
            default: false
        },
+       allowsCSS: {
+            type: Boolean, 
+            default: false
+        },
        screenDimensions: {
            width: {
                type: Number, 

@@ -22,9 +22,6 @@ const router = express.Router();
 router.post("/", 
 [
     body("data").notEmpty(),
-    // body("category").notEmpty(),
-    // body("event").notEmpty(),
-    // body("details").notEmpty(),
     isValidated,
   ],
 async (req, res, next) => {
