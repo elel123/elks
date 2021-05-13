@@ -46,7 +46,7 @@
           "lastName": "Doe",
           "age": 44
         }
-      ]' theme="default" caption="Meet the Doe Family">
+      ]' theme="default" caption="Activity Data">
   </zing-grid>
   <script>
     window.addEventListener('load', () => {
@@ -61,24 +61,10 @@
                 const json = await res.json();
                 // successful response, return predictions
                 if(res.status === 200){
-                    alert(JSON.stringify(json));
                     return json;
                 // error occurred 
-                }  else {
-                    alert(res.status);
-                }
+                } 
             })
-        //   const newData = [{
-        //       firstName: 'John Jr.',
-        //       lastName: 'Doe',
-        //       age: Math.floor(15 * Math.random())
-        //     },
-        //     {
-        //       firstName: 'Jane Jr.',
-        //       lastName: 'Doe',
-        //       age: Math.floor(13 * Math.random())
-        //     }
-        //   ];
           zingGridRef.setAttribute('data', JSON.stringify(newData));
         }, 1000);
       });
