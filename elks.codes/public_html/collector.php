@@ -1,8 +1,7 @@
 #!/usr/bin/php
 <?php
     
-    // $data->agent = $_SERVER['HTTP_USER_AGENT'];
-    $data->agent = null;
+    $data->agent = $_SERVER['HTTP_USER_AGENT'];
     $data->language = null;
     $data->acceptsCookies = null;
     $data->allowsJavascript = false;
