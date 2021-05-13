@@ -192,7 +192,7 @@ function recordCursorPosition(e) {
 function recordMouseClick(e) {
     recordIdle(e);
 
-    console.log(e.button);
+    //console.log(e.button);
     activityData.push({
         category : 'Mouse',
         event : 'MouseClick',
