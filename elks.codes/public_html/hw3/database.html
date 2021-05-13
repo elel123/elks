@@ -48,13 +48,16 @@
           "lastName": "Doe",
           "age": 44
         }
-      ]' theme="default" caption="Static Data">
+      ]' 
+      columns-control draggable layout-controls pager page-size="25" page-size-options="25,50,100"
+      theme="default" 
+      caption="Static Data">
   </zing-grid>
   <script>
     window.addEventListener('load', () => {
       const zingGridRef = document.querySelector('#static-grid');
       zingGridRef.executeOnLoad(async function() {
-          
+
         const newData = await fetch(`https://www.elks.codes/server/api/static`, {
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
@@ -99,7 +102,9 @@
           "lastName": "Doe",
           "age": 44
         }
-      ]' theme="default" caption="Performance Data">
+      ]' 
+      columns-control draggable layout-controls pager page-size="25" page-size-options="25,50,100"
+      theme="default" caption="Performance Data">
   </zing-grid>
   <script>
     window.addEventListener('load', () => {
@@ -150,7 +155,9 @@
           "lastName": "Doe",
           "age": 44
         }
-      ]' theme="default" caption="Activity Data">
+      ]' 
+      columns-control draggable layout-controls pager page-size="25" page-size-options="25,50,100"
+      theme="default" caption="Activity Data">
   </zing-grid>
   <script>
     window.addEventListener('load', () => {
