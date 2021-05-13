@@ -17,4 +17,5 @@ export async function retrieveActivityDate(){
 
 export function test(){
     alert("Hello");
+    return '[{"first": "Amrit", "last": "Singh"}]';
 }
