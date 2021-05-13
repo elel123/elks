@@ -8,55 +8,75 @@ let activityData = [];
 
 var pageLoadObj = null; 
 
-// Arrays containing key/mouse activity data 
-let keyDown = []; // list of character codes for keys pressed down
-let keyUp = []; // list of character codes for keys released
-
-let mousePositions = []; // list of [x, y] mouse coordinates (in term of offsets)
-let mouseClicks = [];  // list of numbers (ranging from 0-4) which denote the mouse button clicked
-let mouseScrolls = []; // list of [x, y] mouse scroll pixel offsets
-
-let idle = [];  // array of [ idle duration in ms, end idle ts in ms since Jan 1 1970 ]
 let lastActivityTs = 0; // ms since last activity (mouse or key up/down)
 
 
-
-
-
 //Use to post data to the server (note this function is async)
-function postData(url, jsonData, callback) {
+function postData(url, jsonData, callback, jsonCallback) {
     fetch(url, {
+        headers: { 
+            'Content-Type':'application/json'
+        },
         method: 'POST',
         body: JSON.stringify(jsonData)
-    }).then(function(response) {
-        callback(response);
+    }).then(async function(response) {
+        let json = await response.json();
+        callback(response, json);
     })
 }
 
 //Use this function to send the activity data to the server.
 function sendDataToServer() {
     console.log("Sending Data...");
+    
+    let url = "https://elks.codes/server/api/activity";
+    
+    let itemsSent = activityData.length;
 
-    //Flush the activity data 
-    // (later we'll only flush once we get the OK from the server)
-    activityData = [];
-    keyDown = [];
-    keyUp = [];
-    mousePositions = []; 
-    mouseClicks = [];
-    mouseScrolls = []; 
-    idle = [];
+    console.log(`Length of activityData arr ${activityData.length}`);
+    postData(url, {"data" : activityData }, function(response, json) { 
+        console.log(`RESPONSE CODE ${response.status}`);
 
+        if (response.status == 200 ) { 
+            activityData = activityData.slice(itemsSent);
+        }
+        else {
+            console.log("HI");
+            console.log(json);
+        }
+    });
 }
 
 
 
 //When the window first loads, this function is called
 window.addEventListener('load', function (event) {
+    /* Send performance and static data to the server */
     let performanceData = collectPerformanceInfo();
     let staticData = collectStaticInfo();
-    /* TODO: send performance and static data to the server */
 
+    let staticUrl = "https://elks.codes/server/api/static";
+    let performanceUrl = "https://elks.codes/server/api/performance";
+
+    postData( staticUrl, staticData, function(response, json) { 
+        console.log("Sent Static Data to server");
+        if (response.status == 200 ) { 
+            console.log(response.status);
+        }
+        else { 
+            console.log(json);
+        }
+    });
+
+    postData( performanceUrl, performanceData, function(response, json) { 
+        console.log("Sent Performance Data to server");
+        if (response.status == 200 ) { 
+            console.log(response.status);
+        }
+        else { 
+            console.log(json);
+        }
+    });
 
     //Append page entry data
     activityData.push({
@@ -87,7 +107,6 @@ window.addEventListener("beforeunload", function(event) {
     });
     sendDataToServer();
 });
-
 
 
 
@@ -127,36 +146,6 @@ function collectPerformanceInfo() {
     return performanceData;
 }
 
-// // ----- Methods to collect Performance (Collected after page has loaded) data -----
-function recordPageLoadPerformance() {
-
-  let perfObj = new Object();
-
-  // https://developer.mozilla.org/en-US/docs/Web/API/Navigation_timing_API#calculate_the_total_page_load_time
-  // timestamps are in milliseconds
-  const perfData = window.performance.timing;
-  const pageLoadStart = perfData.navigationStart;
-  const pageLoadEnd = perfData.loadEventEnd;
-  const pageLoadTime = pageLoadEnd - pageLoadStart;
-
-  perfObj['timingObj'] = perfData;
-  perfObj['pageLoadStart'] = pageLoadStart;
-  perfObj['pageLoadEnd'] = pageLoadEnd;
-  perfObj['pageLoadTime'] = pageLoadTime;
-  perfObj['path'] = window.location.pathname; // no query string nor fragment
-
-
-  //console.log(`Page Load Time: ${perfObj.pageLoadTime}`);
-
-  pageLoadObj = perfObj;
-}
-
-// window.addEventListener('load', (event) => {
-//     setTimeout(function() {
-//       recordPageLoadPerformance();
-//     }, 0);
-// });
-
 
 // ----- Methods to collect (Key, Mouse, Idle) Activity data -----
 
@@ -166,7 +155,6 @@ function recordCursorPosition(e) {
     //e.offsetX and e.offsetY give (x, y) offset of mouse pointer between event and padding edge
     // of target (window)
     // console.log(`Cursor Coord: (${e.offsetX}, ${e.offsetY})`);
-    mousePositions.push([e.offsetX, e.offsetY]);
     
     activityData.push({
         category : 'Mouse',
@@ -190,8 +178,6 @@ function recordMouseClick(e) {
     recordIdle(e);
 
     console.log(e);
-    mouseClicks.push(e.button);
-
     activityData.push({
         category : 'Mouse',
         event : 'MouseClick',
@@ -211,7 +197,6 @@ function recordMouseScroll(e) {
     // window.scrollY = # of pixels the document is currently scrolled vertically
     //console.log(`Horiz Scroll Dist:  ${window.scrollX}`);
     //console.log(`Vert Scroll Dist:  ${window.scrollY}`);
-    mouseScrolls.push([window.scrollX, window.scrollY]);
 
     activityData.push({
         category : 'Mouse',
@@ -228,8 +213,6 @@ function recordKeyDown(e) {
     recordIdle(e);
 
     // console.log(`Key Down Code: ${e.code}`);
-    keyDown.push(e.code);
-
     activityData.push({
         category : 'Keyboard',
         event : 'KeyDown',
@@ -244,8 +227,6 @@ function recordKeyUp(e) {
     recordIdle(e);
 
     //console.log(`Key Up Code: ${e.code}`);
-    keyUp.push(e.code);
-
     activityData.push({
         category : 'Keyboard',
         event : 'KeyUp',
@@ -272,7 +253,6 @@ function recordIdle(e) {
         if( idleDuration > 2000 ) {  // idle for more than 2 seconds
             //console.log(`End of Idle Activity Timestamp: ${idleEndTs}`);
             //console.log(`Idle for ${idleDuration}`);
-            idle.push([idleDuration, idleEndTs]);
 
             activityData.push({
                 category : 'Idle',
