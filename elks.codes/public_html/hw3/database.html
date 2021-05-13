@@ -31,19 +31,169 @@
 
     </style>
     <script src="https://cdn.zinggrid.com/zinggrid.min.js" defer></script>
+    <script src="../scripts/retriever.js" type="module"></script>
 </head>
 <body>
     <h1> Database </h1>
-    <zing-grid  id="example-grid"  data='[   
-    {      
-        "firstName": "John",      
-        "lastName": "Doe",      
-        "age": 45    
-    },    
-    {      "firstName": "Jane",      
-            "lastName": "Doe",      
-            "age": 44    
-    }  
-    ]'  theme="default"  caption="Meet the Doe Family"></zing-grid>
+
+<!-- Static Table -->
+   <zing-grid id="static-grid" data='[
+        {
+          "firstName": "John",
+          "lastName": "Doe",
+          "age": 45
+        },
+        {
+          "firstName": "Jane",
+          "lastName": "Doe",
+          "age": 44
+        }
+      ]' 
+      columns-control draggable layout-controls pager page-size="25" page-size-options="25,50,100" search sort
+      theme="default" 
+      caption="Static Data">
+  </zing-grid>
+  <script>
+    window.addEventListener('load', () => {
+      const zingGridRef = document.querySelector('#static-grid');
+      zingGridRef.executeOnLoad(async function() {
+
+        const newData = await fetch(`https://www.elks.codes/server/api/static`, {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'},
+            }).then(async (res) => {
+                const json = await res.json();
+                // successful response, return predictions
+                if(res.status === 200){
+                    return json;
+                // error occurred 
+                } 
+            })
+          zingGridRef.setAttribute('data', JSON.stringify(newData));
+
+        setInterval(async function() {
+
+            const newData = await fetch(`https://www.elks.codes/server/api/static`, {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'},
+            }).then(async (res) => {
+                const json = await res.json();
+                // successful response, return predictions
+                if(res.status === 200){
+                    return json;
+                // error occurred 
+                } 
+            })
+          zingGridRef.setAttribute('data', JSON.stringify(newData));
+        }, 20000);
+      });
+    });
+  </script>
+
+<!-- Performance Table -->
+<zing-grid id="performance-grid" data='[
+        {
+          "firstName": "John",
+          "lastName": "Doe",
+          "age": 45
+        },
+        {
+          "firstName": "Jane",
+          "lastName": "Doe",
+          "age": 44
+        }
+      ]' 
+      columns-control draggable layout-controls pager page-size="25" page-size-options="25,50,100" search sort
+      theme="default" caption="Performance Data">
+  </zing-grid>
+  <script>
+    window.addEventListener('load', () => {
+      const zingGridRef = document.querySelector('#performance-grid');
+      zingGridRef.executeOnLoad(async function() {
+
+        const newData = await fetch(`https://www.elks.codes/server/api/performance`, {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'},
+            }).then(async (res) => {
+                const json = await res.json();
+                // successful response, return predictions
+                if(res.status === 200){
+                    return json;
+                // error occurred 
+                } 
+            })
+          zingGridRef.setAttribute('data', JSON.stringify(newData));
+
+        setInterval(async function() {
+
+            const newData = await fetch(`https://www.elks.codes/server/api/performance`, {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'},
+            }).then(async (res) => {
+                const json = await res.json();
+                // successful response, return predictions
+                if(res.status === 200){
+                    return json;
+                // error occurred 
+                } 
+            })
+          zingGridRef.setAttribute('data', JSON.stringify(newData));
+        }, 20000);
+      });
+    });
+  </script>
+
+    <!-- Activity Table -->
+    <zing-grid id="activity-grid" data='[
+        {
+          "firstName": "John",
+          "lastName": "Doe",
+          "age": 45
+        },
+        {
+          "firstName": "Jane",
+          "lastName": "Doe",
+          "age": 44
+        }
+      ]' 
+      columns-control draggable layout-controls pager page-size="25" page-size-options="25,50,100" search sort
+      theme="default" caption="Activity Data">
+  </zing-grid>
+  <script>
+    window.addEventListener('load', () => {
+      const zingGridRef = document.querySelector('#activity-grid');
+      zingGridRef.executeOnLoad(async function() {
+            
+        const newData = await fetch(`https://www.elks.codes/server/api/activity`, {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'},
+            }).then(async (res) => {
+                const json = await res.json();
+                // successful response, return predictions
+                if(res.status === 200){
+                    return json;
+                // error occurred 
+                } 
+            })
+          zingGridRef.setAttribute('data', JSON.stringify(newData));
+
+        setInterval(async function() {
+
+            const newData = await fetch(`https://www.elks.codes/server/api/activity`, {
+                method: 'GET',
+                headers: {'Content-Type': 'application/json'},
+            }).then(async (res) => {
+                const json = await res.json();
+                // successful response, return predictions
+                if(res.status === 200){
+                    return json;
+                // error occurred 
+                } 
+            })
+          zingGridRef.setAttribute('data', JSON.stringify(newData));
+        }, 20000);
+      });
+    });
+  </script>
 </body>
 </html>
