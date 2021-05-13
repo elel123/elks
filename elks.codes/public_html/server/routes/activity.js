@@ -21,9 +21,9 @@ const router = express.Router();
 
 router.post("/", 
 [
-    // body("data").custom((value) => {
-    //   if(typeof value === )
-    // }),
+    body("data").custom((value) => {
+      return Array.isArray(value);
+    }),
     isValidated,
   ],
 async (req, res, next) => {
