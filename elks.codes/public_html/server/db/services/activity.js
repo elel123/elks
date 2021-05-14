@@ -2,7 +2,7 @@ const { Activity } = require("../models/activity");
  
  async function getAllActivityEntries() {
     try {
-      return await Activity.find({}).exec();
+      return await Activity.find({}).sort({createdAt: 'desc'}).exec();
     } catch (err) {
       return false;
     }

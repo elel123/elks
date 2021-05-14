@@ -53,6 +53,24 @@ function sendDataToServer() {
 window.addEventListener('load', function (event) {
     pageLoadEnd = Date.now(); //ts for end of page load 
 
+    /* Send Performance data to server */ 
+    setTimeout( function(event) { 
+        let performanceUrl = "https://elks.codes/server/api/performance";
+        let performanceData = collectPerformanceInfo(); 
+
+
+        postData(performanceUrl, performanceData, function(response, json) { 
+            console.log("Sent Performance Data to server")
+            if( response.status == 200 ) { 
+                console.log(`Duration: ${performanceData['totalTime']}`);
+            }
+            else { 
+                console.log(json); 
+            }
+        });
+
+    }, 0);
+
     /* Send Static data to the server */
     let staticData = collectStaticInfo();
 
@@ -103,16 +121,16 @@ window.addEventListener("beforeunload", function(event) {
 // or, on mobile, switches from the browser to a different app. Transitioning
 // to hidden is the last event that's reliably observable by the page, so 
 // developers should treat it as the likely end of the user's session 
-document.addEventListener("visibilitychange", function(event) { 
-    if (document.visibilityState === 'hidden') {
-        // send Performance Data (page load stats)
-        let performanceData = collectPerformanceInfo();
-        let performanceUrl = "https://elks.codes/server/api/performance";
+// document.addEventListener("visibilitychange", function(event) { 
+//     if (document.visibilityState === 'hidden') {
+//         // send Performance Data (page load stats)
+//         let performanceData = collectPerformanceInfo();
+//         let performanceUrl = "https://elks.codes/server/api/performance";
 
-        let blob = new Blob([JSON.stringify(performanceData)], {type: 'application/json'}); 
-        navigator.sendBeacon(performanceUrl, blob);
-    }
-}); 
+//         let blob = new Blob([JSON.stringify(performanceData)], {type: 'application/json'}); 
+//         navigator.sendBeacon(performanceUrl, blob);
+//     }
+// }); 
 
 
 
@@ -149,6 +167,8 @@ function collectPerformanceInfo() {
         performanceData['endTime'] = start + entry.loadEventEnd;
         performanceData['totalTime'] = entry.duration;
         performanceData['timingObject'] = entry;
+
+        console.log("A");
     }
     // NavigationTiming API is not supported by this browser 
     else { 
@@ -156,6 +176,8 @@ function collectPerformanceInfo() {
         performanceData['endTime'] = pageLoadEnd;
         performanceData['totalTime'] = pageLoadEnd - start;
         performanceData['timingObject'] = null;
+        console.log("AAA");
+
     }
     // console.log(performanceData);
     return performanceData;
@@ -262,7 +284,7 @@ function recordIdle(e) {
 
     let currTs = e.timeStamp;
     if ( lastActivityTs < currTs ) {
-        idleDuration = currTs - lastActivityTs;
+        let idleDuration = currTs - lastActivityTs;
         lastActivityTs = currTs;
 
         if( idleDuration > 2000 ) {  // idle for more than 2 seconds
