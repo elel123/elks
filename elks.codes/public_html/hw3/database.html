@@ -31,10 +31,9 @@
 
     </style>
     <script src="https://cdn.zinggrid.com/zinggrid.min.js" defer></script>
-    <script src="../scripts/retriever.js" type="module"></script>
 </head>
 <body>
-    <h1> Database </h1>
+    <h1> Database Tables </h1>
 
 <!-- Static Table -->
    <zing-grid id="static-grid" data='[
@@ -49,9 +48,11 @@
           "age": 44
         }
       ]' 
-      columns-control draggable layout-controls pager page-size="25" page-size-options="25,50,100" search sort
+      gridlines="both"
+      loading-text="Loading Data..."
+      columns-control draggable layout-controls pager page-size="10" page-size-options="10,25,50,100" search sort
       theme="default" 
-      caption="Static Data">
+      caption="Static Data" zebra>
   </zing-grid>
   <script>
     window.addEventListener('load', () => {
@@ -89,7 +90,6 @@
       });
     });
   </script>
-
 <!-- Performance Table -->
 <zing-grid id="performance-grid" data='[
         {
@@ -102,9 +102,11 @@
           "lastName": "Doe",
           "age": 44
         }
-      ]' 
-      columns-control draggable layout-controls pager page-size="25" page-size-options="25,50,100" search sort
-      theme="default" caption="Performance Data">
+      ]'
+      gridlines="both" 
+      loading-text="Loading Data..."
+      columns-control draggable layout-controls pager page-size="10" page-size-options="10,25,50,100" search sort
+      theme="default" caption="Performance Data" zebra>
   </zing-grid>
   <script>
     window.addEventListener('load', () => {
@@ -143,6 +145,7 @@
     });
   </script>
 
+<p> <span style="color: red;"> Please note that Activity table takes a few seconds to properly load due to large amount of data it receives. </span></p>
     <!-- Activity Table -->
     <zing-grid id="activity-grid" data='[
         {
@@ -156,8 +159,10 @@
           "age": 44
         }
       ]' 
-      columns-control draggable layout-controls pager page-size="25" page-size-options="25,50,100" search sort
-      theme="default" caption="Activity Data">
+      gridlines="both"
+      loading-text="Loading Data..."
+      columns-control draggable layout-controls pager page-size="10" page-size-options="10,25,50,100" search sort
+      theme="default" caption="Activity Data" zebra>
   </zing-grid>
   <script>
     window.addEventListener('load', () => {
