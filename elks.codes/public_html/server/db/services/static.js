@@ -1,6 +1,4 @@
 const { Static } = require("../models/static");
-
-Static.select('-_id -__v');
  
  async function getAllStaticEntries() {
     try {
