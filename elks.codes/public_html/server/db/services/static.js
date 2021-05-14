@@ -2,7 +2,7 @@ const { Static } = require("../models/static");
  
  async function getAllStaticEntries() {
     try {
-      return await Static.find({}).exec();
+      return await Static.find({}).sort({createdAt: 'desc'}).exec();
     } catch (err) {
       return false;
     }
