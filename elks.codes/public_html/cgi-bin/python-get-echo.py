@@ -8,8 +8,14 @@ URL = os.environ['QUERY_STRING']
 print("Cache-Control: no-cache")
 print("Content-type: text/html\n")
 print('''
-<html><head><title>GET query string</title></head>\
-<body><h1 align=center>GET query string</h1>\
+<html><head><title>GET query string</title>
+
+<script type="module" src="../scripts/collector.js"></script>\
+</head>\
+<body> \
+<noscript><img src="../collector.php"></noscript><img id="flag" src="../images/favicon/favicon-16x16.png" width="1px" alt="">\
+
+<h1 align=center>GET query string</h1>\
 <hr/>
 <p><b>Raw query string:</b> {} </p>
 <p><b>Formatted Query String:</b></p>

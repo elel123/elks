@@ -27,8 +27,12 @@ if 'HTTP_COOKIE' in os.environ:
 
   
 print('''
-<html><head><title>Python Session Destroyed</title></head>\
-<body><h1 align=center>Python Sessions Destroyed</h1>\
+<html><head><title>Python Session Destroyed</title> \
+<script type="module" src="../scripts/collector.js"></script>\
+</head>\
+<body> \
+<noscript><img src="../collector.php"></noscript><img id="flag" src="../images/favicon/favicon-16x16.png" width="1px" alt="">\
+<h1 align=center>Python Sessions Destroyed</h1>\
 <hr/>
 ''')
 

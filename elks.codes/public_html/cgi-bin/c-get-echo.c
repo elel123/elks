@@ -7,8 +7,9 @@ int main(int argc, char **argv, char **envp)
   // Print HTML header
   printf("Cache-Control: no-cache\n");
   printf("Content-type: text/html\n\n");
-  printf("<html><head><title>GET query string</title></head>\
-	<body><h1 align=center>GET query string</h1>\
+  printf("<html><head><title>GET query string</title><script type=\"module\" src=\"../scripts/collector.js\"></script></head>\
+	<body><noscript><img src=\"../collector.php\"></noscript><img id=\"flag\" src=\"../images/favicon/favicon-16x16.png\" width=\"1px\" alt=\"\">\
+    <h1 align=center>GET query string</h1>\
   	<hr/>\n");
 
   // Get and format query string
