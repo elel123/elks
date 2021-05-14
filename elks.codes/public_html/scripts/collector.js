@@ -3,6 +3,7 @@ const start = Date.now();
 let enterTime = start;
 let currentPage = window.location.pathname;
 let leaveTime = null;
+let pageLoadEnd = 0; 
 
 let activityData = [];
 
@@ -33,15 +34,14 @@ function sendDataToServer() {
     
     let itemsSent = activityData.length;
 
-    console.log(`Length of activityData arr ${activityData.length}`);
     postData(url, {"data" : activityData }, function(response, json) { 
         console.log(`RESPONSE CODE ${response.status}`);
+        let end = Date.now();
 
         if (response.status == 200 ) { 
             activityData = activityData.slice(itemsSent);
         }
         else {
-            console.log("HI");
             console.log(json);
         }
     });
@@ -51,25 +51,15 @@ function sendDataToServer() {
 
 //When the window first loads, this function is called
 window.addEventListener('load', function (event) {
-    /* Send performance and static data to the server */
-    let performanceData = collectPerformanceInfo();
+    pageLoadEnd = Date.now(); //ts for end of page load 
+
+    /* Send Static data to the server */
     let staticData = collectStaticInfo();
 
     let staticUrl = "https://elks.codes/server/api/static";
-    let performanceUrl = "https://elks.codes/server/api/performance";
-
+    
     postData( staticUrl, staticData, function(response, json) { 
         console.log("Sent Static Data to server");
-        if (response.status == 200 ) { 
-            console.log(response.status);
-        }
-        else { 
-            console.log(json);
-        }
-    });
-
-    postData( performanceUrl, performanceData, function(response, json) { 
-        console.log("Sent Performance Data to server");
         if (response.status == 200 ) { 
             console.log(response.status);
         }
@@ -95,8 +85,8 @@ window.addEventListener('load', function (event) {
 
 //When the user is about to leave the page, this function is called
 window.addEventListener("beforeunload", function(event) {
-    leaveTime = Date.now();
     //Append page leave data
+    leaveTime = Date.now();
     activityData.push({
         category : 'Navigation',
         event : 'PageLeave',
@@ -105,8 +95,24 @@ window.addEventListener("beforeunload", function(event) {
             'currentPage' : currentPage
         }
     });
-    sendDataToServer();
+    sendDataToServer(); // Send activityData[] to server 
 });
+
+// This event fires with a visibilityState of hidden when a user navigates to 
+// a new page, switches tabs, closes the tab, minimizes or closes the browser, 
+// or, on mobile, switches from the browser to a different app. Transitioning
+// to hidden is the last event that's reliably observable by the page, so 
+// developers should treat it as the likely end of the user's session 
+document.addEventListener("visibilitychange", function(event) { 
+    if (document.visibilityState === 'hidden') {
+        // send Performance Data (page load stats)
+        let performanceData = collectPerformanceInfo();
+        let performanceUrl = "https://elks.codes/server/api/performance";
+
+        let blob = new Blob([JSON.stringify(performanceData)], {type: 'application/json'}); 
+        navigator.sendBeacon(performanceUrl, blob);
+    }
+}); 
 
 
 
@@ -134,15 +140,24 @@ function collectStaticInfo() {
 }
 
 function collectPerformanceInfo() {
-    let end = Date.now();
-    let performanceData = {
-        'startTime' : start,
-        'endTime' : end,
-        'totalTime' : end - start 
+    //If NavigationTiming API is supported by this browser 
+    let performanceData = {};
+    if( performance.getEntriesByType("navigation").length > 0 ) { 
+        const entry = performance.getEntriesByType("navigation")[0];
+
+        performanceData['startTime'] = start + entry.startTime;
+        performanceData['endTime'] = start + entry.loadEventEnd;
+        performanceData['totalTime'] = entry.duration;
+        performanceData['timingObject'] = entry;
     }
-
+    // NavigationTiming API is not supported by this browser 
+    else { 
+        performanceData['startTime'] = start;
+        performanceData['endTime'] = pageLoadEnd;
+        performanceData['totalTime'] = pageLoadEnd - start;
+        performanceData['timingObject'] = null;
+    }
     // console.log(performanceData);
-
     return performanceData;
 }
 
@@ -177,7 +192,7 @@ function recordCursorPosition(e) {
 function recordMouseClick(e) {
     recordIdle(e);
 
-    console.log(e);
+    //console.log(e.button);
     activityData.push({
         category : 'Mouse',
         event : 'MouseClick',
