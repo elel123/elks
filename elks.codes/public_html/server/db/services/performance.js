@@ -2,7 +2,7 @@ const { Performance } = require("../models/performance");
  
  async function getAllPerformanceEntries() {
     try {
-      return await Performance.find({}).exec();
+      return await Performance.find({}).sort({createdAt: 'desc'}).exec();
     } catch (err) {
       return false;
     }
