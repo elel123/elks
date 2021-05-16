@@ -116,22 +116,6 @@ window.addEventListener("beforeunload", function(event) {
     sendDataToServer(); // Send activityData[] to server 
 });
 
-// This event fires with a visibilityState of hidden when a user navigates to 
-// a new page, switches tabs, closes the tab, minimizes or closes the browser, 
-// or, on mobile, switches from the browser to a different app. Transitioning
-// to hidden is the last event that's reliably observable by the page, so 
-// developers should treat it as the likely end of the user's session 
-// document.addEventListener("visibilitychange", function(event) { 
-//     if (document.visibilityState === 'hidden') {
-//         // send Performance Data (page load stats)
-//         let performanceData = collectPerformanceInfo();
-//         let performanceUrl = "https://elks.codes/server/api/performance";
-
-//         let blob = new Blob([JSON.stringify(performanceData)], {type: 'application/json'}); 
-//         navigator.sendBeacon(performanceUrl, blob);
-//     }
-// }); 
-
 
 
 function collectStaticInfo() {
@@ -240,7 +224,7 @@ function recordMouseScroll(e) {
         event : 'MouseScroll',
         details : {
             'windowScrollX' : window.scrollX,
-            'windowScrollX' : window.scrollY,
+            'windowScrollY' : window.scrollY,
             'currentPage' : currentPage
         }
     });
