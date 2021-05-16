@@ -31,8 +31,11 @@ int main(int argc, char **argv, char **envp)
 
   // Body - HTML
   printf("<html>");
-  printf("<head><title>C Sessions</title></head>\n");
-  printf("<body>");
+  printf("<head><title>C Sessions</title> \
+  <script type=\"module\" src=\"../scripts/collector.js\"></script> \
+  </head>\n");
+  printf("<body> \
+  <noscript><img src=\"../collector.php\"></noscript><img id=\"flag\" src=\"../images/favicon/favicon-16x16.png\" width=\"1px\" alt=\"\">");
   printf("<h1>C Sessions Page 1</h1>");
   printf("<table>");
 

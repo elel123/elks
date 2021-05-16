@@ -6,7 +6,10 @@ print "Content-type: text/html \n\n";
 print <<END;
 <!DOCTYPE html>
 <html><head><title>POST Request Echo</title>
-</head><body><h1 align="center">POST Request Echo</h1>
+<script type=\"module\" src=\"../scripts/collector.js\"></script>
+</head><body>
+<noscript><img src=\"../collector.php\"></noscript><img id=\"flag\" src=\"../images/favicon/favicon-16x16.png\" width=\"1px\" alt=\"\">
+<h1 align="center">POST Request Echo</h1>
 <hr>
 END
 

@@ -3,7 +3,15 @@
   header("Cache-Control: no-cache");
   header("Content-type: text/html");
 
-  echo "<html><head><title>Environment Variables</title></head><body><h1 align=center>Environment Variables</h1><hr/>\n";
+  echo "<html><head><title>Environment Variables</title>";
+  
+  echo "<script type=\"module\" src=\"../scripts/collector.js\"></script>";
+
+  echo "</head><body>";
+
+  echo "<noscript><img src=\"../collector.php\"></noscript><img id=\"flag\" src=\"../images/favicon/favicon-16x16.png\" width=\"1px\" alt=\"\">";
+  
+  echo "<h1 align=center>Environment Variables</h1><hr/>\n";
 
   echo "<h2> Environment Variables: </h2>"; 
   $env_arr = getenv();

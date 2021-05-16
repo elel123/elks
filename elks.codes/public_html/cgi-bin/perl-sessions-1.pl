@@ -19,9 +19,10 @@ $session->param("username", $name);
 print "<html>";
 print "<head>";
 print "<title>Perl Sessions</title>";
+print "<script type=\"module\" src=\"../scripts/collector.js\"></script>";
 print "</head>";
 print "<body>";
-
+print "<noscript><img src=\"../collector.php\"></noscript><img id=\"flag\" src=\"../images/favicon/favicon-16x16.png\" width=\"1px\" alt=\"\">";
 print "<h1>Perl Sessions Page 1</h1>";
 
 if ($name){

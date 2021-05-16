@@ -3,7 +3,11 @@
   header("Cache-Control: no-cache");
   header("Content-type: text/html");
 
-  echo "<html><head><title>GET Query </title></head><body><h1 align=center>GET Query String</h1><hr/>\n";
+  echo "<html><head><title>GET Query </title>";
+  echo "<script type=\"module\" src=\"../scripts/collector.js\"></script>";
+  echo "</head><body>";
+  echo "<noscript><img src=\"../collector.php\"></noscript><img id=\"flag\" src=\"../images/favicon/favicon-16x16.png\" width=\"1px\" alt=\"\">";
+  echo "<h1 align=center>GET Query String</h1><hr/>\n";
 
   $query_string = getenv("QUERY_STRING");
   echo "Raw query string: " . $query_string . "\n<br/><br/>";

@@ -17,8 +17,11 @@ cgi.out("cookie" => cookie, "Cache-Control" => "no-cache", "type" => "text/html"
 puts "<html>"
 puts "<head>"
 puts "<title>Ruby Sessions</title>"
+
+puts "<script type=\"module\" src=\"../scripts/collector.js\"></script>"
 puts "</head>"
 puts "<body>"
+puts "<noscript><img src=\"../collector.php\"></noscript><img id=\"flag\" src=\"../images/favicon/favicon-16x16.png\" width=\"1px\" alt=\"\">"
 
 puts "<h1>Ruby Sessions Page 1</h1>"
 

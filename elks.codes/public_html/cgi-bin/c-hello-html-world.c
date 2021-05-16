@@ -9,8 +9,11 @@ int main(void)
   // Print HTML header
   printf("Cache-Control: no-cache\n");
   printf("Content-type: text/html\n\n");
-  printf("<html><head><title>Hello CGI World</title></head>\
-	<body><h1 align=center>Hello HTML World</h1>\
+  printf("<html><head><title>Hello CGI World</title> \
+    <script type=\"module\" src=\"../scripts/collector.js\"></script> \
+    </head><body> \
+    <noscript><img src=\"../collector.php\"></noscript><img id=\"flag\" src=\"../images/favicon/favicon-16x16.png\" width=\"1px\" alt=\"\"> \
+	<h1 align=center>Hello HTML World</h1>\
   	<hr/>\n");
 
  printf("Hello World<br/>\n");

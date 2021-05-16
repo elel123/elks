@@ -3,9 +3,15 @@
 
 <head>
   <title>CGI Form</title>
+
+  <script type="module" src="../scripts/collector.js"></script>
 </head>
 
 <body>
+    <!-- The noscript tag and img are for collector.js -->
+    <noscript><img src="../collector.php"></noscript>
+    <img id="flag" src="../images/favicon/favicon-16x16.png" width="1px" alt="">
+
   <h1 align="center">Session Test</h1>
   <hr>
   <label for="cgi-lang">CGI using C</label>

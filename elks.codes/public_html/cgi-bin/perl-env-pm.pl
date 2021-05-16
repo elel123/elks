@@ -10,6 +10,8 @@ print header;
 # CGI.pm Method
 print start_html("Environment Variables");
 
+print "<script type=\"module\" src=\"../scripts/collector.js\"></script>";
+print "<noscript><img src=\"../collector.php\"></noscript><img id=\"flag\" src=\"../images/favicon/favicon-16x16.png\" width=\"1px\" alt=\"\">";
 print "<h1 align='center'>Environment Variables</h1><hr />";
 
 # Loop through all of the environment variables, then print each variable and its value

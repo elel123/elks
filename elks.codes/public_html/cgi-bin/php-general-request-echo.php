@@ -3,7 +3,11 @@
   header("Cache-Control: no-cache");
   header("Content-type: text/html");
 
-  echo "<html><head><title>General Echo</title></head><body><h1 align=center>General Request Echo</h1><hr/>\n";
+  echo "<html><head><title>General Echo</title>";
+  echo "<script type=\"module\" src=\"../scripts/collector.js\"></script>";
+  echo "</head><body>";
+  echo "<noscript><img src=\"../collector.php\"></noscript><img id=\"flag\" src=\"../images/favicon/favicon-16x16.png\" width=\"1px\" alt=\"\">";
+  echo "<h1 align=center>General Request Echo</h1><hr/>\n";
 
   echo "<p><b> HTTP Protocol: </b>" . getenv('SERVER_PROTOCOL') . "</p>";
   echo "<p><b> HTTP Protocol: </b>" . getenv('REQUEST_METHOD') . "</p>";
