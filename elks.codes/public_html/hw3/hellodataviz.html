@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Elks 404</title>
+    <title> Hello Data Viz</title>
 
     <style>
         body {
@@ -49,14 +49,66 @@
     <p>
         Click <a href="/index.html">here</a> to go back to the home page :)
     </p>
+    <p> Please wait a few minutes for the charts to load the data </p>
     <!-- Pie Chart of User Activity Presses -->
     <div id="pieChart"></div>
     <script> 
         let pieConfig = { 
             type: 'pie',
             title: { 
-                fontColor: "#8e99a9",
+                fontColor: "#333399",
                 text: 'User Activity',
+                align: "left",
+                offsetX: 10,
+                fontFamily: "Open Sans",
+                fontSize: 25
+            },
+            noData: {  
+                text: 'Fetching remote data...',  
+                backgroundColor: '#eeeeee',  
+                fontSize: 18
+            }
+        }
+
+        zingchart.render({
+                id: 'pieChart',
+                data: pieConfig,
+        });
+    </script>
+    <!-- 3-series Line Chart  -->
+    <div id="lineChart"></div>
+    <script> 
+        let lineConfig = { 
+            type: 'line',
+            title: { 
+                fontColor: "#333399",
+                text: 'Mouse/Key/Idle Activity over the last 7 Days (Log)',
+                align: "left",
+                offsetX: 10,
+                fontFamily: "Open Sans",
+                fontSize: 25
+            },
+            noData: {  
+                text: 'Fetching remote data...',  
+                backgroundColor: '#eeeeee',  
+                fontSize: 18
+            }
+        }
+        
+        zingchart.render({
+                id: 'lineChart',
+                data: lineConfig,
+        }); 
+    </script>
+
+    <!-- 2-series Bar Chart  -->
+    <div id="barChart"></div>
+    <script> 
+        let barConfig = { 
+            type: 'bar',
+            title: { 
+                fontColor: "#333399",
+                text: 'Average Coordinates Offsets for Mouse Activities',
                 align: "left",
                 offsetX: 10,
                 fontFamily: "Open Sans",
@@ -71,9 +123,13 @@
         
 
         zingchart.render({
-                id: 'pieChart',
-                data: pieConfig,
-        });
+                id: 'barChart',
+                data: barConfig,
+        }); 
+    </script>
+
+    <!-- Fetching and Processing Chart Data -->
+    <script>
         fetch(`https://www.elks.codes/server/api/activity`, {
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'},
@@ -83,7 +139,6 @@
                 let mouseNum = 0; 
                 let keyNum = 0; 
                 let idleNum = 0; 
-                console.log(results[0]);
 
                 for( i = 0; i < results.length; i++ ){ 
                     let category = results[i]['category'];
@@ -107,7 +162,7 @@
                 pieConfig = { 
                     type: 'pie',
                     title: { 
-                        fontColor: "#8e99a9",
+                        fontColor: "#333399",
                         text: 'User Activity',
                         align: "left",
                         offsetX: 10,
@@ -121,9 +176,9 @@
                         text: "%npv%"
                     },
                     legend: {
-                        'background-color': "#ffe6e6",
+                        'background-color': "#e5aca0",
                         'border-width':2,
-                        'border-color': "red",
+                        'border-color': "#993333",
                         'border-radius': "5px",
                         padding: "10%",
                         layout: "3x1",
@@ -162,9 +217,12 @@
                    
 
                 // Process Data for Line Chart
-                let lastWeekDate = new Date(); 
-                lastWeekDate.setDate(lastWeekDate.getDate() - 7); // Set Date to one week ago
+                let lastWeekDate = new Date();
+                lastWeekDate.setDate(lastWeekDate.getDate() - 7); // Set Date to 6 days ago
                 lastWeekDate.setHours(0,0,0,0); // set to midnight
+
+                let sixDaysAgo = new Date();
+                sixDaysAgo.setDate(lastWeekDate.getDate() +1 );
 
                 let mouseActivityByDayCount = [0, 0, 0, 0, 0, 0, 0];
                 let keyActivityByDayCount =  [0, 0, 0, 0, 0, 0, 0];
@@ -177,100 +235,100 @@
                     let itemDate = new Date(itemTimestamp);
 
                     // if activity was within last week 
-                    if( itemDate >= lastWeekDate) { 
+                    if( itemDate >= sixDaysAgo) { 
                         if( new String(itemCategory).valueOf()  == new String('Mouse').valueOf() ){
                             switch (itemDate.getDay()) { 
-                                case lastWeekDate.getDay(): 
-                                    mouseActivityByDayCount[0] += 1;  
-                                    break; 
                                 case (lastWeekDate.getDay() + 1) % 7: 
-                                    mouseActivityByDayCount[1] += 1; 
+                                    mouseActivityByDayCount[0] += 1; 
                                     break; 
                                 case (lastWeekDate.getDay() + 2) % 7 : 
-                                    mouseActivityByDayCount[2] += 1; 
+                                    mouseActivityByDayCount[1] += 1; 
                                     break; 
                                 case (lastWeekDate.getDay() + 3) % 7 : 
-                                    mouseActivityByDayCount[3] += 1; 
+                                    mouseActivityByDayCount[2] += 1; 
                                     break; 
                                 case (lastWeekDate.getDay() + 4) % 7: 
-                                    mouseActivityByDayCount[4] += 1; 
+                                    mouseActivityByDayCount[3] += 1; 
                                     break; 
                                 case (lastWeekDate.getDay() + 5) + 7:
-                                    mouseActivityByDayCount[5] += 1; 
+                                    mouseActivityByDayCount[4] += 1; 
                                     break; 
                                 case (lastWeekDate.getDay() + 6) % 7: 
-                                    mouseActivityByDayCount[6] += 1; 
+                                    mouseActivityByDayCount[5] += 1; 
                                     break;
+                                case lastWeekDate.getDay(): 
+                                    mouseActivityByDayCount[6] += 1;  
+                                    break; 
                             }
                         }
                         else if( new String(itemCategory).valueOf()  == new String('Keyboard').valueOf() ){ 
                             switch (itemDate.getDay()) { 
-                                case lastWeekDate.getDay(): 
-                                    keyActivityByDayCount[0] += 1;  
-                                    break; 
                                 case (lastWeekDate.getDay() + 1) % 7: 
-                                    keyActivityByDayCount[1] += 1; 
+                                    keyActivityByDayCount[0] += 1; 
                                     break; 
                                 case (lastWeekDate.getDay() + 2) % 7 : 
-                                    keyActivityByDayCount[2] += 1; 
+                                    keyActivityByDayCount[1] += 1; 
                                     break; 
                                 case (lastWeekDate.getDay() + 3) % 7 : 
-                                    keyActivityByDayCount[3] += 1; 
+                                    keyActivityByDayCount[2] += 1; 
                                     break; 
                                 case (lastWeekDate.getDay() + 4) % 7: 
-                                    keyActivityByDayCount[4] += 1; 
+                                    keyActivityByDayCount[3] += 1; 
                                     break; 
                                 case (lastWeekDate.getDay() + 5) + 7:
-                                    keyActivityByDayCount[5] += 1; 
+                                    keyActivityByDayCount[4] += 1; 
                                     break; 
                                 case (lastWeekDate.getDay() + 6) % 7: 
-                                    keyActivityByDayCount[6] += 1; 
+                                    keyActivityByDayCount[5] += 1; 
                                     break;
+                                case lastWeekDate.getDay(): 
+                                    keyActivityByDayCount[6] += 1;  
+                                    break; 
                             }
                         }
                         else if( new String(itemCategory).valueOf()  == new String('Idle').valueOf() ){ 
                             switch (itemDate.getDay()) { 
-                                case lastWeekDate.getDay(): 
-                                    idleActivityByDayCount[0] += 1;  
-                                    break; 
                                 case (lastWeekDate.getDay() + 1) % 7: 
-                                    idleActivityByDayCount[1] += 1; 
+                                    idleActivityByDayCount[0] += 1; 
                                     break; 
                                 case (lastWeekDate.getDay() + 2) % 7 : 
-                                    idleActivityByDayCount[2] += 1; 
+                                    idleActivityByDayCount[1] += 1; 
                                     break; 
                                 case (lastWeekDate.getDay() + 3) % 7 : 
-                                    idleActivityByDayCount[3] += 1; 
+                                    idleActivityByDayCount[2] += 1; 
                                     break; 
                                 case (lastWeekDate.getDay() + 4) % 7: 
-                                    idleActivityByDayCount[4] += 1; 
+                                    idleActivityByDayCount[3] += 1; 
                                     break; 
                                 case (lastWeekDate.getDay() + 5) + 7:
-                                    idleActivityByDayCount[5] += 1; 
+                                    idleActivityByDayCount[4] += 1; 
                                     break; 
                                 case (lastWeekDate.getDay() + 6) % 7: 
-                                    idleActivityByDayCount[6] += 1; 
+                                    idleActivityByDayCount[5] += 1; 
                                     break;
+                                case lastWeekDate.getDay(): 
+                                    idleActivityByDayCount[6] += 1;  
+                                    break; 
                             }
                         }  
                     }
-                    //console.log(itemDate.getTime()); get time in milliseconds since epoch
                 }
+
                 lineConfig = { 
                     type: 'line',
                     title: { 
-                        fontColor: "#8e99a9",
-                        text: 'Mouse/Key/Idle Activity over the last 7 Days (Log)',
+                        fontColor: "#333399",
+                        text: 'Mouse/Key/Idle Activity over the last 7 Days in UTC (Log)',
                         align: "left",
-                        offsetX: 10,
+                        "adjust-layout" : true,
                         fontFamily: "Open Sans",
                         fontSize: 25
                     },
                     plotarea: { 
-                        'adjust-layout': true/* For automatic margin adjustment .*/ 
+                        'adjust-layout': true /* For automatic margin adjustment .*/ 
                     },
                     'scale-x': { 
-                        'min-value': lastWeekDate.getTime(),
+                        'min-value': sixDaysAgo.getTime(),
                         step: "1day",
                         transform: { 
                             type: "date", 
@@ -286,38 +344,34 @@
                     'scale-y': {
                         progression: "log", 
                         'log-base': Math.E, 
-                        decimals: 3 
+                        decimals: 2 
                     }, 
                     utc: true, 
                     timezone: 0, 
-                    series: [
-
-                    ],
                     legend: {
-                        'background-color': "#ffe6e6",
+                        'background-color': "#e5aca0",
                         'border-width':2,
-                        'border-color': "red",
+                        'border-color': "#993333",
                         'border-radius': "5px",
                         padding: "10%",
                         layout: "3x1",
-                        x: "82%",
-                        y: "25%",
+                        "adjust-layout" : true,
                     },
                     series: [
                         {
                             values: keyActivityByDayCount,
-                            text: "% Key Up/Down Activities ",
+                            text: "Key Up/Down Activities ",
                             backgroundColor: '#50ADF5',
                         },
                         {
                             values: mouseActivityByDayCount,
-                            text: "% Mouse Activities)",
+                            text: "Mouse Activities)",
                             backgroundColor: '#FF7965',
                             detached: true
                         },
                         {
                         values: idleActivityByDayCount,
-                            text: '% Idle Activities',
+                            text: 'Idle Activities',
                             backgroundColor: '#FFCB45',
                             detached: true
                         } 
@@ -363,12 +417,6 @@
                         }
                     }
                 }
-                console.log(`MousePositionCoordNum ${mousePositionCoordNum}`);
-                console.log(`mouseClickCoordNum ${mouseClickCoordNum}`);
-                console.log(`mouseScrollCoordNum ${mouseScrollCoordNum}`);
-
-
-                
 
 
                 if( mousePositionCoordNum > 0) {
@@ -384,24 +432,24 @@
                     avgMouseScrollCoord[1] = avgMouseScrollCoord[1]/mouseScrollCoordNum
                 }
 
-                console.log(`MousePositionCoordNum ${avgMousePositionCoord[0]}`);
-                console.log(`MousePositionCoordNum ${avgMousePositionCoord[1]}`);
-
-                console.log(`MouseClickCoords ${avgMouseClickCoord[0]}`);
-                console.log(`MouseClickCoords ${avgMouseClickCoord[1]}`);
-
                 barConfig = { 
                     type: 'bar',
                     title: { 
-                        fontColor: "#8e99a9",
+                        fontColor: "#333399",
                         text: 'Average Coordinates Offsets for Mouse Activities',
                         align: "left",
-                        offsetX: 10,
+                        "adjust-layout": true, 
+                        //offsetX: 10,
                         fontFamily: "Open Sans",
                         fontSize: 25
                     },
                     legend: { 
-                        
+                        'background-color': "#e5aca0",
+                        'border-width':2,
+                        'border-color': "#993333",
+                        'border-radius': "5px",
+                        padding: "10%",
+                        "adjust-layout": true, 
                     },
                     "scaleX": { 
                         "values": ["Mouse Position", "Mouse Click", "Mouse Scroll"], 
@@ -435,59 +483,6 @@
                     });
                 console.log("ZINGCHART SET DATA RENDERED")
             });   
-    </script>
-
-    <!-- 3-series Line Chart  -->
-    <div id="lineChart"></div>
-    <script> 
-        let lineConfig = { 
-            type: 'line',
-            title: { 
-                fontColor: "#8e99a9",
-                text: 'Mouse/Key/Idle Activity over the last 7 Days (Log)',
-                align: "left",
-                offsetX: 10,
-                fontFamily: "Open Sans",
-                fontSize: 25
-            },
-            noData: {  
-                text: 'Fetching remote data...',  
-                backgroundColor: '#eeeeee',  
-                fontSize: 18
-            }
-        }
-        
-        zingchart.render({
-                id: 'lineChart',
-                data: lineConfig,
-        }); 
-    </script>
-
-    <!-- 2-series Bar Chart  -->
-    <div id="barChart"></div>
-    <script> 
-        let barConfig = { 
-            type: 'bar',
-            title: { 
-                fontColor: "#8e99a9",
-                text: 'Average Coordinates Offsets for Mouse Activities',
-                align: "left",
-                offsetX: 10,
-                fontFamily: "Open Sans",
-                fontSize: 25
-            },
-            noData: {  
-                text: 'Fetching remote data...',  
-                backgroundColor: '#eeeeee',  
-                fontSize: 18
-            }
-        }
-        
-
-        zingchart.render({
-                id: 'barChart',
-                data: barConfig,
-        }); 
     </script>
 </body>
 
