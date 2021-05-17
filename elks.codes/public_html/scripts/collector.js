@@ -151,8 +151,6 @@ function collectPerformanceInfo() {
         performanceData['endTime'] = start + entry.loadEventEnd;
         performanceData['totalTime'] = entry.duration;
         performanceData['timingObject'] = entry;
-
-        console.log("A");
     }
     // NavigationTiming API is not supported by this browser 
     else { 
@@ -292,5 +290,5 @@ document.addEventListener('keyup', recordKeyUp);
 document.addEventListener('keydown', recordKeyDown);
 window.addEventListener('mouseup', recordMouseClick);
 window.addEventListener('mousemove', recordCursorPosition);
-
+window.addEventListener('scroll', recordMouseScroll);
 
