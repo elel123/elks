@@ -14,6 +14,8 @@ export default function NavBar() {
                     <Nav.Link href={SITE_PAGES.VIS1}>Vis1</Nav.Link>
                     <Nav.Link href={SITE_PAGES.VIS2}>Vis2</Nav.Link>
                     <Nav.Link href={SITE_PAGES.VIS3}>Vis3</Nav.Link>
+                    <Nav.Link href={SITE_PAGES.LOGIN}>Login</Nav.Link>
+                    <Nav.Link href={SITE_PAGES.LOGOUT}>Logout</Nav.Link>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
