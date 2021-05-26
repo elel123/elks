@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { SITE_PAGES } from "./constants/links";
 
 import PageLayout from "./components/PageLayout";
+import Landing from "./pages/Landing";
 import Vis1 from "./pages/Vis1";
 import Vis2 from "./pages/Vis2";
 import Vis3 from "./pages/Vis3";
@@ -24,6 +25,10 @@ function App() {
                     {/* Logout Confirmation */}
                     <Route exact path={SITE_PAGES.LOGOUT}>
                         <Logout />
+                    </Route>
+                    {/* Landing Page Upon Login */}
+                    <Route exact path={SITE_PAGES.LANDING}>
+                        <Landing />
                     </Route>
                     {/* Visualization Page */}
                     <Route exact path={SITE_PAGES.VIS1}>
