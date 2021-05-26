@@ -30,7 +30,7 @@ jobs:
                 cd /var/www/reporting.elks.codes/analytics
                 echo 'npm installing'
                 npm install
-                npm react-scripts build
+                npm run-script build
                 rm -rf /var/www/reporting.elks.codes/public_html/build
                 mv /var/www/reporting.elks.codes/analytics/build /var/www/reporting.elks.codes/public_html
                 echo 'ayo it worked' # message to be displayed when deployment is successful
