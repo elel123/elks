@@ -1,25 +1,51 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+
+import { SITE_PAGES } from "./constants/links";
+
+import PageLayout from "./components/PageLayout";
+import Vis1 from "./pages/Vis1";
+import Vis2 from "./pages/Vis2";
+import Vis3 from "./pages/Vis3";
+import Login from "./pages/Login";
+import Logout from "./pages/Logout";
+import Custom404 from "./pages/Custom404";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React BABABOOEY
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <Router>
+            {/* Switch gurantees that a URL can match to only one route */}
+            <PageLayout>
+                <Switch>
+                    {/* Login */}
+                    <Route exact path={SITE_PAGES.LOGIN}>
+                       <Login/>
+                    </Route>
+                    {/* Logout Confirmation */}
+                    <Route exact path={SITE_PAGES.LOGOUT}>
+                        <Logout />
+                    </Route>
+                    {/* Visualization Page */}
+                    <Route exact path={SITE_PAGES.VIS1}>
+                        <Vis1 />
+                    </Route>
+                    {/* Visualization Page */}
+                    <Route exact path={SITE_PAGES.VIS2}>
+                        <Vis2 />
+                    </Route>
+                    {/* Visualization Page */}
+                    <Route exact path={SITE_PAGES.VIS3}>
+                        <Vis3 />
+                    </Route>
+
+                    {/* Any other URL is automatically matched to 404 Page */}
+                    <Route path="/">
+                        <Custom404 />
+                    </Route>
+                </Switch>
+            </PageLayout>
+        </Router>
+    );
 }
 
 export default App;
