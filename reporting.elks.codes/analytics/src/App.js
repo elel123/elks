@@ -20,7 +20,7 @@ function App() {
                 <Switch>
                     {/* Login */}
                     <Route exact path={SITE_PAGES.LOGIN}>
-                       <Login/>
+                        <Login />
                     </Route>
                     {/* Logout Confirmation */}
                     <Route exact path={SITE_PAGES.LOGOUT}>

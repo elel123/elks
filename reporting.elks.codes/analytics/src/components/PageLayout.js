@@ -1,11 +1,11 @@
 import React from "react";
-import NavBar from './NavBar';
+import NavBar from "./NavBar";
 
-export default function PageLayout({children}) {
+export default function PageLayout({ children }) {
     return (
         <div>
-           <NavBar/>
-           {children}
+            <NavBar />
+            {children}
         </div>
     );
 }
