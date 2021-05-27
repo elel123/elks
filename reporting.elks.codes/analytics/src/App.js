@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 import { SITE_PAGES } from "./constants/links";
@@ -13,6 +13,8 @@ import Logout from "./pages/Logout";
 import Custom404 from "./pages/Custom404";
 
 function App() {
+    const [token, setToken] = useState(); 
+
     return (
         <Router>
             {/* Switch gurantees that a URL can match to only one route */}
@@ -20,7 +22,7 @@ function App() {
                 <Switch>
                     {/* Login */}
                     <Route exact path={SITE_PAGES.LOGIN}>
-                        <Login />
+                        <Login setToken={setToken} />
                     </Route>
                     {/* Logout Confirmation */}
                     <Route exact path={SITE_PAGES.LOGOUT}>
