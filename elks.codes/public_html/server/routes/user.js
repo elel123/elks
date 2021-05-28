@@ -14,6 +14,18 @@
  const { createJWT } = require("./services/jwt");
  
  const router = express.Router();
+
+ router.post(
+  "/",
+  [
+   //  body("email").notEmpty().isEmail(),
+   //  body("password").notEmpty().isString().isLength({ min: 6 }),
+    isValidated,
+  ],
+  async (req, res, next) => {
+    res.send(200).json("Users.js is online");
+  }
+);
  
  /**
   * Logins a user.
