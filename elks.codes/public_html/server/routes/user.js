@@ -15,7 +15,7 @@
  
  const router = express.Router();
 
- router.post(
+ router.get(
   "/",
   [
    //  body("email").notEmpty().isEmail(),
