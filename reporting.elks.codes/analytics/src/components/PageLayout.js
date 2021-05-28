@@ -1,10 +1,10 @@
 import React from "react";
 import NavBar from "./NavBar";
 
-export default function PageLayout({ children }) {
+export default function PageLayout({ children, tokenState }) {
     return (
         <div>
-            <NavBar />
+            <NavBar tokenState={tokenState}/>
             {children}
         </div>
     );

@@ -1,21 +1,29 @@
 import React, {useState} from "react";
 import PropTypes from 'prop-types'; 
+import { useHistory } from "react-router-dom";
+
+import { SITE_PAGES } from "../constants/links";
 
 import './Login.css'; 
 
-async function loginUser(username, password) { 
+async function loginUser(username, password, callback) { 
     // TODO replace url 
-    return fetch('elks.codes', { 
+    fetch('elks.codes', { 
         method: 'POST',
         headers:{
             'Content-Type': 'application/json'
         },
         body: JSON.stringify( {username, password})
     })
-    .then( data => {
-        let respData = data.json();
+    .then( async (data) => {
+        let respData = await data.json();
+
+        callback(data, respData);
         //setToken(respData['token'])
         // TODO extract token and save
+    })
+    .catch((error) => {
+        callback(null, null);
     }) 
 }
 
@@ -23,11 +31,22 @@ export default function Login({ setToken }) {
     const [username, setUserName] = useState(); 
     const [password, setPassword] = useState(); 
 
+    const history = useHistory();
+
 
     const submitForm = async e => { 
         e.preventDefault(); 
-        const token = await loginUser(username, password); 
-        setToken(token); 
+        loginUser(username, password, (data, json) => {
+            if (data == null) {
+                alert("Login Failed. Please Try Again.");
+                //Reset the username and pw fields
+                setUserName("");
+                setPassword("");
+            } else {
+                setToken('set token to be whereever it can be found in the json');
+                history.push(SITE_PAGES.VIS1); //Redirect the user to the first data viz page
+            }
+        }); 
     }
     return (
         <div className='login-wrapper'>

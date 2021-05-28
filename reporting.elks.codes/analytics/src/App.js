@@ -13,12 +13,12 @@ import Logout from "./pages/Logout";
 import Custom404 from "./pages/Custom404";
 
 function App() {
-    const [token, setToken] = useState(); 
+    const [token, setToken] = useState(null); 
 
     return (
         <Router>
             {/* Switch gurantees that a URL can match to only one route */}
-            <PageLayout>
+            <PageLayout tokenState={{token : token, setToken : setToken}}>
                 <Switch>
                     {/* Login */}
                     <Route exact path={SITE_PAGES.LOGIN}>
