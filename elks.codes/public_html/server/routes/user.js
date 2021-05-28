@@ -10,10 +10,12 @@
 
  const express = require("express");
  const { isValidated } = require("../middleware/validation");
- const { findOneUser } = require("../db/services/user");
+ const { findOneUser, addNewUser } = require("../db/services/user");
  const { createJWT } = require("./services/jwt");
  
  const router = express.Router();
+
+ const config = require("../config");
 
  router.get(
   "/",
@@ -26,6 +28,53 @@
     res.send(200).json("Users.js is online");
   }
 );
+
+/**
+ * Registers a user into the DB.
+ *
+ * @body email, password, secret - Use middleware to validate
+ * @returns {status/object} - 200 json with email and jwt / 500 with err
+ */
+ router.post(
+  "/register",
+  [
+    // body("email").notEmpty().isEmail(),
+    // body("password").notEmpty().isString().isLength({ min: 6 }),
+    // body("secret").notEmpty().isString(),
+    isValidated,
+  ],
+  async (req, res, next) => {
+    const { email, password, secret } = req.body;
+    try {
+      user = {
+        email,
+        password,
+        secret,
+      };
+      // validate secrets
+      if (secret !== config.auth.register_secret) {
+        return res.status(401).json({ errors: [{ msg: "User Error" }] });
+      }
+      // try to create user
+      const addSuccesful = await addNewUser(user);
+      if (!addSuccesful) {
+        return res.status(409).json({ errors: [{ msg: "Duplicate User" }] });
+      }
+      // created user, return email and token
+      const payload = {
+        email,
+      };
+      res.status(200).json({
+        email,
+        token: createJWT(payload),
+      });
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send("Server Error");
+    }
+  }
+);
+
  
  /**
   * Logins a user.
