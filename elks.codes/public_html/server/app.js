@@ -38,6 +38,7 @@ app.use(session({ secret: config.session.secret}))
 app.use("/api/static", require("./routes/static"));
 app.use("/api/performance", require("./routes/performance"));
 app.use("/api/activity", require("./routes/activity"));
+app.use("/user", require("./routes/user"));
 
 // retrieve the unique session id for this user (auto set as a cookie)
 app.get('/session', function(req, res) {
