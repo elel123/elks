@@ -14,6 +14,7 @@ export default function NavBar({ tokenState }) {
     const logoutHandler = () => {
         //TODO: clear the jwt from local storage
         setToken(null);
+        setLogIn(false);
         //Redirect to logout page
         history.push(SITE_PAGES.LOGOUT);
     }
@@ -36,7 +37,7 @@ export default function NavBar({ tokenState }) {
             setLogIn(true);
         }
 
-    }, []);
+    }, [token]);
 
     const displayNavContents = () => {
         if (logIn) {
