@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const config = require("../../config");
  
  //  denotes length of time a JWT will be considered valid after creation
- const JWT_EXPIRY = "1h";
+ const JWT_EXPIRY = "2h";
  
  /**
   * Given a payload, synchronously creates a JWT with a specific signature and expiry date.
@@ -22,18 +22,19 @@ const config = require("../../config");
   * @param {string} token - JWT to verify
   * @returns {Promise} - Resolved promise if authorized, rejected promise otherwise
   */
- async function verify(token) {
+ async function verifyJWT(token) {
    return await jwt.verify(token, config.auth.jwt_secret, (err, decoded) => {
      // invalid token
      if (err) {
-       return Promise.reject();
+       return null;
      }
-     return Promise.resolve();
+     // valid token, return with payload 
+     return decoded;
    });
  }
  
  module.exports = {
-   verify,
+  verifyJWT,
    createJWT,
  };
  
