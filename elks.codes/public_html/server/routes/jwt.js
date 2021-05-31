@@ -1,6 +1,6 @@
 const express = require("express");
 const { isValidated } = require("../middleware/validation");
-const { verify } = require("./services/jwt");
+const { verifyJWT } = require("./services/jwt");
 
 const router = express.Router();
  
@@ -20,15 +20,12 @@ const router = express.Router();
    async (req, res, next) => {
      const { jwtToken } = req.body;
      try {
-       await verify(jwtToken)
-         .then(() => {
-           // resolved promise => authorized token
-           res.sendStatus(200);
-         })
-         .catch((err) => {
-           // rejected promise => unauthorized token
-           res.sendStatus(401);
-         });
+       
+       const payload = await verifyJWT(jwtToken)
+       if (!payload) return res.sendStatus(403);
+
+       return res.sendStatus(200);
+
      } catch (err) {
        console.error(err.message);
        res.sendStatus(500);

@@ -18,8 +18,8 @@
  router.get(
   "/",
   [
-    body("email").notEmpty().isEmail(),
-    body("password").notEmpty().isString().isLength({ min: 6 }),
+    // body("email").notEmpty().isEmail(),
+    // body("password").notEmpty().isString().isLength({ min: 6 }),
     isValidated,
   ],
   async (req, res, next) => {
