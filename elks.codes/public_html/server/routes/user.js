@@ -15,6 +15,9 @@
  
  const router = express.Router();
 
+ /**
+  * Get all users, given you provide an admin JWT.
+  */
  router.get(
   "/",
   [
@@ -39,6 +42,9 @@
   }
 );
 
+/**
+  * Edit a given user, given you have a correct admin JWT. 
+  */
 router.put(
   "/",
   [
@@ -76,6 +82,9 @@ router.put(
   }
 );
 
+/**
+* Delete a user, given you have a valid admin JWT.
+*/
 router.delete(
   "/:id",
   [
