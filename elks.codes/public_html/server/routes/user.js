@@ -48,9 +48,9 @@
     try {
       
       // validate jwt
-      // const jwtPayload = await verifyJWT(jwt);
-      // // error if not a valid JWT, or user is not an admin 
-      // if(!jwtPayload || !jwtPayload.isAdmin) return res.sendStatus(403);
+      const jwtPayload = await verifyJWT(jwt);
+      // error if not a valid JWT, or user is not an admin 
+      if(!jwtPayload || !jwtPayload.isAdmin) return res.sendStatus(403);
 
       user = {
         email,
