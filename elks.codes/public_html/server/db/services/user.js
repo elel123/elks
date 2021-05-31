@@ -1,4 +1,5 @@
 const { User } = require("../models/user");
+const mongodb = require("mongodb");
 
 /**
  * Saves user to the DB.
@@ -40,10 +41,20 @@ async function findAllUsers() {
  async function findOneUser(incomingEmail) {
    return await User.findOne({ email: incomingEmail }).exec();
  }
+
+ async function editUser(updated_user) {
+  return updated_user.save();
+}
+
+async function deleteUser(id) {
+  return await User.deleteOne({ _id: new mongodb.ObjectID(id) }).exec();
+}
  
  module.exports = {
    findOneUser,
    addNewUser,
-   findAllUsers
+   findAllUsers,
+   editUser,
+   deleteUser
  };
  

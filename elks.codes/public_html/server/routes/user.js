@@ -10,7 +10,7 @@
 
  const express = require("express");
  const { isValidated } = require("../middleware/validation");
- const { findOneUser, addNewUser, findAllUsers } = require("../db/services/user");
+ const { findOneUser, addNewUser, findAllUsers, editUser, deleteUser } = require("../db/services/user");
  const { createJWT, verifyJWT } = require("./services/jwt");
  
  const router = express.Router();
@@ -26,14 +26,77 @@
 
       let jwt = req.query.jwt; 
 
-      console.log(jwt);
-
       // verify JWT is that of an admin 
       const jwtPayload = await verifyJWT(jwt);
       if(!jwtPayload || !jwtPayload.isAdmin) return res.sendStatus(403);
   
       let users = await findAllUsers();
       return res.status(200).json({users: users});
+
+    } catch(error){
+      res.status(500).send("Server Error");
+    }
+  }
+);
+
+router.put(
+  "/",
+  [
+    isValidated,
+  ],
+  async (req, res, next) => {
+
+    try{
+
+      const { jwt, email, password, isAdmin } = req.body;
+
+      // verify JWT is that of an admin 
+      const jwtPayload = await verifyJWT(jwt);
+      if(!jwtPayload || !jwtPayload.isAdmin) return res.sendStatus(403);
+
+      // retrieve current user object 
+      const user = await findOneUser(email);
+       if (!user) {
+         return res.status(403).json({ errors: [{ msg: "Invalid Credentials" }] });
+       }
+
+       // update the user object
+      if(password !== null ) user.password = password;
+      if(isAdmin != null)  user.isAdmin = isAdmin; 
+        
+      // attempt to save user object
+      const updatedUser = await editUser(user);
+      if(!updatedUser) return res.sendStatus(500);
+
+      return res.sendStatus(200);
+
+    } catch(error){
+      res.status(500).send("Server Error");
+    }
+  }
+);
+
+router.delete(
+  "/:id",
+  [
+    isValidated,
+  ],
+  async (req, res, next) => {
+
+    try{
+
+      let id = req.params.jwt; 
+      let jwt = req.query.jwt; 
+
+      // verify JWT is that of an admin 
+      const jwtPayload = await verifyJWT(jwt);
+      if(!jwtPayload || !jwtPayload.isAdmin) return res.sendStatus(403);
+
+      // retrieve current user object 
+      const isDeleted = await deleteUser(id);
+      if(!isDeleted) return res.sendStatus(500);
+
+      return res.sendStatus(200);
 
     } catch(error){
       res.status(500).send("Server Error");
@@ -66,7 +129,7 @@
       // error if not a valid JWT, or user is not an admin 
       if(!jwtPayload || !jwtPayload.isAdmin) return res.sendStatus(403);
 
-      user = {
+      const user = {
         email,
         password,
         isAdmin,
