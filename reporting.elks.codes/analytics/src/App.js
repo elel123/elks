@@ -22,7 +22,7 @@ function App() {
                 <Switch>
                     {/* Login */}
                     <Route exact path={SITE_PAGES.LOGIN}>
-                        <Login setToken={setToken} />
+                        <Login tokenState={{token : token, setToken : setToken}} />
                     </Route>
                     {/* Logout Confirmation */}
                     <Route exact path={SITE_PAGES.LOGOUT}>

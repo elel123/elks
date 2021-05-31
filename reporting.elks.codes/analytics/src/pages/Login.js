@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from 'prop-types'; 
 import { useHistory } from "react-router-dom";
 
@@ -27,11 +27,26 @@ async function loginUser(username, password, callback) {
     }) 
 }
 
-export default function Login({ setToken }) {
+export default function Login({ tokenState }) {
     const [username, setUserName] = useState(); 
     const [password, setPassword] = useState(); 
 
     const history = useHistory();
+
+    let {token, setToken} = tokenState;
+
+    useEffect(() => {
+
+        //Check if the user is already logged in
+        if (token != null) {
+            /* TODO: Check if user's token is still valid by checking with the backend */
+
+            // If token is valid --> redirect user to vis1
+
+            // Else set the token to null and stay on this page
+        }
+
+    }, []);
 
 
     const submitForm = async e => { 
