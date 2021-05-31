@@ -10,7 +10,7 @@
 
  const express = require("express");
  const { isValidated } = require("../middleware/validation");
- const { findOneUser, addNewUser } = require("../db/services/user");
+ const { findOneUser, addNewUser, findAllUsers } = require("../db/services/user");
  const { createJWT, verifyJWT } = require("./services/jwt");
  
  const router = express.Router();
@@ -18,12 +18,26 @@
  router.get(
   "/",
   [
-    // body("email").notEmpty().isEmail(),
-    // body("password").notEmpty().isString().isLength({ min: 6 }),
     isValidated,
   ],
   async (req, res, next) => {
-    res.send(200).json("Users.js is online");
+
+    try{
+
+      let jwt = req.query.jwt; 
+
+      console.log(jwt);
+
+      // verify JWT is that of an admin 
+      const jwtPayload = await verifyJWT(jwt);
+      if(!jwtPayload || !jwtPayload.isAdmin) return res.sendStatus(403);
+  
+      let users = await findAllUsers();
+      return res.status(200).json({users: users});
+
+    } catch(error){
+      res.status(500).send("Server Error");
+    }
   }
 );
 
@@ -99,13 +113,13 @@
        // check if user exists
        const user = await findOneUser(email);
        if (!user) {
-         return res.status(401).json({ errors: [{ msg: "Invalid Credentials" }] });
+         return res.status(403).json({ errors: [{ msg: "Invalid Credentials" }] });
        }
        // compare user password with passed in value
        user.comparePassword(password, (err, isMatch) => {
          if (err) throw err;
          if (!isMatch) {
-           return res.status(401).json({ errors: [{ msg: "Invalid Credentials" }] });
+           return res.status(403).json({ errors: [{ msg: "Invalid Credentials" }] });
          }
          // matched user, return email and token
          const payload = {

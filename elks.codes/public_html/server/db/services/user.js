@@ -15,6 +15,21 @@ const { User } = require("../models/user");
       return false;
     }
   }
+
+  /**
+ * Finds user in the DB.
+ *
+ * @returns {object/boolean} - Order object / null
+ */
+async function findAllUsers() {
+  return User.find({}, null, { sort: { createdAt: -1 } }, (err, users) => {
+    if (err) {
+      return [];
+    }
+    return users;
+  });
+}
+
  
  /**
   * Finds user in the DB.
@@ -28,6 +43,7 @@ const { User } = require("../models/user");
  
  module.exports = {
    findOneUser,
-   addNewUser
+   addNewUser,
+   findAllUsers
  };
  
