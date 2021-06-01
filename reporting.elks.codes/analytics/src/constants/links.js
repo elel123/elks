@@ -7,4 +7,5 @@ export class SITE_PAGES {
     static VIS1 = "/vis1";
     static VIS2 = "/vis2";
     static VIS3 = "/vis3";
+    static ADMIN = "/admin";
 }
