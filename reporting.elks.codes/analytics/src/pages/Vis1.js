@@ -4,9 +4,10 @@ import verifyToken from "../util/verifyToken";
 import { SITE_PAGES } from "../constants/links";
 import { setToken, getToken } from "../util/jwt";
 
-export default function Vis1({ adminState }) {
+export default function Vis1({ adminState, loginState }) {
     const history = useHistory();
     const {isAdmin, setAdmin} = adminState;
+    const {logIn, setLogIn} = loginState;
 
     const [verifying, setVerifying] = useState(true);
 
@@ -16,6 +17,7 @@ export default function Vis1({ adminState }) {
                 setVerifying(false);
             } else {
                 //If token invalid, redirect to login
+                setLogIn(false);
                 setToken(null);
                 setAdmin(false);
                 history.push(SITE_PAGES.LOGIN);

@@ -33,13 +33,14 @@ async function loginUser(username, password, callback) {
     }) 
 }
 
-export default function Login({ adminState }) {
+export default function Login({ adminState, loginState }) {
     const [username, setUserName] = useState(""); 
     const [password, setPassword] = useState(""); 
 
     const history = useHistory();
 
     const {isAdmin, setAdmin} = adminState;
+    const {logIn, setLogIn} = loginState;
 
     useEffect(() => {
         //Check if the user is already logged in
@@ -50,10 +51,12 @@ export default function Login({ adminState }) {
                 if (success) {
                     // If token is valid --> redirect user to vis1
                     console.log("redirecting");
+                    setLogIn(true);
                     history.push(SITE_PAGES.VIS1);
                 } else {
                     // Else set the token to null and stay on this page
                     console.log("clearing input");
+                    setLogIn(false);
                     setToken(null);
                     setAdmin(false);
                 }
@@ -73,6 +76,7 @@ export default function Login({ adminState }) {
                 setPassword("");
             } else {
                 setToken(json.token);
+                setLogIn(true);
 
                 if (json.isAdmin) {
                     setAdmin(true);

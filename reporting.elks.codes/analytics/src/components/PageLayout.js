@@ -1,10 +1,10 @@
 import React from "react";
 import NavBar from "./NavBar";
 
-export default function PageLayout({ children, adminState }) {
+export default function PageLayout({ children, adminState, loginState }) {
     return (
         <div>
-            <NavBar adminState={adminState}/>
+            <NavBar loginState={loginState} adminState={adminState}/>
             {children}
         </div>
     );
