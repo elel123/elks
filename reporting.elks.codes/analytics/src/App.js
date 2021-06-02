@@ -11,18 +11,20 @@ import Vis3 from "./pages/Vis3";
 import Login from "./pages/Login";
 import Logout from "./pages/Logout";
 import Custom404 from "./pages/Custom404";
+import AdminView from "./pages/AdminView";
 
 function App() {
-    const [token, setToken] = useState(null); 
+    const [isAdmin, setAdmin] = useState(false);
+    const [logIn, setLogIn] = useState(false);
 
     return (
         <Router>
             {/* Switch gurantees that a URL can match to only one route */}
-            <PageLayout tokenState={{token : token, setToken : setToken}}>
+            <PageLayout loginState={{logIn, setLogIn}} adminState={{isAdmin, setAdmin}}>
                 <Switch>
                     {/* Login */}
                     <Route exact path={SITE_PAGES.LOGIN}>
-                        <Login tokenState={{token : token, setToken : setToken}} />
+                        <Login loginState={{logIn, setLogIn}} adminState={{isAdmin, setAdmin}} />
                     </Route>
                     {/* Logout Confirmation */}
                     <Route exact path={SITE_PAGES.LOGOUT}>
@@ -34,15 +36,20 @@ function App() {
                     </Route>
                     {/* Visualization Page */}
                     <Route exact path={SITE_PAGES.VIS1}>
-                        <Vis1 />
+                        <Vis1 loginState={{logIn, setLogIn}} adminState={{isAdmin, setAdmin}} />
                     </Route>
                     {/* Visualization Page */}
                     <Route exact path={SITE_PAGES.VIS2}>
-                        <Vis2 />
+                        <Vis2 loginState={{logIn, setLogIn}} adminState={{isAdmin, setAdmin}} />
                     </Route>
                     {/* Visualization Page */}
                     <Route exact path={SITE_PAGES.VIS3}>
-                        <Vis3 />
+                        <Vis3 loginState={{logIn, setLogIn}} adminState={{isAdmin, setAdmin}} />
+                    </Route>
+
+                    {/* Admin Page */}
+                    <Route exact path={SITE_PAGES.ADMIN}>
+                        <AdminView loginState={{logIn, setLogIn}} adminState={{isAdmin, setAdmin}} />
                     </Route>
 
                     {/* Any other URL is automatically matched to 404 Page */}

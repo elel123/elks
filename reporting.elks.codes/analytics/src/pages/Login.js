@@ -1,49 +1,66 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from 'prop-types'; 
 import { useHistory } from "react-router-dom";
+import verifyToken from "../util/verifyToken";
 
 import { SITE_PAGES } from "../constants/links";
+import { setToken, getToken } from "../util/jwt";
 
 import './Login.css'; 
 
 async function loginUser(username, password, callback) { 
     // TODO replace url 
-    fetch('elks.codes', { 
+    console.log(`${username} ${password}`);
+    fetch('https://www.elks.codes/server/user/login', { 
         method: 'POST',
         headers:{
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify( {username, password})
+        body: JSON.stringify( {email : username, password})
     })
     .then( async (data) => {
-        let respData = await data.json();
 
-        callback(data, respData);
-        //setToken(respData['token'])
-        // TODO extract token and save
+        if (data.status === 200) {
+            let respData = await data.json();
+            callback(data, respData);
+        } else {
+            callback(null, null);
+        }
     })
     .catch((error) => {
+        console.log(error);
         callback(null, null);
     }) 
 }
 
-export default function Login({ tokenState }) {
-    const [username, setUserName] = useState(); 
-    const [password, setPassword] = useState(); 
+export default function Login({ adminState, loginState }) {
+    const [username, setUserName] = useState(""); 
+    const [password, setPassword] = useState(""); 
 
     const history = useHistory();
 
-    let {token, setToken} = tokenState;
+    const {isAdmin, setAdmin} = adminState;
+    const {logIn, setLogIn} = loginState;
 
     useEffect(() => {
-
         //Check if the user is already logged in
-        if (token != null) {
+        if (getToken() !== null) {
+            console.log("we are here");
             /* TODO: Check if user's token is still valid by checking with the backend */
-
-            // If token is valid --> redirect user to vis1
-
-            // Else set the token to null and stay on this page
+            verifyToken(getToken(), (success) => {
+                if (success) {
+                    // If token is valid --> redirect user to vis1
+                    console.log("redirecting");
+                    setLogIn(true);
+                    history.push(SITE_PAGES.VIS1);
+                } else {
+                    // Else set the token to null and stay on this page
+                    console.log("clearing input");
+                    setLogIn(false);
+                    setToken(null);
+                    setAdmin(false);
+                }
+            });
         }
 
     }, []);
@@ -58,32 +75,40 @@ export default function Login({ tokenState }) {
                 setUserName("");
                 setPassword("");
             } else {
-                setToken('set token to be whereever it can be found in the json');
+                setToken(json.token);
+                setLogIn(true);
+
+                if (json.isAdmin) {
+                    setAdmin(true);
+                }
+
                 history.push(SITE_PAGES.VIS1); //Redirect the user to the first data viz page
             }
         }); 
     }
     return (
-        <div className='login-wrapper'>
+        <div className='login-wrapper' style={{"marginTop" : "50px"}}>
             <h1> Log In </h1>
+            <br></br>
             <form onSubmit = {submitForm}>
                 <label>
                     <p>Username</p>
-                    <input type="text" onChange={ e => setUserName(e.target.value)} />
+                    <input type="text" value={username} onChange={ e => setUserName(e.target.value)} />
                 </label>
                 <br></br> 
                 <label>
                     <p>Password</p>
-                    <input type="password" onChange={ e => setPassword(e.target.value)} />
+                    <input type="password" value={password} onChange={ e => setPassword(e.target.value)} />
                 </label>
                 <div>
-                    <button type="submit">Submit</button>
+                    <br></br>
+                    <button type="submit">Log In</button>
                 </div>
             </form>
         </div>
     );
 }
 
-Login.propTypes = {
-    setToken: PropTypes.func.isRequired
-}
+// Login.propTypes = {
+//     tokenState: PropTypes.isRequired
+// }
