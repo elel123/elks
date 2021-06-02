@@ -90,6 +90,7 @@ window.addEventListener('load', function (event) {
     activityData.push({
         category : 'Navigation',
         event : 'PageEntry',
+        page: currentPage,
         details : {
             'enterTime' : enterTime,
             'currentPage' : currentPage
@@ -108,6 +109,7 @@ window.addEventListener("beforeunload", function(event) {
     activityData.push({
         category : 'Navigation',
         event : 'PageLeave',
+        page : currentPage,
         details : {
             'leaveTime' : leaveTime,
             'currentPage' : currentPage
@@ -178,6 +180,7 @@ function recordCursorPosition(e) {
     activityData.push({
         category : 'Mouse',
         event : 'MouseMove',
+        page : currentPage,
         details : {
             'mousePosition' : [e.offsetX, e.offsetY],
             'currentPage' : currentPage
@@ -200,6 +203,7 @@ function recordMouseClick(e) {
     activityData.push({
         category : 'Mouse',
         event : 'MouseClick',
+        page : currentPage,
         details : {
             'mouseButton' : e.button,
             'mousePositionX' : e.offsetX,
@@ -220,6 +224,7 @@ function recordMouseScroll(e) {
     activityData.push({
         category : 'Mouse',
         event : 'MouseScroll',
+        page : currentPage,
         details : {
             'windowScrollX' : window.scrollX,
             'windowScrollY' : window.scrollY,
@@ -235,6 +240,7 @@ function recordKeyDown(e) {
     activityData.push({
         category : 'Keyboard',
         event : 'KeyDown',
+        page : currentPage,
         details : {
             'keyCode' : e.code,
             'currentPage' : currentPage
@@ -249,6 +255,7 @@ function recordKeyUp(e) {
     activityData.push({
         category : 'Keyboard',
         event : 'KeyUp',
+        page : currentPage,
         details : {
             'keyCode' : e.code,
             'currentPage' : currentPage
@@ -276,6 +283,7 @@ function recordIdle(e) {
             activityData.push({
                 category : 'Idle',
                 event : 'Idle',
+                page : currentPage,
                 details : {
                     'idleDuration' : idleDuration,
                     'idleEndTime' : idleEndTs,
