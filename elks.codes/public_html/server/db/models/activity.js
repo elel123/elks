@@ -21,6 +21,10 @@
         type: String,
         default: ''
     },
+    page: {
+        type: String,
+        default: ''
+    },
     // any additional details 
     details: {
         type: Object,
