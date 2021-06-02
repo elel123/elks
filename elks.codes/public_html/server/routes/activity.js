@@ -34,11 +34,12 @@ async (req, res, next) => {
       for(const activity of req.body.data){
 
         const info = {
-            sessionId: req.session.id,
-            category: activity.category, 
-            event: activity.event,
-            details: activity.details
-          };
+          sessionId: req.session.id,
+          category: activity.category, 
+          event: activity.event,
+          details: activity.details,
+          page: activity.page
+        };
 
         const addedEntry = await addActivityEntry(info);
         addedEntries.push(addedEntry);

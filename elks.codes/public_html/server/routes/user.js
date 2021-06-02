@@ -18,29 +18,22 @@
  /**
   * Get all users, given you provide an admin JWT.
   */
- router.get(
-  "/",
-  [
-    isValidated,
-  ],
-  async (req, res, next) => {
-
+router.get("/", [isValidated], async (req, res) => {
     try{
 
       let jwt = req.query.jwt; 
 
       // verify JWT is that of an admin 
       const jwtPayload = await verifyJWT(jwt);
-      if(!jwtPayload || !jwtPayload.isAdmin) return res.sendStatus(403);
-  
+      if(!jwtPayload || !jwtPayload.isAdmin) return res.status(403).send("Cannot Authenticate user");
+
       let users = await findAllUsers();
-      return res.status(200).json({users: users});
+      return res.status(200).json(users);
 
     } catch(error){
       res.status(500).send("Server Error");
     }
-  }
-);
+});
 
 /**
   * Edit a given user, given you have a correct admin JWT. 
@@ -58,7 +51,7 @@ router.put(
 
       // verify JWT is that of an admin 
       const jwtPayload = await verifyJWT(jwt);
-      if(!jwtPayload || !jwtPayload.isAdmin) return res.sendStatus(403);
+      if(!jwtPayload || !jwtPayload.isAdmin) return res.status(403).send("Cannot Authenticate user");
 
       // retrieve current user object 
       const user = await findOneUser(email);
@@ -99,7 +92,7 @@ router.delete(
 
       // verify JWT is that of an admin 
       const jwtPayload = await verifyJWT(jwt);
-      if(!jwtPayload || !jwtPayload.isAdmin) return res.sendStatus(403);
+      if(!jwtPayload || !jwtPayload.isAdmin) return res.status(403).send("Cannot Authenticate user");
 
       // retrieve current user object 
       const isDeleted = await deleteUser(id);
@@ -136,7 +129,7 @@ router.delete(
       // validate jwt
       const jwtPayload = await verifyJWT(jwt);
       // error if not a valid JWT, or user is not an admin 
-      if(!jwtPayload || !jwtPayload.isAdmin) return res.sendStatus(403);
+      if(!jwtPayload || !jwtPayload.isAdmin) return res.status(403).send("Cannot Authenticate user");
 
       const user = {
         email,
