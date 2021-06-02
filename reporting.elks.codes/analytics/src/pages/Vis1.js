@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import verifyToken from "../util/verifyToken";
 import { SITE_PAGES } from "../constants/links";
-import { setToken, getToken } from "../util/jwt";
+import { setToken, getToken, getAdminValFromToken } from "../util/jwt";
 
 export default function Vis1({ adminState, loginState }) {
     const history = useHistory();

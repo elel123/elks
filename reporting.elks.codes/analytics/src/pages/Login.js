@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import verifyToken from "../util/verifyToken";
 
 import { SITE_PAGES } from "../constants/links";
-import { setToken, getToken } from "../util/jwt";
+import { setToken, getToken, getAdminValFromToken } from "../util/jwt";
 
 import './Login.css'; 
 
@@ -52,6 +52,7 @@ export default function Login({ adminState, loginState }) {
                     // If token is valid --> redirect user to vis1
                     console.log("redirecting");
                     setLogIn(true);
+                    setAdmin(getAdminValFromToken());
                     history.push(SITE_PAGES.VIS1);
                 } else {
                     // Else set the token to null and stay on this page
