@@ -87,7 +87,7 @@ router.delete(
 
     try{
 
-      let id = req.params.jwt; 
+      let id = req.params.id; 
       let jwt = req.query.jwt; 
 
       // verify JWT is that of an admin 

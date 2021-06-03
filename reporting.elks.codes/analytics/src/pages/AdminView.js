@@ -25,7 +25,27 @@ export default function AdminView({ adminState }) {
     const [displayUsers, setDisplayUsers] = useState([]);
 
     const [editUser, setEditUser] = useState(false); 
+    const [addUser, setAddUser] = useState(false); 
+
     const [currentUser, setCurrentUser] = useState({_id: "", email: "", password: "", isAdmin: false});
+
+    // Functions to manage displaying of add/edit user dialog
+    const handleOpenEditUser = (user) => { 
+        setCurrentUser(user);
+        setEditUser(true);
+    }
+    const handleCloseEditUser = (e) => { 
+        setEditUser(false);
+    }
+
+    const handleOpenAddUser = () => { 
+        setCurrentUser({_id: "", email: "", password: "", isAdmin: false});
+        setAddUser(true);
+    }
+    const handleCloseAddUser = (e) => { 
+        setAddUser(false);
+    }
+
 
     const getAllUsers = () => {
         //Attempt to fetch the user data with the user's jwt
@@ -56,6 +76,102 @@ export default function AdminView({ adminState }) {
         }) 
     }
 
+    const handleSubmitEditUser = (user) => { 
+        // fetch(`http://127.0.0.1:9000/user`, { 
+        fetch(`https://www.elks.codes/server/user`, { 
+            method: 'PUT',
+            headers:{
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 
+                jwt: getToken(),
+                _id: currentUser.id, 
+                email: currentUser.email, 
+                isAdmin: currentUser.isAdmin, 
+                password: user.password === currentUser.password ? null : currentUser.password, 
+            })
+        })
+        .then( async (data) => {
+            // Upon successful update, get all users again 
+            if(data.status === 200) { 
+                console.log("update user succeeded");
+                alert("User edit success");
+                getAllUsers();
+            }
+            else { 
+                alert("User edit failed, please try again later");
+                console.log("update user failed");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            alert("User edit failed, please try again later");
+        })
+
+        setEditUser(false);
+
+    }
+
+    const handleSubmitAddUser = () => { 
+        // fetch(`http://127.0.0.1:9000/user/register`, { 
+        fetch(`https://www.elks.codes/server/user/register`, { 
+            method: 'POST',
+            headers:{
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ 
+                jwt: getToken(),
+                email: currentUser.email, 
+                isAdmin: currentUser.isAdmin, 
+                password: currentUser.password, 
+            })
+        })
+        .then( async (data) => {
+            // Upon successful adding, get all users again 
+            if(data.status === 200) { 
+                console.log("add user succeeded");
+                alert("User successfully added");
+                getAllUsers();
+            }
+            else { 
+                alert("Add User failed, please try again later");
+                console.log("add user failed");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            alert("Add User failed, please try again later");
+        })
+
+        setAddUser(false);
+    }
+
+    const handleSubmitDeleteUser = (user) => { 
+        // fetch(`http://127.0.0.1:9000/user/${user._id}?jwt=${getToken()}`, { 
+        fetch(`https://www.elks.codes/server/${user._id}?jwt=${getToken()}`, { 
+            method: 'DELETE',
+        })
+        .then( async (data) => {
+            // Upon successful delete, get all users again 
+            if(data.status === 200) { 
+                console.log("user successfully deleted");
+                alert("User successfully deleted");
+                getAllUsers();
+            }
+            else { 
+                alert("User deletion failed, please try again later");
+                console.log("user deletion failed");
+            }
+        })
+        .catch((error) => {
+            console.log(error);
+            alert("User deletion failed, please try again later");
+        })
+
+        setEditUser(false);
+    }
 
     useEffect(() => {
         getAllUsers(); 
@@ -64,56 +180,7 @@ export default function AdminView({ adminState }) {
 
 
     useEffect(() => {
-        const handleOpenEditUser = (user) => { 
-            setCurrentUser(user);
-            setEditUser(true);
-        }
-        const handleCloseEditUser = (e) => { 
-            setEditUser(false);
-        }
-
-       
-
-        const handleSubmitEditUser = (user) => { 
-            let jwtToken = getToken();
-            console.log(`TOKEN ${jwtToken}`);
-
-            //fetch(`http://127.0.0.1:9000/user`, { 
-            fetch(`https://www.elks.codes/server/user`, { 
-                method: 'PUT',
-                headers:{
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ 
-                    jwt: jwtToken,
-                    _id: currentUser.id, 
-                    email: currentUser.email, 
-                    isAdmin: currentUser.isAdmin, 
-                    password: user.password === currentUser.password ? null : currentUser.password, 
-                })
-            })
-            .then( async (data) => {
-                // Upon successful update, get all users again 
-                if(data.status === 200) { 
-                    console.log("update user succeeded");
-                    alert("User edit success");
-                    getAllUsers();
-                }
-                else { 
-                    alert("User edit failed, please try again later");
-                    console.log("update user failed");
-                }
-            })
-            .catch((error) => {
-                console.log(error);
-                alert("User edit failed, please try again later");
-                // history.push(SITE_PAGES.VIS1);
-            })
-
-            setEditUser(false);
-
-        }
+        
 
         let usersHTML = users.map((user) => {
             return (
@@ -123,6 +190,7 @@ export default function AdminView({ adminState }) {
                         <p>Hashed Password: {user.password}</p>
                         <p>Is Admin: {user.isAdmin ? "Yes" : "No"}</p>
                         <button onClick={() => {handleOpenEditUser(user)}}>Edit</button>
+                        <button onClick={() => {handleSubmitDeleteUser(user)}}>Delete</button>
                         <Dialog maxWidth='xl' fullWidth={true} open={editUser} onClose={handleCloseEditUser} aria-labelledby="form-dialog-title" >
                             <DialogTitle id="edit-user-dialog-title">Edit User</DialogTitle>
                             <DialogContent>
@@ -155,6 +223,40 @@ export default function AdminView({ adminState }) {
                                 </Button>
                             </DialogActions>
                         </Dialog>
+                        <Dialog maxWidth='xl' fullWidth={true} open={addUser} onClose={handleCloseAddUser} aria-labelledby="form-dialog-title" >
+                            <DialogTitle id="add-user-dialog-title">Add User</DialogTitle>
+                            <DialogContent>
+                                <span style={{"color": "gray"}}> <small>Email: &nbsp; </small></span>
+                                <TextField name="email" id="email" onChange={ e => setCurrentUser({ ...currentUser, email: e.target.value})}  value={currentUser.email}/>
+                               
+                                <br></br>
+                                <span style={{"color": "gray"}}> <small>Password: &nbsp; </small></span>
+                                <TextField name="password" id="password" onChange={ e => setCurrentUser({ ...currentUser, password: e.target.value})}  value={currentUser.password}/>
+
+                                <br></br>
+                                <span style={{"color": "gray"}}> <small>Is Admin&nbsp; </small></span>
+                                <Select
+                                    value={currentUser.isAdmin}
+                                    onChange={ e => setCurrentUser({ ...currentUser, isAdmin: e.target.value})}
+                                    inputProps={{
+                                        name: 'isAdmin',
+                                        id: 'isAdmin', 
+                                    }}
+                                >
+                                    <MenuItem value={false}>false</MenuItem>
+                                    <MenuItem value={true}>true</MenuItem>
+                                </Select>
+                            </DialogContent>
+                            <DialogActions> 
+                                <Button onClick={handleCloseAddUser} color="primary">
+                                    Cancel
+                                </Button>
+                                <Button onClick={handleSubmitAddUser} color="primary">
+                                    Submit
+                                </Button>
+                            </DialogActions>
+                        </Dialog>
+                    
                     </div>
                 </li>
             );
@@ -162,12 +264,13 @@ export default function AdminView({ adminState }) {
 
         setDisplayUsers(usersHTML);
 
-    }, [users, editUser, currentUser]);
+    }, [users, editUser, addUser, currentUser]);
 
     return (
         <div>
             <p>This is the Admin Page</p>
             <p>Users: </p>
+            <button onClick={handleOpenAddUser}> Add User</button>
             <ul>{displayUsers}</ul>
         </div>
     );
