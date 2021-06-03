@@ -79,7 +79,7 @@ export default function AdminView({ adminState }) {
     const handleSubmitEditUser = (user) => { 
         // fetch(`http://127.0.0.1:9000/user`, { 
         fetch(`https://www.elks.codes/server/user`, { 
-            method: 'PUT',
+            method: 'POST',
             headers:{
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'

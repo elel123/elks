@@ -38,7 +38,7 @@ router.get("/", [isValidated], async (req, res) => {
 /**
   * Edit a given user, given you have a correct admin JWT. 
   */
-router.put(
+router.post(
   "/",
   [
     isValidated,
@@ -46,7 +46,6 @@ router.put(
   async (req, res, next) => {
 
     try{
-
       const { jwt, email, password, isAdmin } = req.body;
 
       // verify JWT is that of an admin 
