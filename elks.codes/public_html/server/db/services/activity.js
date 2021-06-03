@@ -18,6 +18,18 @@ const { Activity } = require("../models/activity");
     }
   }
 
+  async function retrieveActivityBreakdownByPage(page) {
+    try {
+        return Activity.aggregate([
+          {$match:
+            {'page': page } },
+          {"$group" : {_id:"$category", count:{$sum:1}}}, { $sort: { count: -1 }}
+      ]);
+    } catch (err) {
+      return false;
+    }
+  }
+
  async function addActivityEntry(info){
      try{
          return Activity.create(info);
@@ -29,6 +41,7 @@ const { Activity } = require("../models/activity");
  module.exports = {
    getAllActivityEntries,
    addActivityEntry,
-   retrievePagesByActivityCount
+   retrievePagesByActivityCount,
+   retrieveActivityBreakdownByPage
  };
  
