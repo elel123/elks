@@ -29,6 +29,7 @@ function postData(url, jsonData, callback, jsonCallback) {
 //Use this function to send the activity data to the server.
 function sendDataToServer() {
     console.log("Sending Data...");
+    console.log(activityData);
     
     let url = "https://elks.codes/server/api/activity";
     
