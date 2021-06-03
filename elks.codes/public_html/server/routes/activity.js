@@ -4,7 +4,8 @@ const { isValidated } = require("../middleware/validation");
 const {
     getAllActivityEntries,
     addActivityEntry,
-    retrievePagesByActivityCount
+    retrievePagesByActivityCount,
+    retrieveActivityBreakdownByPage
   } = require("../db/services/activity");
 const router = express.Router();
 
@@ -25,6 +26,27 @@ router.get("/pages", async (req, res, next) => {
       const pageActivities = await retrievePagesByActivityCount();
       if (!pageActivities) return res.status(500).json("Cannot retrieve entries");
       res.status(200).json(pageActivities);
+
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server err");
+  }
+});
+
+router.get("/pagesbreakdown", async (req, res, next) => {
+  try {
+      const pageActivities = await retrievePagesByActivityCount();
+      if (!pageActivities) return res.status(500).json("Cannot retrieve entries");
+      
+      let pagesByBreakdown = [];
+      for(const entry of pageActivities){
+        pagesByBreakdown.push({
+          "page": entry._id,
+          "breakdown": await retrieveActivityBreakdownByPage(entry._id)
+        });
+      }
+      
+      res.status(200).json(pagesByBreakdown);
 
   } catch (err) {
     console.error(err.message);
