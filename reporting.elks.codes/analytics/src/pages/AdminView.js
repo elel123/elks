@@ -135,6 +135,10 @@ export default function AdminView({ adminState }) {
                 alert("User successfully added");
                 getAllUsers();
             }
+            else if( data.status === 409) { 
+                console.log("HERE");
+                alert("User with this email already exists");
+            } 
             else { 
                 alert("Add User failed, please try again later");
                 console.log("add user failed");
