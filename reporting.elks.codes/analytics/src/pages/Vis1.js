@@ -30,8 +30,9 @@ export default function Vis1({ adminState, loginState }) {
         let topLabels = parsed.slice(0, 5).map(entry => entry[0]);
         let topValues = parsed.slice(0, 5).map(entry => entry[1]);
 
+        
         setData({
-            type: 'bar',
+            type: 'bar', 
             width: "100%",
             adjustLayout: true, 
             plotarea: { 
