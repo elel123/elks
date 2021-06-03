@@ -2,7 +2,17 @@ const { Activity } = require("../models/activity");
  
  async function getAllActivityEntries() {
     try {
-      return await Activity.find({}).sort({createdAt: 'desc'}).exec();
+      return Activity.find({}).sort({createdAt: 'desc'}).exec();
+    } catch (err) {
+      return false;
+    }
+  }
+
+  async function retrievePagesByActivityCount() {
+    try {
+        return Activity.aggregate([
+          {"$group" : {_id:"$page", count:{$sum:1}}}, { $sort: { count: -1 }}
+      ]);
     } catch (err) {
       return false;
     }
@@ -10,7 +20,7 @@ const { Activity } = require("../models/activity");
 
  async function addActivityEntry(info){
      try{
-         return await Activity.create(info);
+         return Activity.create(info);
      } catch(err){
          return false;
      }
@@ -18,6 +28,7 @@ const { Activity } = require("../models/activity");
  
  module.exports = {
    getAllActivityEntries,
-   addActivityEntry
+   addActivityEntry,
+   retrievePagesByActivityCount
  };
  
