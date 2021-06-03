@@ -7,6 +7,7 @@ const {
     retrievePagesByActivityCount,
     retrieveActivityBreakdownByPage
   } = require("../db/services/activity");
+  const { verifyJWT } = require("./services/jwt");
 const router = express.Router();
 
 
@@ -23,6 +24,13 @@ const router = express.Router();
 
 router.get("/pages", async (req, res, next) => {
   try {
+
+     let jwt = req.query.jwt;
+
+     // verify valid jwt 
+     const jwtPayload = await verifyJWT(jwt);
+     if(!jwtPayload) return res.status(403).send("Cannot Authenticate user");
+
       const pageActivities = await retrievePagesByActivityCount();
       if (!pageActivities) return res.status(500).json("Cannot retrieve entries");
       res.status(200).json(pageActivities);
@@ -35,6 +43,13 @@ router.get("/pages", async (req, res, next) => {
 
 router.get("/pagesbreakdown", async (req, res, next) => {
   try {
+
+      let jwt = req.query.jwt;
+
+      // verify valid jwt 
+      const jwtPayload = await verifyJWT(jwt);
+      if(!jwtPayload) return res.status(403).send("Cannot Authenticate user");
+
       const pageActivities = await retrievePagesByActivityCount();
       if (!pageActivities) return res.status(500).json("Cannot retrieve entries");
       
