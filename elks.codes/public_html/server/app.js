@@ -31,7 +31,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname,"public")));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended:true}));
-app.use(cors({methods:["GET", "POST", "PUT", "DELETE", "OPTIONS"]}));
+app.use(cors({origin: "http://www.reporting.elks.codes", methods:["GET", "POST", "PUT", "DELETE", "OPTIONS"]}));
 app.use(session({ secret: config.session.secret}))
 
 // Routes
