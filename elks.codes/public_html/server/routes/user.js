@@ -105,6 +105,39 @@ router.get(
   }
 );
 
+
+/**
+* Delete a user, given you have a valid admin JWT.
+*/
+router.delete(
+  "/:id",
+  [
+    isValidated,
+  ],
+  async (req, res, next) => {
+
+    try{
+
+      let id = req.params.id; 
+      let jwt = req.query.jwt; 
+
+      // verify JWT is that of an admin 
+      const jwtPayload = await verifyJWT(jwt);
+      if(!jwtPayload || !jwtPayload.isAdmin) return res.status(403).send("Cannot Authenticate user");
+
+      // retrieve current user object 
+      const isDeleted = await deleteUser(id);
+      if(!isDeleted) return res.sendStatus(500);
+
+      return res.sendStatus(200);
+
+    } catch(error){
+      res.status(500).send("Server Error");
+    }
+  }
+);
+
+
 /**
  * Registers a user into the DB.
  *
