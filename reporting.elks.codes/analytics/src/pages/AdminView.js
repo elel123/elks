@@ -26,10 +26,12 @@ export default function AdminView({ adminState }) {
 
     const [editUser, setEditUser] = useState(false); 
     const [addUser, setAddUser] = useState(false); 
+    const [deleteUser, setDeleteUser] = useState(false); 
+
 
     const [currentUser, setCurrentUser] = useState({_id: "", email: "", password: "", isAdmin: false});
 
-    // Functions to manage displaying of add/edit user dialog
+    // Functions to manage displaying of add/edit/delete user dialog
     const handleOpenEditUser = (user) => { 
         setCurrentUser(user);
         setEditUser(true);
@@ -44,6 +46,14 @@ export default function AdminView({ adminState }) {
     }
     const handleCloseAddUser = (e) => { 
         setAddUser(false);
+    }
+
+    const handleOpenDeleteUser = (user) => { 
+        setCurrentUser(user);
+        setDeleteUser(true);
+    }
+    const handleCloseDeleteUser = (e) => { 
+        setDeleteUser(false);
     }
 
 
@@ -174,7 +184,7 @@ export default function AdminView({ adminState }) {
             alert("User deletion failed, please try again later");
         })
 
-        setEditUser(false);
+        setDeleteUser(false);
     }
 
     useEffect(() => {
@@ -194,7 +204,7 @@ export default function AdminView({ adminState }) {
                         <p>Hashed Password: {user.password}</p>
                         <p>Is Admin: {user.isAdmin ? "Yes" : "No"}</p>
                         <button onClick={() => {handleOpenEditUser(user)}}>Edit</button>
-                        <button onClick={() => {handleSubmitDeleteUser(user)}}>Delete</button>
+                        <button onClick={() => {handleOpenDeleteUser(user)}}>Delete</button>
                         <Dialog maxWidth='xl' fullWidth={true} open={editUser} onClose={handleCloseEditUser} aria-labelledby="form-dialog-title" >
                             <DialogTitle id="edit-user-dialog-title">Edit User</DialogTitle>
                             <DialogContent>
@@ -214,8 +224,8 @@ export default function AdminView({ adminState }) {
                                         id: 'isAdmin', 
                                     }}
                                 >
-                                    <MenuItem value={false}>false</MenuItem>
-                                    <MenuItem value={true}>true</MenuItem>
+                                    <MenuItem value={false}>No</MenuItem>
+                                    <MenuItem value={true}>Yes</MenuItem>
                                 </Select>
                             </DialogContent>
                             <DialogActions> 
@@ -247,8 +257,8 @@ export default function AdminView({ adminState }) {
                                         id: 'isAdmin', 
                                     }}
                                 >
-                                    <MenuItem value={false}>false</MenuItem>
-                                    <MenuItem value={true}>true</MenuItem>
+                                    <MenuItem value={false}>No</MenuItem>
+                                    <MenuItem value={true}>Yes</MenuItem>
                                 </Select>
                             </DialogContent>
                             <DialogActions> 
@@ -260,7 +270,30 @@ export default function AdminView({ adminState }) {
                                 </Button>
                             </DialogActions>
                         </Dialog>
-                    
+                        <Dialog maxWidth='xl' fullWidth={true} open={deleteUser} onClose={handleCloseDeleteUser} aria-labelledby="form-dialog-title" >
+                            <DialogTitle id="add-user-dialog-title">Confirm User Deletion</DialogTitle>
+                            <DialogContent>
+                                <span style={{"color": "gray"}}> <small>Email: &nbsp; </small></span>
+                                <span> {currentUser.email }</span>
+                                <br></br>
+
+                                <span style={{"color": "gray"}}> <small>Password: &nbsp; </small></span>
+                                <span> {currentUser.password }</span>
+                                <br></br>
+
+                                <span style={{"color": "gray"}}> <small>Is Admin&nbsp; </small></span>
+                                <span> {currentUser.isAdmin ? "Yes" : "No" }</span>
+                            </DialogContent>
+                            <DialogActions> 
+                                <Button onClick={handleCloseDeleteUser} color="primary">
+                                    Cancel
+                                </Button>
+                                <Button onClick={ () => { handleSubmitDeleteUser(user) }} color="primary">
+                                    Delete
+                                </Button>
+                            </DialogActions>
+                        </Dialog>
+             
                     </div>
                 </li>
             );
@@ -268,7 +301,7 @@ export default function AdminView({ adminState }) {
 
         setDisplayUsers(usersHTML);
 
-    }, [users, editUser, addUser, currentUser]);
+    }, [users, editUser, addUser, deleteUser, currentUser]);
 
     return (
         <div>
