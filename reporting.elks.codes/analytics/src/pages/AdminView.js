@@ -150,7 +150,7 @@ export default function AdminView({ adminState }) {
 
     const handleSubmitDeleteUser = (user) => { 
         // fetch(`http://127.0.0.1:9000/user/${user._id}?jwt=${getToken()}`, { 
-        fetch(`https://www.elks.codes/server/${user._id}?jwt=${getToken()}`, { 
+        fetch(`https://www.elks.codes/server/user/${user._id}?jwt=${getToken()}`, { 
             method: 'GET',
         })
         .then( async (data) => {
