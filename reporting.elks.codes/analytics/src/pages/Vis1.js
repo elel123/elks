@@ -17,6 +17,7 @@ export default function Vis1({ adminState, loginState }) {
     const [data, setData] = useState({});
 
     const parseData = (data) => {
+        console.log("Parsing Data");
         let parsed = [];
         for (let page of data) {
             if (page._id === null || page._id === "" || page._id.indexOf("public_html") !== -1) {
