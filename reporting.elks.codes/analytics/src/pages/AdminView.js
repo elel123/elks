@@ -79,7 +79,7 @@ export default function AdminView({ adminState }) {
     const handleSubmitEditUser = (user) => { 
         // fetch(`http://127.0.0.1:9000/user`, { 
         fetch(`https://www.elks.codes/server/user`, { 
-            method: 'PUT',
+            method: 'POST',
             headers:{
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
@@ -150,8 +150,8 @@ export default function AdminView({ adminState }) {
 
     const handleSubmitDeleteUser = (user) => { 
         // fetch(`http://127.0.0.1:9000/user/${user._id}?jwt=${getToken()}`, { 
-        fetch(`https://www.elks.codes/server/${user._id}?jwt=${getToken()}`, { 
-            method: 'DELETE',
+        fetch(`https://www.elks.codes/server/user/${user._id}?jwt=${getToken()}`, { 
+            method: 'GET',
         })
         .then( async (data) => {
             // Upon successful delete, get all users again 
