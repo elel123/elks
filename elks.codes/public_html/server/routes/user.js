@@ -78,7 +78,7 @@ router.put(
 /**
 * Delete a user, given you have a valid admin JWT.
 */
-router.delete(
+router.get(
   "/:id",
   [
     isValidated,
@@ -89,9 +89,6 @@ router.delete(
 
       let id = req.params.id; 
       let jwt = req.query.jwt; 
-
-      // Setting up resposne headers 
-      res.set('Access-Control-Allow-Origin', '*')
 
       // verify JWT is that of an admin 
       const jwtPayload = await verifyJWT(jwt);
