@@ -90,6 +90,9 @@ router.delete(
       let id = req.params.id; 
       let jwt = req.query.jwt; 
 
+      // Setting up resposne headers 
+      res.set('Access-Control-Allow-Origin', '*')
+
       // verify JWT is that of an admin 
       const jwtPayload = await verifyJWT(jwt);
       if(!jwtPayload || !jwtPayload.isAdmin) return res.status(403).send("Cannot Authenticate user");
