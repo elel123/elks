@@ -3,7 +3,8 @@ const { body } = require("express-validator");
 const { isValidated } = require("../middleware/validation");
 const {
     getAllActivityEntries,
-    addActivityEntry
+    addActivityEntry,
+    retrievePagesByActivityCount
   } = require("../db/services/activity");
 const router = express.Router();
 
@@ -17,6 +18,18 @@ const router = express.Router();
       console.error(err.message);
       res.status(500).send("Server err");
     }
+});
+
+router.get("/pages", async (req, res, next) => {
+  try {
+      const pageActivities = await retrievePagesByActivityCount();
+      if (!pageActivities) return res.status(500).json("Cannot retrieve entries");
+      res.status(200).json(pageActivities);
+
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server err");
+  }
 });
 
 router.post("/", 
