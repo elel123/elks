@@ -16,6 +16,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
+import './AdminView.css';
+import pencil from './images/small-pencil.png';
+import trash from './images/small-trash.png';
 
 export default function AdminView({ adminState }) {
     const history = useHistory();
@@ -198,22 +201,29 @@ export default function AdminView({ adminState }) {
 
         let usersHTML = users.map((user) => {
             return (
-                <li key={user._id}>
+                <li key={user._id} className="list-item">
                     <div>
-                        <p>Email: {user.email}</p>
-                        <p>Hashed Password: {user.password}</p>
-                        <p>Is Admin: {user.isAdmin ? "Yes" : "No"}</p>
-                        <button onClick={() => {handleOpenEditUser(user)}}>Edit</button>
-                        <button onClick={() => {handleOpenDeleteUser(user)}}>Delete</button>
+                        <div className="info">
+                            <p><b>Email:</b> {user.email}</p>
+                            <p><b>Hashed Password:</b> {user.password}</p>
+                            <p><b>Is Admin:</b> {user.isAdmin ? "Yes" : "No"}</p>
+                        </div>
+                        <div className="icons">
+                            <img src={pencil} onClick={() => {handleOpenEditUser(user)}} style={{"cursor" : "pointer", "width" : "30px", "height" : "30px"}}/>
+                            <img src={trash} onClick={() => {handleOpenDeleteUser(user)}} style={{"cursor" : "pointer", "width" : "30px", "height" : "30px"}}/>
+                        </div>
                         <Dialog maxWidth='xl' fullWidth={true} open={editUser} onClose={handleCloseEditUser} aria-labelledby="form-dialog-title" >
                             <DialogTitle id="edit-user-dialog-title">Edit User</DialogTitle>
                             <DialogContent>
-                                <p> Leave Password blank if you do not wish to change it</p>
+                                <p> Leave Password untouched if you do not wish to change it. </p>
+                                <p> If you wish to change the password, please type in the unhashed password. </p>
                                 <span style={{"color": "gray"}}> <small>Email: &nbsp; </small></span>
                                 <span> {currentUser.email} </span> 
                                 <br></br>
+                                <br></br>
                                 <span style={{"color": "gray"}}> <small>Password: &nbsp; </small></span>
                                 <TextField name="password" id="password" onChange={ e => setCurrentUser({ ...currentUser, password: e.target.value})}  value={currentUser.password}/>
+                                <br></br>
                                 <br></br>
                                 <span style={{"color": "gray"}}> <small>Is Admin&nbsp; </small></span>
                                 <Select
@@ -242,11 +252,11 @@ export default function AdminView({ adminState }) {
                             <DialogContent>
                                 <span style={{"color": "gray"}}> <small>Email: &nbsp; </small></span>
                                 <TextField name="email" id="email" onChange={ e => setCurrentUser({ ...currentUser, email: e.target.value})}  value={currentUser.email}/>
-                               
+                                <br></br>
                                 <br></br>
                                 <span style={{"color": "gray"}}> <small>Password: &nbsp; </small></span>
                                 <TextField name="password" id="password" onChange={ e => setCurrentUser({ ...currentUser, password: e.target.value})}  value={currentUser.password}/>
-
+                                <br></br>
                                 <br></br>
                                 <span style={{"color": "gray"}}> <small>Is Admin&nbsp; </small></span>
                                 <Select
@@ -304,11 +314,9 @@ export default function AdminView({ adminState }) {
     }, [users, editUser, addUser, deleteUser, currentUser]);
 
     return (
-        <div>
-            <p>This is the Admin Page</p>
-            <p>Users: </p>
-            <button onClick={handleOpenAddUser}> Add User</button>
-            <ul>{displayUsers}</ul>
+        <div className="top-div">
+            <button className="addBtn" onClick={handleOpenAddUser}>+</button>
+            <ul className="user-list">{displayUsers}</ul>
         </div>
     );
 }

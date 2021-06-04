@@ -1,0 +1,51 @@
+.user-list {
+    list-style-type: none;
+    padding-left: 0px;
+}
+
+
+li > div {
+    padding: 25px 5px 10px 25px;
+}
+
+.list-item {
+    background-color: lightgrey;
+    border-radius: 10px;
+    margin: 1% 15%;
+}
+
+
+.info {
+    word-wrap: break-word;
+    text-overflow: clip;
+}
+
+.icons {
+    text-align: right;
+}
+
+.icons > img {
+    margin-left: 10px;
+}
+
+.addBtn {
+    background-color: #949494;
+    color: rgb(255, 255, 255);
+    padding: 3px 18px;
+    margin: 10px 0px 0px 48%;
+    border: 3px white solid;
+    border-radius: 100px;
+    cursor: pointer;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size:xx-large;
+}
+
+button:hover {
+    /* background-color: #303030; */
+    color: #000000;
+    transition: color 0.5s;
+}
+
+
+
