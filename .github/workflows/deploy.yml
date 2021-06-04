@@ -29,9 +29,10 @@ jobs:
                 cd /var/www # go to root of git repo
                 git pull origin main # clone the repo into the folder
                 cd /var/www/reporting.elks.codes/analytics
+                echo 'npm installing'
+                npm install
+                echo 'npm building'
                 npm run-script build
                 rm -rf /var/www/reporting.elks.codes/public_html/build
                 mv /var/www/reporting.elks.codes/analytics/build /var/www/reporting.elks.codes/public_html
-                echo 'npm installing'
-                npm install
                 echo 'ayo it worked' # message to be displayed when deployment is successful
