@@ -24,15 +24,14 @@ jobs:
           username: ${{secrets.SSH_USERNAME}} # User of the server you want to ssh into
           password: ${{secrets.PASSWORD}}
         
-        # The removed commands:
-        # npm run-script build
-        # rm -rf /var/www/reporting.elks.codes/public_html/build
-        # mv /var/www/reporting.elks.codes/analytics/build /var/www/reporting.elks.codes/public_html
         
           script: |
                 cd /var/www # go to root of git repo
                 git pull origin main # clone the repo into the folder
                 cd /var/www/reporting.elks.codes/analytics
+                npm run-script build
+                rm -rf /var/www/reporting.elks.codes/public_html/build
+                mv /var/www/reporting.elks.codes/analytics/build /var/www/reporting.elks.codes/public_html
                 echo 'npm installing'
                 npm install
                 echo 'ayo it worked' # message to be displayed when deployment is successful
