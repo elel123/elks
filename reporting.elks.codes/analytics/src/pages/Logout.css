@@ -1,0 +1,127 @@
+/* .flier {
+	pointer-events: none;
+    height: 300px;
+    width: 300px;
+} */
+
+/* .flier > * {
+    animation: fly 15s linear infinite;
+    pointer-events: none !important;
+	top: 0;
+	left: 0;
+	transform: translateX(-300%) translateY(50vh) rotateZ(0);
+	position: fixed;
+	animation-delay: 1s;
+	z-index: 999999;
+} */
+
+ /* Keyframe values control where the element will begin
+    and end its trajectory across the screen. Each rule
+    represents a path the element follows across the screen. */
+
+
+/* @keyframes fly {
+
+	98.001%, 0% {
+        display: block;
+		transform: translateX(-200%) translateY(50vh) rotateZ(0deg)
+	}
+
+	15% {
+		transform: translateX(200vw) translateY(50vh) rotateZ(180deg)
+	}
+
+	15.001%, 18% {
+		transform: translateX(-200%) translateY(50vh) rotateZ(0deg)
+	}
+
+	40% {
+		transform: translateX(200%) translateY(50vh) rotateZ(-180deg)
+	}
+
+	40.001%, 43% {
+		transform: translateX(-200%) translateY(50vh) rotateZ(-180deg)
+	}
+
+	65% {
+		transform: translateX(200%) translateY(50vh) rotateZ(0deg)
+	}
+
+	65.001%, 68% {
+		transform: translateX(-200%) translateY(50vh) rotateZ(180deg)
+	}
+
+	95% {
+		transform: translateX(200%) translateY(50vh) rotateZ(0deg)
+	}
+} */
+
+
+body {
+  margin: 0;
+  overflow: hidden;
+}
+
+.flier > img {
+    height: 200px;
+    width: 200px;
+}
+
+.flier {
+    animation: x 5s linear infinite alternate;
+    display: inline-block;
+}
+
+.flier > img {
+    animation: y 3s linear infinite alternate;
+}
+
+.flier1 > img {
+    height: 200px;
+    width: 200px;
+    
+}
+
+.flier1 {
+    animation: x1 7s linear infinite alternate;
+    display: inline-block;
+    z-index: 9;
+}
+
+.flier1 > img {
+    animation: y 4s linear infinite alternate;
+}
+
+@keyframes x {
+    100% {
+        transform: translateX( calc(100vw - 200px) );
+    }
+}
+
+@keyframes x1 {
+    100% {
+        transform: translateX( calc(100vw - 400px) );
+    }
+}
+
+@keyframes y {
+    100% {
+        transform: translateY( calc(100vh - 200px) );
+    }
+}
+
+.display-contents {
+    text-align: center;
+}
+
+.return-login-btn {
+    background-color: #949494;
+    color: rgb(255, 255, 255);
+    padding: 6px 18px;
+    border: 3px white solid;
+    border-radius: 100px;
+    cursor: pointer;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size:large;
+}

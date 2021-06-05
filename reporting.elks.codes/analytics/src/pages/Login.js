@@ -103,7 +103,7 @@ export default function Login({ adminState, loginState }) {
                 </label>
                 <div>
                     <br></br>
-                    <button type="submit">Log In</button>
+                    <button className="login-btn" type="submit">Log In</button>
                 </div>
             </form>
         </div>

@@ -1,0 +1,18 @@
+/* body {
+    background-image: url("./images/landscape-background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+} */
+
+
+.enter-btn {
+    background-color: #949494;
+    color: rgb(255, 255, 255);
+    padding: 6px 36px;
+    border: 3px white solid;
+    border-radius: 100px;
+    cursor: pointer;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: bold;
+    font-size:x-large;
+}
