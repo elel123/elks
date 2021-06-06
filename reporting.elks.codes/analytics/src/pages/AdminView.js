@@ -73,19 +73,23 @@ export default function AdminView({ adminState }) {
         .then( async (data) => {
             if (data.status === 200) {
                 let respData = await data.json();
+
+                setLogIn(true);
+                setAdmin(getAdminValFromToken());
+
                 setUsers([...respData]);
                 // console.log(JSON.stringify(respData));
             } else {
                 console.log(data);
                 alert("You do not have admin privileges.");
-                // history.push(SITE_PAGES.VIS1);
+                history.push(SITE_PAGES.VIS1);
             }
 
         })
         .catch((error) => {
             console.log(error);
             alert("You do not have admin privileges.");
-            // history.push(SITE_PAGES.VIS1);
+            history.push(SITE_PAGES.VIS1);
         }) 
     }
 
