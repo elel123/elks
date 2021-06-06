@@ -30,7 +30,15 @@ export default function NavBar({ adminState, loginState }) {
 
     return (
         <Navbar className="bg-secondary" expand="lg">
-            <Navbar.Brand onClick={() => {history.push(SITE_PAGES.DASH);}}>
+            <Navbar.Brand 
+                onClick={() => {
+                    if (logIn) {
+                        history.push(SITE_PAGES.DASH);
+                    } else {
+                        history.push(SITE_PAGES.LOGIN);
+                    }
+                }}
+            >
                 <img src={ElksLogo} className="nav-logo"/>
                 &nbsp;
                 Elks.Code Reporting 

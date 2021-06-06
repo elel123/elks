@@ -62,6 +62,11 @@ export default function Login({ adminState, loginState }) {
                     setAdmin(false);
                 }
             });
+        } else {
+            console.log('not logged in');
+            setLogIn(false);
+            setToken(null);
+            setAdmin(false);
         }
 
     }, []);
