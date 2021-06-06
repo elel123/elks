@@ -8,17 +8,23 @@ import { setToken, getToken, getAdminValFromToken } from "../util/jwt";
 import 'zingchart/es6';
 import ZingChart from 'zingchart-react';
 
+import './Report.css';
+
 export default function Report({ adminState, loginState }) {
     const history = useHistory();
     const {isAdmin, setAdmin} = adminState;
     const {logIn, setLogIn} = loginState;
 
-    const [data, setData] = useState({});
-    const [data1, setData1] = useState({});
-    const [data2, setData2] = useState({});
+    const [barData, setBarData] = useState({});
+
+    const [pieData, setPieData] = useState({});
+    const [pieData1, setPieData1] = useState({});
+    const [pieData2, setPieData2] = useState({});
+    const [pieChartNames, setPieChartNames] = useState([]);
+    const [pieOption, setPieOption] = useState('A');
 
 
-    const parseData = (data) => {
+    const parsePageBreakdownData = (data) => {
         // Filter out invalid data 
         let parsed = [];
         for (let page of data) {
@@ -45,13 +51,11 @@ export default function Report({ adminState, loginState }) {
             seriesList.push([datum[0], mySeries, activityCount]);
         }
 
-        setData({
+        setPieChartNames([seriesList[0][0], seriesList[1][0], seriesList[2][0]]);
+
+        setPieData({
             type: 'pie', 
             adjustLayout: true, 
-            title: {
-                text: `Activity Breakdown per Page at ${seriesList[0][0]}`,
-                fontSize: 24,
-            },
             legend: {
                 draggable: true,
                 x: "75%", 
@@ -73,13 +77,9 @@ export default function Report({ adminState, loginState }) {
             series: seriesList[0][1]
         });
 
-        setData1({
+        setPieData1({
             type: 'pie', 
             adjustLayout: true, 
-            title: {
-                text: `Activity Breakdown per Page at ${seriesList[1][0]}`,
-                fontSize: 24,
-            },
             legend: {
                 draggable: true,
                 x: "75%", 
@@ -101,13 +101,9 @@ export default function Report({ adminState, loginState }) {
             series: seriesList[1][1]
         });
 
-        setData2({
+        setPieData2({
             type: 'pie', 
             adjustLayout: true, 
-            title: {
-              text: `Activity Breakdown per Page at ${seriesList[2][0]}`,
-              fontSize: 24,
-            },
             legend: {
                 draggable: true,
                 x: "75%", 
@@ -130,8 +126,65 @@ export default function Report({ adminState, loginState }) {
         });
     }
 
+    const parsePageActivityData = (data) => {
+        let parsed = [];
+        for (let page of data) {
+            if (page._id === null || page._id === "" || page._id.indexOf("public_html") !== -1) {
+                continue;
+            }
+            parsed.push([page._id, page.count]);
+        }
 
+        parsed.sort((a, b) => {return b[1] - a[1]});
 
+        let topLabels = parsed.slice(0, 5).map(entry => entry[0]);
+        let topValues = parsed.slice(0, 5).map(entry => entry[1]);
+
+        
+        setBarData({
+            type: 'bar', 
+            width: "100%",
+            adjustLayout: true, 
+            plotarea: { 
+                margin: 'dynamic',
+                marginTop: 70
+            },
+            title: {
+              text: 'Activity Per Page On elks.codes',
+              fontSize: 24,
+            },
+            legend: {
+              draggable: true,
+            },
+            scaleX: {
+              // Set scale label
+              label: { text: 'Page' },
+              // Convert text on scale indices
+              labels: topLabels
+            },
+            scaleY: {
+              // Scale label with unicode character
+              label: { text: 'Number of Activity' }
+            },
+            plot: {
+              // Animation docs here:
+              // https://www.zingchart.com/docs/tutorials/styling/animation#effect
+              animation: {
+                effect: 'ANIMATION_EXPAND_BOTTOM',
+                method: 'ANIMATION_STRONG_EASE_OUT',
+                sequence: 'ANIMATION_BY_NODE',
+                speed: 275,
+              }
+            },
+            series: [
+              {
+                // Plot 1 values, linear data
+                values: topValues,
+                text: "Number of Activity"
+              }
+            ]
+        })
+    }
 
     useEffect(() => {
 
@@ -149,7 +202,7 @@ export default function Report({ adminState, loginState }) {
                     setAdmin(getAdminValFromToken());
 
                     let respData = await data.json();
-                    parseData(respData);
+                    parsePageBreakdownData(respData);
 
                 } else if(data.status === 403) {
                     //If token invalid, redirect to login
@@ -161,21 +214,65 @@ export default function Report({ adminState, loginState }) {
             })
             .catch((error) => {
                 console.log(error.message)
+            })
+            
+        
+        fetch(`https://www.elks.codes/server/api/activity/pages?jwt=${getToken()}`, { 
+                method: 'GET',
+                headers:{
+                    'Accept': 'application/json'
+                }
+            })
+            .then( async (data) => {
+
+                if (data.status === 200) {
+
+                    setLogIn(true);
+                    setAdmin(getAdminValFromToken());
+
+                    let respData = await data.json();
+                    parsePageActivityData(respData);
+
+                } else {
+                    //If token invalid, redirect to login
+                    setLogIn(false);
+                    setToken(null);
+                    setAdmin(false);
+                    history.push(SITE_PAGES.LOGIN);
+                }
+
+            })
+            .catch((error) => {
+                //If token invalid, redirect to login
+                setLogIn(false);
+                setToken(null);
+                setAdmin(false);
+                history.push(SITE_PAGES.LOGIN);
             }) 
 
     }, []);
     
 
-
     return (
         <>
         <br></br>
-        <div style={{"margin" : "0px 50px"}}>
-            <h2 align="center">Activity Breakdown of the 3 Pages with the Most Activity</h2>
-            <br></br>
-            <ZingChart data={data} />
-            <ZingChart data={data1} />
-            <ZingChart data={data2} />
+        <div style={{"margin" : "0px 50px", "textAlign" : "center"}}>
+            <section>
+                <ZingChart data={barData} />
+            </section>
+            <hr></hr>
+            <section>
+                <h1 style={{"fontSize" : "x-large"}} align="center">Activity Breakdown of the 3 Pages with the Most Activity</h1>
+                <br></br>
+                <select className="select-pie" value={pieOption} onChange={(e) => {setPieOption(e.target.value);}}>
+                    <option value='A'>{`#1) Activity Breakdown per Page at: ${pieChartNames[0]}`}</option>
+                    <option value='B'>{`#2) Activity Breakdown per Page at: ${pieChartNames[1]}`}</option>
+                    <option value='C'>{`#3) Activity Breakdown per Page at: ${pieChartNames[2]}`}</option>
+                </select>
+                {pieOption == 'A' ? (<ZingChart data={pieData} />) : null}
+                {pieOption == 'B' ? (<ZingChart data={pieData1} />) : null}
+                {pieOption == 'C' ? (<ZingChart data={pieData2} />) : null}
+            </section>
         </div>
         </>
     );
