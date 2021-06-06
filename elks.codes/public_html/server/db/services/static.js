@@ -26,7 +26,7 @@ const { Static } = require("../models/static");
       day : { $dayOfMonth : "$createdAt" },
     }, 
     count:{$sum:1}
-  }}, { $sort: { _id: -1 }}, {$limit: 7}
+  }}, { $sort: { _id: -1 }}, {$limit: 7}, { $sort: { _id: 1 }}
 ]);
  }
  
