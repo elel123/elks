@@ -3,7 +3,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useHistory } from "react-router-dom";
 
 import { SITE_PAGES } from "../constants/links";
-import { setToken, getToken } from "../util/jwt";
+import { setToken, getToken, getAdminValFromToken } from "../util/jwt";
 
 
 import Button from '@material-ui/core/Button';
@@ -20,9 +20,10 @@ import './AdminView.css';
 import pencil from './images/small-pencil.png';
 import trash from './images/small-trash.png';
 
-export default function AdminView({ adminState }) {
+export default function AdminView({ adminState, loginState }) {
     const history = useHistory();
-    const {isAdmin, setAdmin} = adminState
+    const {isAdmin, setAdmin} = adminState;
+    const {logIn, setLogIn} = loginState;
 
     const [users, setUsers] = useState([]);
     const [displayUsers, setDisplayUsers] = useState([]);
