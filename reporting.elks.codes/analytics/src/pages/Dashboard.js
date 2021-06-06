@@ -9,7 +9,7 @@ import 'zingchart/es6';
 import ZingChart from 'zingchart-react';
 
 
-export default function Vis1({ adminState, loginState }) {
+export default function Dashboard({ adminState, loginState }) {
     const history = useHistory();
     const {isAdmin, setAdmin} = adminState;
     const {logIn, setLogIn} = loginState;

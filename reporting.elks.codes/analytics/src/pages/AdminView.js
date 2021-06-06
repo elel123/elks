@@ -64,7 +64,7 @@ export default function AdminView({ adminState, loginState }) {
     const getAllUsers = () => {
         //Attempt to fetch the user data with the user's jwt
         //If successful, save in users 
-        //Else redirect user to vis1 page
+        //Else redirect user to dashboard page
         fetch(`https://www.elks.codes/server/user?jwt=${getToken()}`, { 
             method: 'GET',
             headers:{
@@ -83,14 +83,14 @@ export default function AdminView({ adminState, loginState }) {
             } else {
                 console.log(data);
                 alert("You do not have admin privileges.");
-                history.push(SITE_PAGES.VIS1);
+                history.push(SITE_PAGES.DASH);
             }
 
         })
         .catch((error) => {
             console.log(error);
             alert("You do not have admin privileges.");
-            history.push(SITE_PAGES.VIS1);
+            history.push(SITE_PAGES.DASH);
         }) 
     }
 
