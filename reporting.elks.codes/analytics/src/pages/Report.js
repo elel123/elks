@@ -8,7 +8,7 @@ import { setToken, getToken, getAdminValFromToken } from "../util/jwt";
 import 'zingchart/es6';
 import ZingChart from 'zingchart-react';
 
-export default function Vis2({ adminState, loginState }) {
+export default function Report({ adminState, loginState }) {
     const history = useHistory();
     const {isAdmin, setAdmin} = adminState;
     const {logIn, setLogIn} = loginState;

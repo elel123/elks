@@ -25,6 +25,8 @@ export default function AdminView({ adminState, loginState }) {
     const {isAdmin, setAdmin} = adminState;
     const {logIn, setLogIn} = loginState;
 
+    const [loading, setLoading] = useState(true);
+
     const [users, setUsers] = useState([]);
     const [displayUsers, setDisplayUsers] = useState([]);
 
@@ -64,7 +66,7 @@ export default function AdminView({ adminState, loginState }) {
     const getAllUsers = () => {
         //Attempt to fetch the user data with the user's jwt
         //If successful, save in users 
-        //Else redirect user to vis1 page
+        //Else redirect user to dashboard page
         fetch(`https://www.elks.codes/server/user?jwt=${getToken()}`, { 
             method: 'GET',
             headers:{
@@ -77,20 +79,20 @@ export default function AdminView({ adminState, loginState }) {
 
                 setLogIn(true);
                 setAdmin(getAdminValFromToken());
-
+                setLoading(false);
                 setUsers([...respData]);
                 // console.log(JSON.stringify(respData));
             } else {
                 console.log(data);
                 alert("You do not have admin privileges.");
-                history.push(SITE_PAGES.VIS1);
+                history.push(SITE_PAGES.DASH);
             }
 
         })
         .catch((error) => {
             console.log(error);
             alert("You do not have admin privileges.");
-            history.push(SITE_PAGES.VIS1);
+            history.push(SITE_PAGES.DASH);
         }) 
     }
 
@@ -320,7 +322,16 @@ export default function AdminView({ adminState, loginState }) {
 
     return (
         <div className="top-div">
-            <button className="addBtn" onClick={handleOpenAddUser}>+</button>
+            { loading ? (
+                <div style={{"textAlign" : "center", "fontSize" : "x-large"}}>
+                    <br></br>
+                    <p>Loading...</p>
+                </div>
+            ) :
+            (
+                <button className="addBtn" onClick={handleOpenAddUser}>+</button>
+            )
+            }
             <ul className="user-list">{displayUsers}</ul>
         </div>
     );

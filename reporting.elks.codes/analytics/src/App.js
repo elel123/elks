@@ -5,8 +5,8 @@ import { SITE_PAGES } from "./constants/links";
 
 import PageLayout from "./components/PageLayout";
 import Landing from "./pages/Landing";
-import Vis1 from "./pages/Vis1";
-import Vis2 from "./pages/Vis2";
+import Dashboard from "./pages/Dashboard";
+import Report from "./pages/Report";
 import Vis3 from "./pages/Vis3";
 import Login from "./pages/Login";
 import Logout from "./pages/Logout";
@@ -35,12 +35,12 @@ function App() {
                         <Landing />
                     </Route>
                     {/* Visualization Page */}
-                    <Route exact path={SITE_PAGES.VIS1}>
-                        <Vis1 loginState={{logIn, setLogIn}} adminState={{isAdmin, setAdmin}} />
+                    <Route exact path={SITE_PAGES.DASH}>
+                        <Dashboard loginState={{logIn, setLogIn}} adminState={{isAdmin, setAdmin}} />
                     </Route>
                     {/* Visualization Page */}
-                    <Route exact path={SITE_PAGES.VIS2}>
-                        <Vis2 loginState={{logIn, setLogIn}} adminState={{isAdmin, setAdmin}} />
+                    <Route exact path={SITE_PAGES.REPORT}>
+                        <Report loginState={{logIn, setLogIn}} adminState={{isAdmin, setAdmin}} />
                     </Route>
                     {/* Visualization Page */}
                     <Route exact path={SITE_PAGES.VIS3}>

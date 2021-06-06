@@ -10,7 +10,7 @@ import './Login.css';
 
 async function loginUser(username, password, callback) { 
     // TODO replace url 
-    console.log(`${username} ${password}`);
+    // console.log(`${username} ${password}`);
     fetch('https://www.elks.codes/server/user/login', { 
         method: 'POST',
         headers:{
@@ -49,11 +49,11 @@ export default function Login({ adminState, loginState }) {
             /* TODO: Check if user's token is still valid by checking with the backend */
             verifyToken(getToken(), (success) => {
                 if (success) {
-                    // If token is valid --> redirect user to vis1
+                    // If token is valid --> redirect user to dashboard
                     console.log("redirecting");
                     setLogIn(true);
                     setAdmin(getAdminValFromToken());
-                    history.push(SITE_PAGES.VIS1);
+                    history.push(SITE_PAGES.DASH);
                 } else {
                     // Else set the token to null and stay on this page
                     console.log("clearing input");
@@ -83,7 +83,7 @@ export default function Login({ adminState, loginState }) {
                     setAdmin(true);
                 }
 
-                history.push(SITE_PAGES.VIS1); //Redirect the user to the first data viz page
+                history.push(SITE_PAGES.DASH); //Redirect the user to the first data viz page
             }
         }); 
     }
