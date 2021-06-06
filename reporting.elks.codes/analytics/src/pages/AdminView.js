@@ -25,6 +25,8 @@ export default function AdminView({ adminState, loginState }) {
     const {isAdmin, setAdmin} = adminState;
     const {logIn, setLogIn} = loginState;
 
+    const [loading, setLoading] = useState(true);
+
     const [users, setUsers] = useState([]);
     const [displayUsers, setDisplayUsers] = useState([]);
 
@@ -77,7 +79,7 @@ export default function AdminView({ adminState, loginState }) {
 
                 setLogIn(true);
                 setAdmin(getAdminValFromToken());
-
+                setLoading(false);
                 setUsers([...respData]);
                 // console.log(JSON.stringify(respData));
             } else {
@@ -320,7 +322,16 @@ export default function AdminView({ adminState, loginState }) {
 
     return (
         <div className="top-div">
-            <button className="addBtn" onClick={handleOpenAddUser}>+</button>
+            { loading ? (
+                <div style={{"textAlign" : "center", "fontSize" : "x-large"}}>
+                    <br></br>
+                    <p>Loading...</p>
+                </div>
+            ) :
+            (
+                <button className="addBtn" onClick={handleOpenAddUser}>+</button>
+            )
+            }
             <ul className="user-list">{displayUsers}</ul>
         </div>
     );
