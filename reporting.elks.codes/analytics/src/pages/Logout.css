@@ -57,8 +57,9 @@
 } */
 
 
-body {
+.contents {
   margin: 0;
+  height: 100px;
   overflow: hidden;
 }
 
