@@ -14,7 +14,7 @@ export default function Dashboard({ adminState, loginState }) {
     const {isAdmin, setAdmin} = adminState;
     const {logIn, setLogIn} = loginState;
 
-    const [data, setData] = useState({});
+    const [activityData, setActivityData] = useState({});
 
     const parseData = (data) => {
         console.log("Parsing Data");
@@ -32,7 +32,7 @@ export default function Dashboard({ adminState, loginState }) {
         let topValues = parsed.slice(0, 5).map(entry => entry[1]);
 
         
-        setData({
+        setActivityData({
             type: 'bar', 
             width: "100%",
             adjustLayout: true, 
@@ -120,7 +120,7 @@ export default function Dashboard({ adminState, loginState }) {
         <br></br>
         <br></br>
         <div style={{"margin" : "0px 50px"}}>
-            <ZingChart data={data} />
+            <ZingChart data={activityData} />
         </div>
         
 

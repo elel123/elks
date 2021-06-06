@@ -13,6 +13,8 @@ import Logout from "./pages/Logout";
 import Custom404 from "./pages/Custom404";
 import AdminView from "./pages/AdminView";
 
+import LoadTimes from "./pages/LoadTimes";
+
 function App() {
     const [isAdmin, setAdmin] = useState(false);
     const [logIn, setLogIn] = useState(false);
@@ -50,6 +52,11 @@ function App() {
                     {/* Admin Page */}
                     <Route exact path={SITE_PAGES.ADMIN}>
                         <AdminView loginState={{logIn, setLogIn}} adminState={{isAdmin, setAdmin}} />
+                    </Route>
+
+                    {/* LoadTimes Page (TEMPORARY) */}
+                    <Route exact path={"/load"}>
+                        <LoadTimes loginState={{logIn, setLogIn}} adminState={{isAdmin, setAdmin}} />
                     </Route>
 
                     {/* Any other URL is automatically matched to 404 Page */}
