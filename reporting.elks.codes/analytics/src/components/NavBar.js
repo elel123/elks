@@ -46,7 +46,7 @@ export default function NavBar({ adminState, loginState }) {
                             <>
                             <NavDropdown title="Visualizations" id="basic-nav-dropdown">
                                 <Nav.Link onClick={() => {redirect(SITE_PAGES.DASH);}} style={{"color": "#000000"}}>Dashboard</Nav.Link>
-                                <Nav.Link onClick={() => {redirect(SITE_PAGES.REPORT);}} style={{"color": "#000000"}}>Page Breakdown</Nav.Link>
+                                <Nav.Link onClick={() => {redirect(SITE_PAGES.REPORT);}} style={{"color": "#000000"}}>Activity Report</Nav.Link>
                                 <Nav.Link onClick={() => {redirect(SITE_PAGES.VIS3);}} style={{"color": "#000000"}}>Vis3</Nav.Link>
                             </NavDropdown>
                             <Nav.Link onClick={logoutHandler} style={{"color": "#e6e6e6"}}>Logout</Nav.Link>
