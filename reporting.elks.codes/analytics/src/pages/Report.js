@@ -188,7 +188,8 @@ export default function Report({ adminState, loginState }) {
 
     useEffect(() => {
 
-        fetch(`https://www.elks.codes/server/api/activity/pagesbreakdown?jwt=${getToken()}`, { 
+        if (logIn) {
+            fetch(`https://www.elks.codes/server/api/activity/pagesbreakdown?jwt=${getToken()}`, { 
                 method: 'GET',
                 headers:{
                     'Accept': 'application/json'
@@ -248,7 +249,12 @@ export default function Report({ adminState, loginState }) {
                 setToken(null);
                 setAdmin(false);
                 history.push(SITE_PAGES.LOGIN);
-            }) 
+            })
+        
+        } else {
+            history.push(SITE_PAGES.LOGIN);
+        }
+         
 
     }, []);
     

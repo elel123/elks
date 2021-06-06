@@ -344,23 +344,15 @@ export default function Dashboard({ adminState, loginState }) {
 
     useEffect(async () => {
 
-        verifyToken(getToken(), async (success) => {
-            if (success) {
-                // If token is valid --> redirect user to dashboard
-                await Promise.all([
-                    retrieveActivityData(),
-                    retrieveSessionsData(),
-                    retreiveLoadData()
-                ]);
-            } else {
-                // Else set the token to null and stay on this page
-                console.log("clearing input");
-                setLogIn(false);
-                setToken(null);
-                setAdmin(false);
-                history.push(SITE_PAGES.LOGIN)
-            }
-        });
+        if (logIn) {
+            await Promise.all([
+                retrieveActivityData(),
+                retrieveSessionsData(),
+                retreiveLoadData()
+            ]);
+        } else {
+            history.push(SITE_PAGES.LOGIN); 
+        }
 
 
     }, []);
