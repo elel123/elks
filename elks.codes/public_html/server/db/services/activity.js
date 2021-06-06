@@ -11,6 +11,10 @@ const { Activity } = require("../models/activity");
   async function retrievePagesByActivityCount() {
     try {
         return Activity.aggregate([
+          {$match:
+            {'page': {
+              $exists: true, $ne: ""
+            } } },
           {"$group" : {_id:"$page", count:{$sum:1}}}, { $sort: { count: -1 }}
       ]);
     } catch (err) {

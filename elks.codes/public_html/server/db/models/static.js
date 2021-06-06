@@ -1,9 +1,4 @@
-/**
- * File sets up the menuImage order schema.
- *
- * @summary   Creation of the Order DB.
- */
- const mongoose = require("mongoose");
+const mongoose = require("mongoose");
 
  const staticSchema = new mongoose.Schema(
    {

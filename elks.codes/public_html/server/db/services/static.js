@@ -15,9 +15,24 @@ const { Static } = require("../models/static");
          return false;
      }
  }
+
+ async function getUniqueSessions(){
+  return Static.aggregate([
+    {"$group" : 
+    {
+      _id: {
+      year : { $year : "$createdAt" },        
+      month : { $month : "$createdAt" },        
+      day : { $dayOfMonth : "$createdAt" },
+    }, 
+    count:{$sum:1}
+  }}, { $sort: { _id: -1 }}, {$limit: 7}
+]);
+ }
  
  module.exports = {
    getAllStaticEntries,
-   addStaticEntry
+   addStaticEntry,
+   getUniqueSessions
  };
  

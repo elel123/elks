@@ -45,6 +45,7 @@ app.use("/api/static", require("./routes/static"));
 app.use("/api/performance", require("./routes/performance"));
 app.use("/api/activity", require("./routes/activity"));
 app.use("/user", require("./routes/user"));
+app.use("/dashboard", require("./routes/dashboard"));
 app.use("/jwt", require("./routes/jwt"));
 
 // retrieve the unique session id for this user (auto set as a cookie)

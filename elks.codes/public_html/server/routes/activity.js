@@ -28,8 +28,8 @@ router.get("/pages", async (req, res, next) => {
      let jwt = req.query.jwt;
 
      // verify valid jwt 
-     const jwtPayload = await verifyJWT(jwt);
-     if(!jwtPayload) return res.status(403).send("Cannot Authenticate user");
+    //  const jwtPayload = await verifyJWT(jwt);
+    //  if(!jwtPayload) return res.status(403).send("Cannot Authenticate user");
 
       const pageActivities = await retrievePagesByActivityCount();
       if (!pageActivities) return res.status(500).json("Cannot retrieve entries");
