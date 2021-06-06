@@ -34,11 +34,11 @@ const router = express.Router();
 router.get("/loadTimes", async (req, res, next) => {
     try {
 
-        // let jwt = req.query.jwt; 
+        let jwt = req.query.jwt; 
 
-        // // verify JWT 
-        // const jwtPayload = await verifyJWT(jwt);
-        // if(!jwtPayload) return res.status(403).send("Cannot Authenticate user");
+        // verify JWT 
+        const jwtPayload = await verifyJWT(jwt);
+        if(!jwtPayload) return res.status(403).send("Cannot Authenticate user");
 
         const loadTimes = await getLoadTimes();
         if(!loadTimes) return res.status(500).send(loadTimes);
