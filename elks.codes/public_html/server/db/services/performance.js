@@ -15,9 +15,23 @@ const { Performance } = require("../models/performance");
          return false;
      }
  }
+
+ async function getLoadTimes(){
+  try{
+      return Performance.aggregate([
+        { "$project": {
+            "_id": 0,
+            "time": "$loadTime.total"
+        }}
+    ]);
+  } catch(err){
+      return false;
+  }
+}
  
  module.exports = {
    getAllPerformanceEntries,
-   addPerformanceEntry
+   addPerformanceEntry, 
+   getLoadTimes
  };
  
