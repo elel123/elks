@@ -228,7 +228,8 @@ export default function Dashboard({ adminState, loginState }) {
                     "box": {
                         "barWidth": 0.5,
                         "tooltip": {
-                            "text": "<br><b style=\"font-size:15px;\">Load Times:</b><br><br>Maximum: <b>%data-max ms</b><br>Upper Quartile: <b>%data-upper-quartile ms</b><br>Median: <b>%data-median ms</b><br>Lower Quartile: <b>%data-lower-quartile ms</b><br>Minimum: <b>%data-min ms</b>"
+                            "text": "<br><b style=\"font-size:15px;\">Load Times:</b><br><br>Maximum: <b>%data-max ms</b><br>Upper Quartile: <b>%data-upper-quartile ms</b><br>Median: <b>%data-median ms</b><br>Lower Quartile: <b>%data-lower-quartile ms</b><br>Minimum: <b>%data-min ms</b>",
+                            "background-color": colorConfigs.fillColor,
                         },
                         "border-color":"#204A7B",
                         "border-width": 2,
@@ -238,7 +239,8 @@ export default function Dashboard({ adminState, loginState }) {
                     },
                     "outlier": {
                         "tooltip": {
-                            "text": "<br><b style=\"font-size:15px;\">Load Time: %node-value ms</b>"
+                            "text": "<br><b style=\"font-size:15px;\">Load Time: %node-value ms</b>",
+                            "background-color": colorConfigs.fillColor,
                         },
                         "marker": {
                             "type": "circle",
