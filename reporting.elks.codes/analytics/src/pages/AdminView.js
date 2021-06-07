@@ -173,9 +173,8 @@ export default function AdminView({ adminState, loginState }) {
     }
 
     const handleSubmitDeleteUser = (user) => { 
-        // fetch(`http://127.0.0.1:9000/user/${user._id}?jwt=${getToken()}`, { 
         fetch(`https://www.elks.codes/server/user/${user._id}?jwt=${getToken()}`, { 
-            method: 'DELETE',
+            method: 'GET',
         })
         .then( async (data) => {
             // Upon successful delete, get all users again 
