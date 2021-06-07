@@ -5,7 +5,10 @@ const {
     getAllActivityEntries,
     addActivityEntry,
     retrievePagesByActivityCount,
-    retrieveActivityBreakdownByPage
+    retrieveActivityBreakdownByPage,
+    retrieveActivityInfoByPage,
+    retrieveActivityInfoByPagePaginate,
+    retrieveActivityCountOfPage
   } = require("../db/services/activity");
   const { verifyJWT } = require("./services/jwt");
 const router = express.Router();
@@ -43,7 +46,6 @@ router.get("/pages", async (req, res, next) => {
 
 router.get("/pagesbreakdown", async (req, res, next) => {
   try {
-
       let jwt = req.query.jwt;
 
       // verify valid jwt 
@@ -62,6 +64,37 @@ router.get("/pagesbreakdown", async (req, res, next) => {
       }
       
       res.status(200).json(pagesByBreakdown);
+
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send("Server err");
+  }
+});
+
+// Remote endpoint for zinggrid chart to source data form 
+router.get("/pageactivityinfo.json", async (req, res, next) => {
+  try {
+
+      let jwt = req.query.jwt;
+      
+      let pagePath = req.query.pagePath ? req.query.pagePath : '/'; 
+      let page = req.query.page ? parseInt(req.query.page) : 1;  // page number
+      let pageSize = req.query.pageSize ? parseInt(req.query.pageSize) : 30; 
+
+      // verify valid jwt 
+      const jwtPayload = await verifyJWT(jwt);
+      if(!jwtPayload) return res.status(403).send("Cannot Authenticate user");
+
+      let activityCount = await retrieveActivityCountOfPage(pagePath); 
+
+      let returnPageActivityInfo = {
+        "page": pagePath,
+        "info": await retrieveActivityInfoByPagePaginate(pagePath, page, pageSize),
+        "currentPage" :page, 
+        "count": activityCount,
+      };
+
+      res.status(200).json(returnPageActivityInfo);
 
   } catch (err) {
     console.error(err.message);

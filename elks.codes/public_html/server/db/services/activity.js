@@ -34,6 +34,28 @@ const { Activity } = require("../models/activity");
     }
   }
 
+  async function retrieveActivityCountOfPage(pagePath) {
+    try {
+      return Activity.countDocuments({'page': pagePath}).exec(); 
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+  }
+
+  async function retrieveActivityInfoByPagePaginate(pagePath, pageNumber, pageLimit) {
+    try {
+      return Activity.find({'page': pagePath}, {updatedAt: false, page: false, })
+                      .sort({createdAt: 'desc'})
+                      .skip(pageNumber > 0 ? ((pageNumber - 1) * pageLimit) : 0 )
+                      .limit( pageLimit )
+                      .exec();
+    } catch (err) {
+        console.log(err);
+        return false;
+    }
+  }
+
  async function addActivityEntry(info){
      try{
          return Activity.create(info);
@@ -46,6 +68,8 @@ const { Activity } = require("../models/activity");
    getAllActivityEntries,
    addActivityEntry,
    retrievePagesByActivityCount,
-   retrieveActivityBreakdownByPage
+   retrieveActivityBreakdownByPage,
+   retrieveActivityInfoByPagePaginate,
+   retrieveActivityCountOfPage
  };
  

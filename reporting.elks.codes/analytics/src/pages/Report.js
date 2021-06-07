@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import verifyToken from "../util/verifyToken";
 import { SITE_PAGES } from "../constants/links";
 import { setToken, getToken, getAdminValFromToken } from "../util/jwt";
+import ActivityPerPageGrid from "../components/ActivityPerPageGrid"; 
 
 //import the zingchart library
 import 'zingchart/es6';
@@ -278,6 +279,9 @@ export default function Report({ adminState, loginState }) {
                 {pieOption == 'A' ? (<ZingChart data={pieData} />) : null}
                 {pieOption == 'B' ? (<ZingChart data={pieData1} />) : null}
                 {pieOption == 'C' ? (<ZingChart data={pieData2} />) : null}
+            </section>
+            <section>
+                <ActivityPerPageGrid></ActivityPerPageGrid>
             </section>
         </div>
         </>
