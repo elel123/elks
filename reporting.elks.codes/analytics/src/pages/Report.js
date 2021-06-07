@@ -9,6 +9,8 @@ import ActivityPerPageGrid from "../components/ActivityPerPageGrid";
 import 'zingchart/es6';
 import ZingChart from 'zingchart-react';
 
+import { Row, Col } from 'react-bootstrap';
+
 import './Report.css';
 
 export default function Report({ adminState, loginState }) {
@@ -22,7 +24,7 @@ export default function Report({ adminState, loginState }) {
     const [pieData1, setPieData1] = useState({});
     const [pieData2, setPieData2] = useState({});
     const [pieChartNames, setPieChartNames] = useState([]);
-    const [pieOption, setPieOption] = useState('A');
+    const [pieOption, setPieOption] = useState(0);
 
 
     const parsePageBreakdownData = (data) => {
@@ -57,9 +59,10 @@ export default function Report({ adminState, loginState }) {
         setPieData({
             type: 'pie', 
             adjustLayout: true, 
+            width: "500",
             legend: {
                 draggable: true,
-                x: "75%", 
+                x: "90%", 
                 y: "15%",
             },
             plot: {
@@ -81,9 +84,10 @@ export default function Report({ adminState, loginState }) {
         setPieData1({
             type: 'pie', 
             adjustLayout: true, 
+            width: "500",
             legend: {
                 draggable: true,
-                x: "75%", 
+                x: "90%", 
                 y: "15%",
             },
             plot: {
@@ -105,9 +109,10 @@ export default function Report({ adminState, loginState }) {
         setPieData2({
             type: 'pie', 
             adjustLayout: true, 
+            width: "500",
             legend: {
                 draggable: true,
-                x: "75%", 
+                x: "90%", 
                 y: "15%",
             },
             plot: {
@@ -144,7 +149,6 @@ export default function Report({ adminState, loginState }) {
         
         setBarData({
             type: 'bar', 
-            width: "100%",
             adjustLayout: true, 
             plotarea: { 
                 margin: 'dynamic',
@@ -262,26 +266,39 @@ export default function Report({ adminState, loginState }) {
 
     return (
         <>
+        <div class="media"> 
+            <div class="media-body">
+                <h1 class="mx-5"> Detailed Report </h1>
+                <p class="mx-5"> With our collected data, we wanted to answer the question: <q>Which site pages traffic the most amount of user activity?</q> To answer this question, we created the following visualizations (displayed at the bottom of the page).  </p>
+                <p class="mx-5">  The first visualization (Activity PerPage On elks.codes bar chart) focused on giving the top 5 pages on the site (descending order) that had the most logged activity data (navigation, mouse clicks, keyboard, etc.). More usage of the page (scrolling, clicking, etc.) yielded more logged data, which in turn gave that page a higher overall activity ranking. Clearly, looking at the bar graph, it's easy to see that “/hw3/database.html” by far has the most activity, as it beats out the second place page <q>/hw3/hellodataviz.html</q> by about 18000 logged entries. Then second and third place (“/”) have little difference, though second place does have an edge of 1000 more entries. However, anything after third place yields very little activity, as the fourth and fifth highly ranked pages only have a few hundred entries - extremely low compared to the top three places. Based on these results, we can make the conclusion that our site has very little activity usage aside from the <q>/hw3/database.html</q> page, which hoards most of the user traffic. </p>
+                <p class="mx-5"> As it appears, the second visualization (pie chart detailing activity type break down for a page) provided an even further breakdown of the bar chart. Moreover, as explained in prior, the fourth and fifth pages had comparatively negligible amounts of user activity, which is why we didn’t find too much a need to break down these pages as the top 3. Interestingly, all three pages displayed a similar story, as predominantly (greater than 96%) all user data was of mouse activity, with idle usually taking up the next 1% - 2 %, and then keyboard and navigation being of trace amounts (less than 1%). As most of the pages didn’t have too many buttons and our site did not have a consistent navigation bar, the data made sense. Especially when considering that idle data was highest in <q>/hw3/hellodataviz.html</q> probably because it had the most amount of static content for reading, and navigation was highest in the root page <q>/</q> since that was the page that had the most amount of links attached to it.  </p>
+                <p class="mx-5">  In conclusion, we see that <q>/hw3/database.html</q> has the most activity among users of elks.codes, and the pie chart breakdown reveals that a large percentage of the activity is mouse activity. Due to the interactive nature of the database grids, we do not see other pages taking the place of most popular in the near future. </p>
+            </div>
+        </div>
         <br></br>
         <div style={{"margin" : "0px 50px", "textAlign" : "center"}}>
-            <section>
-                <ZingChart data={barData} />
+            <section align="center">
+                <ZingChart data={barData} align="center" margin="auto" />
             </section>
             <hr></hr>
             <section>
                 <h1 style={{"fontSize" : "x-large"}} align="center">Activity Breakdown of the 3 Pages with the Most Activity</h1>
                 <br></br>
-                <select className="select-pie" value={pieOption} onChange={(e) => {setPieOption(e.target.value);}}>
-                    <option value='A'>{`#1) Activity Breakdown per Page at: ${pieChartNames[0]}`}</option>
-                    <option value='B'>{`#2) Activity Breakdown per Page at: ${pieChartNames[1]}`}</option>
-                    <option value='C'>{`#3) Activity Breakdown per Page at: ${pieChartNames[2]}`}</option>
-                </select>
-                {pieOption == 'A' ? (<ZingChart data={pieData} />) : null}
-                {pieOption == 'B' ? (<ZingChart data={pieData1} />) : null}
-                {pieOption == 'C' ? (<ZingChart data={pieData2} />) : null}
-            </section>
-            <section>
-                <ActivityPerPageGrid></ActivityPerPageGrid>
+                <Row>
+                    <Col>
+                        <select className="select-pie" value={pieOption} onChange={(e) => {setPieOption(e.target.value);}}>
+                            <option value={0}>{`#1) Activity Breakdown per Page at: ${pieChartNames[0]}`}</option>
+                            <option value={1}>{`#2) Activity Breakdown per Page at: ${pieChartNames[1]}`}</option>
+                            <option value={2}>{`#3) Activity Breakdown per Page at: ${pieChartNames[2]}`}</option>
+                        </select>
+                        {pieOption == 0 ? (<ZingChart data={pieData} />) : null}
+                        {pieOption == 1 ? (<ZingChart data={pieData1} />) : null}
+                        {pieOption == 2 ? (<ZingChart data={pieData2} />) : null}
+                    </Col>
+                    <Col>
+                         <ActivityPerPageGrid pageNames={pieChartNames[pieOption]}></ActivityPerPageGrid>
+                    </Col>
+                </Row>
             </section>
         </div>
         </>

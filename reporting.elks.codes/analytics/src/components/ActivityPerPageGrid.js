@@ -56,14 +56,10 @@ class ActivityPerPageGrid extends Component {
     }
 
     render() {
-        let pagePath = this.state.popPagesNames[this.state.displayGridId]; 
+        // let pagePath = this.state.popPagesNames[this.state.displayGridId]; 
+        let pagePath = this.props.pageNames
         return (
             <div>
-                <select className="select-grid" value={this.state.displayGridId} onChange={(e) => {this.setDisplayGridId(e.target.value);}}>
-                    <option value={0}>{`#1) Activity Info for Page at: ${this.state.popPagesNames[0]}`}</option>
-                    <option value={1}>{`#2) Activity Info for Page at: ${this.state.popPagesNames[1]}`}</option>
-                    <option value={2}>{`#3) Activity Info for Page at: ${this.state.popPagesNames[2]}`}</option>
-                </select>
                 <zing-grid 
                     id="activity-per-page-grid" 
                     caption={`Activity Info for Page: ${pagePath}`} 
@@ -72,6 +68,7 @@ class ActivityPerPageGrid extends Component {
                     page-size-options="10" 
                     layout="row" 
                     layout-controls="disabled" 
+                    width="1000"
                     viewport-stop
                     loading>
                         <zg-caption>
