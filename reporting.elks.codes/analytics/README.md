@@ -4,7 +4,7 @@
 http://reporting.elks.codes/ (goes to our landing page)
 
 ## You can access the user CRUD grid here:
-http://reporting.elks.codes/
+http://reporting.elks.codes/admin
 
 Login using the admin account and click on "Admin" in the navbar.
 
