@@ -8,6 +8,8 @@ import { setToken, getToken, getAdminValFromToken } from "../util/jwt";
 import 'zingchart/es6';
 import ZingChart from 'zingchart-react';
 
+import { Container, Row, Col } from 'react-bootstrap';
+
 function calcMedian(arr) {
     let median = 0;
     let medIndex = Math.floor(arr.length / 2);
@@ -34,8 +36,14 @@ export default function Dashboard({ adminState, loginState }) {
     const [loadData, setLoadData] = useState([]);
     const [outliers, setOutliers] = useState([]);
 
+    const colorConfigs = {
+        fillColor: "#b87b5a",
+        backgroundColor: "#ECECEC"
+    }
+
     let sessionsInfo = {
       type: 'line',
+      "background-color": colorConfigs.backgroundColor,
       width: "100%",
             adjustLayout: true, 
             plotarea: { 
@@ -61,7 +69,13 @@ export default function Dashboard({ adminState, loginState }) {
         // https://www.zingchart.com/docs/tutorials/styling/animation#effect
         animation: {
           effect: "ANIMATION_SLIDE_LEFT",
+        },
+        'line-color': colorConfigs.fillColor,
+        marker: {
+            'background-color': colorConfigs.fillColor,
+            'border-width': 2
         }
+
       },
       series: [
         { values: sessionsData.yVal }
@@ -78,50 +92,56 @@ export default function Dashboard({ adminState, loginState }) {
             parsed.push([page._id, page.count]);
         }
 
-        parsed.sort((a, b) => {return b[1] - a[1]});
+        parsed.sort((a, b) => {return a[1] - b[1]});
 
-        let topLabels = parsed.slice(0, 5).map(entry => entry[0]);
-        let topValues = parsed.slice(0, 5).map(entry => entry[1]);
+        let topLabels = parsed.slice(parsed.length - 5).map((entry) => entry[0]);
+        let topValues = parsed.slice(parsed.length - 5).map(entry => entry[1]);
 
         
         setActivityData({
-            type: 'bar', 
+            type: 'hbar', 
+            "background-color": colorConfigs.backgroundColor,
             width: "100%",
             adjustLayout: true, 
             plotarea: { 
                 margin: 'dynamic',
-                marginTop: 70
+                marginTop: 70,
+                marginRight: 30
             },
             title: {
-              text: 'Activity Per Page On elks.codes',
-              fontSize: 24,
+                text: 'Activity Per Page On elks.codes',
+                fontSize: 24,
             },
             scaleX: {
-              // Set scale label
-              label: { text: 'Page' },
-              // Convert text on scale indices
-              labels: topLabels
+                // Set scale label
+                label: { text: 'Page' },
+                // Convert text on scale indices
+                labels: topLabels,
+                item: {
+                    fontAngle: 0,
+                  }
             },
             scaleY: {
-              // Scale label with unicode character
-              label: { text: '# Logged Activities' }
+                // Scale label with unicode character
+                label: { text: '# Logged Activities' }
             },
             plot: {
-              // Animation docs here:
-              // https://www.zingchart.com/docs/tutorials/styling/animation#effect
-              animation: {
-                effect: 'ANIMATION_EXPAND_BOTTOM',
-                method: 'ANIMATION_STRONG_EASE_OUT',
-                sequence: 'ANIMATION_BY_NODE',
-                speed: 275,
-              }
+                // Animation docs here:
+                // https://www.zingchart.com/docs/tutorials/styling/animation#effect
+                animation: {
+                    effect: 'ANIMATION_EXPAND_BOTTOM',
+                    method: 'ANIMATION_STRONG_EASE_OUT',
+                    sequence: 'ANIMATION_BY_NODE',
+                    speed: 275,
+                },
+                "background-color": colorConfigs.fillColor
             },
             series: [
-              {
-                // Plot 1 values, linear data
-                values: topValues,
-                text: "Number of Activity"
-              }
+                {
+                    // Plot 1 values, linear data
+                    values: topValues,
+                    text: "Number of Activity"
+                }
             ]
         })
     }
@@ -185,6 +205,7 @@ export default function Dashboard({ adminState, loginState }) {
                     "marginLeft": "100",
                     "marginRight": "100",
                 },
+                "background-color": colorConfigs.backgroundColor,
                 title: {
                     text: 'User Load Time Distribution',
                     fontSize: 24,
@@ -208,15 +229,45 @@ export default function Dashboard({ adminState, loginState }) {
                         "barWidth": 0.5,
                         "tooltip": {
                             "text": "<br><b style=\"font-size:15px;\">Load Times:</b><br><br>Maximum: <b>%data-max ms</b><br>Upper Quartile: <b>%data-upper-quartile ms</b><br>Median: <b>%data-median ms</b><br>Lower Quartile: <b>%data-lower-quartile ms</b><br>Minimum: <b>%data-min ms</b>"
-                        }
+                        },
+                        "border-color":"#204A7B",
+                        "border-width": 2,
+                        "background-color":colorConfigs.fillColor
+                            
+                        
                     },
                     "outlier": {
                         "tooltip": {
                             "text": "<br><b style=\"font-size:15px;\">Load Time: %node-value ms</b>"
                         },
                         "marker": {
-                            "type": "circle"
-                        }
+                            "type": "circle",
+                            'background-color': colorConfigs.fillColor,
+                            'border-color': colorConfigs.fillColor,
+                            'border-width': 2
+                            
+                        },
+                        
+                    },
+                    "line-median-level":{
+                        "line-color":"black",
+                        "line-width": 2
+                    },
+                    "line-min-level":{
+                        "line-color":"black",
+                        "line-width": 2
+                    },
+                    "line-min-connector": {
+                        "line-color":"black",
+                        "line-width": 2
+                    },
+                    "line-max-level": {
+                        "line-color":"black",
+                        "line-width": 2
+                    },
+                    "line-max-connector": {
+                        "line-color":"black",
+                        "line-width": 2
                     }
                 },
                 "series": [{
@@ -362,12 +413,17 @@ export default function Dashboard({ adminState, loginState }) {
         <>
         <br></br>
         <br></br>
-        <div style={{"margin" : "0px 50px"}}>
-            <ZingChart data={activityData} />
-            <hr></hr>
-            <ZingChart data={sessionsInfo} />
-            <hr></hr>
-            <section style={{"textAlign" : "center", "margin" : "40px 0px"}}>
+        <div style={{"margin" : "0px 40px"}}>
+            <Row>
+                <Col>
+                    <ZingChart data={activityData} />
+                </Col>
+                <Col>
+                    <ZingChart data={sessionsInfo} />
+                </Col>
+            </Row>
+            
+            <section style={{"textAlign" : "center", "margin" : "50px 0px", "paddingBottom": "20px", "backgroundColor" : colorConfigs.backgroundColor}}>
                 <ZingChart data={loadData} />
                 <div style={{"borderStyle" : "solid", 'margin' : "0px 100px"}}><b>Notable Outliers:</b> {outliers.map((outlier, i) => {return i === outliers.length - 1 ? `${outlier} ` : `${outlier}, `})}</div>
             </section>
