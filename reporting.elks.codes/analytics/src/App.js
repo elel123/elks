@@ -6,7 +6,7 @@ import { SITE_PAGES } from "./constants/links";
 import PageLayout from "./components/PageLayout";
 import Landing from "./pages/Landing";
 import Dashboard from "./pages/Dashboard";
-import Report from "./pages/Report";
+import Report from "./pages/ActivityReport";
 import Vis3 from "./pages/Vis3";
 import Login from "./pages/Login";
 import Logout from "./pages/Logout";

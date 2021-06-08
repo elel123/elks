@@ -11,7 +11,7 @@ import ZingChart from 'zingchart-react';
 
 import { Row, Col } from 'react-bootstrap';
 
-import './Report.css';
+import './ActivityReport.css';
 
 export default function Report({ adminState, loginState }) {
     const history = useHistory();
@@ -25,6 +25,12 @@ export default function Report({ adminState, loginState }) {
     const [pieData2, setPieData2] = useState({});
     const [pieChartNames, setPieChartNames] = useState([]);
     const [pieOption, setPieOption] = useState(0);
+
+    const colorConfigs = {
+        fillColor: "#b87b5a",
+        backgroundColor: "#ECECEC",
+        pieChartColor: ['#452f1e', '#8c5f3c', '#c99063', '#ff8c30']
+    }
 
 
     const parsePageBreakdownData = (data) => {
@@ -46,24 +52,30 @@ export default function Report({ adminState, loginState }) {
             for( let b of datum[1]) { 
                 let a = { 
                     values: [b.count], 
-                    text: b._id
+                    text: b._id,
+                    "background-color": colorConfigs.pieChartColor[mySeries.length]
                 } 
                 mySeries.push(a);
                 activityCount += b.count; 
             }
-            seriesList.push([datum[0], mySeries, activityCount]);
+            seriesList.push([datum[0], mySeries.sort((a,b)=>a['text'].length-b['text'].length), activityCount]);
         }
 
         setPieChartNames([seriesList[0][0], seriesList[1][0], seriesList[2][0]]);
-
+        console.log(seriesList)
         setPieData({
             type: 'pie', 
+            "background-color": colorConfigs.backgroundColor,
             adjustLayout: true, 
-            width: "500",
             legend: {
                 draggable: true,
-                x: "90%", 
-                y: "15%",
+                x: "5%", 
+                y: "10%",
+            },
+            title: {
+                text: pieChartNames[0],
+                fontSize: 20,
+                marginTop: 10
             },
             plot: {
                 "value-box": { 
@@ -76,19 +88,29 @@ export default function Report({ adminState, loginState }) {
                     method: 'ANIMATION_STRONG_EASE_OUT',
                     sequence: 'ANIMATION_BY_NODE',
                     speed: "ANIMATION_SLOW",
-                }
+                },
+                
+            },
+            plotarea: { 
+                margin: 'dynamic',
+                marginLeft: 30
             },
             series: seriesList[0][1]
         });
 
         setPieData1({
             type: 'pie', 
+            "background-color": colorConfigs.backgroundColor,
             adjustLayout: true, 
-            width: "500",
             legend: {
                 draggable: true,
-                x: "90%", 
-                y: "15%",
+                x: "5%", 
+                y: "10%",
+            },
+            title: {
+                text: pieChartNames[1],
+                fontSize: 20,
+                marginTop: 10
             },
             plot: {
                 "value-box": { 
@@ -101,19 +123,29 @@ export default function Report({ adminState, loginState }) {
                     method: 'ANIMATION_STRONG_EASE_OUT',
                     sequence: 'ANIMATION_BY_NODE',
                     speed: "ANIMATION_SLOW",
-                }
+                },
+                
+            },
+            plotarea: { 
+                margin: 'dynamic',
+                marginLeft: 30
             },
             series: seriesList[1][1]
         });
 
         setPieData2({
             type: 'pie', 
+            "background-color": colorConfigs.backgroundColor,
             adjustLayout: true, 
-            width: "500",
             legend: {
                 draggable: true,
-                x: "90%", 
-                y: "15%",
+                x: "5%", 
+                y: "10%",
+            },
+            title: {
+                text: pieChartNames[2],
+                fontSize: 20,
+                marginTop: 10
             },
             plot: {
                 "value-box": { 
@@ -126,7 +158,12 @@ export default function Report({ adminState, loginState }) {
                     method: 'ANIMATION_STRONG_EASE_OUT',
                     sequence: 'ANIMATION_BY_NODE',
                     speed: "ANIMATION_SLOW",
-                }
+                },
+                
+            },
+            plotarea: { 
+                margin: 'dynamic',
+                marginLeft: 30
             },
             series: seriesList[2][1]
         });
@@ -149,6 +186,7 @@ export default function Report({ adminState, loginState }) {
         
         setBarData({
             type: 'bar', 
+            "background-color": colorConfigs.backgroundColor,
             adjustLayout: true, 
             plotarea: { 
                 margin: 'dynamic',
@@ -179,7 +217,8 @@ export default function Report({ adminState, loginState }) {
                 method: 'ANIMATION_STRONG_EASE_OUT',
                 sequence: 'ANIMATION_BY_NODE',
                 speed: 275,
-              }
+              },
+              "background-color": colorConfigs.fillColor
             },
             series: [
               {
@@ -266,9 +305,9 @@ export default function Report({ adminState, loginState }) {
 
     return (
         <>
-        <div class="media"> 
+        <div class="media" style={{"backgroundColor" : colorConfigs.backgroundColor, "margin" : "50px 50px 25px 50px", "paddingTop" : "20px"}}> 
             <div class="media-body">
-                <h1 class="mx-5"> Detailed Report </h1>
+                <h1 class="mx-5"> Detailed Activity Report </h1>
                 <p class="mx-5"> With our collected data, we wanted to answer the question: <q>Which site pages traffic the most amount of user activity?</q> To answer this question, we created the following visualizations (displayed at the bottom of the page).  </p>
                 <p class="mx-5">  The first visualization (Activity PerPage On elks.codes bar chart) focused on giving the top 5 pages on the site (descending order) that had the most logged activity data (navigation, mouse clicks, keyboard, etc.). More usage of the page (scrolling, clicking, etc.) yielded more logged data, which in turn gave that page a higher overall activity ranking. Clearly, looking at the bar graph, it's easy to see that “/hw3/database.html” by far has the most activity, as it beats out the second place page <q>/hw3/hellodataviz.html</q> by about 18000 logged entries. Then second and third place (“/”) have little difference, though second place does have an edge of 1000 more entries. However, anything after third place yields very little activity, as the fourth and fifth highly ranked pages only have a few hundred entries - extremely low compared to the top three places. Based on these results, we can make the conclusion that our site has very little activity usage aside from the <q>/hw3/database.html</q> page, which hoards most of the user traffic. </p>
                 <p class="mx-5"> As it appears, the second visualization (pie chart detailing activity type break down for a page) provided an even further breakdown of the bar chart. Moreover, as explained in prior, the fourth and fifth pages had comparatively negligible amounts of user activity, which is why we didn’t find too much a need to break down these pages as the top 3. Interestingly, all three pages displayed a similar story, as predominantly (greater than 96%) all user data was of mouse activity, with idle usually taking up the next 1% - 2 %, and then keyboard and navigation being of trace amounts (less than 1%). As most of the pages didn’t have too many buttons and our site did not have a consistent navigation bar, the data made sense. Especially when considering that idle data was highest in <q>/hw3/hellodataviz.html</q> probably because it had the most amount of static content for reading, and navigation was highest in the root page <q>/</q> since that was the page that had the most amount of links attached to it.  </p>
@@ -280,25 +319,29 @@ export default function Report({ adminState, loginState }) {
             <section align="center">
                 <ZingChart data={barData} align="center" margin="auto" />
             </section>
-            <hr></hr>
-            <section>
+            <section style={{"margin" : "50px 0px", "paddingTop" : "30px", "backgroundColor" : colorConfigs.backgroundColor}}>
                 <h1 style={{"fontSize" : "x-large"}} align="center">Activity Breakdown of the 3 Pages with the Most Activity</h1>
                 <br></br>
                 <Row>
                     <Col>
-                        <select className="select-pie" value={pieOption} onChange={(e) => {setPieOption(e.target.value);}}>
-                            <option value={0}>{`#1) Activity Breakdown per Page at: ${pieChartNames[0]}`}</option>
-                            <option value={1}>{`#2) Activity Breakdown per Page at: ${pieChartNames[1]}`}</option>
-                            <option value={2}>{`#3) Activity Breakdown per Page at: ${pieChartNames[2]}`}</option>
-                        </select>
-                        {pieOption == 0 ? (<ZingChart data={pieData} />) : null}
-                        {pieOption == 1 ? (<ZingChart data={pieData1} />) : null}
-                        {pieOption == 2 ? (<ZingChart data={pieData2} />) : null}
+                        <ZingChart data={pieData} />
                     </Col>
                     <Col>
-                         <ActivityPerPageGrid pageNames={pieChartNames[pieOption]}></ActivityPerPageGrid>
+                        <ZingChart data={pieData1} />
+                    </Col>
+                    <Col>
+                        <ZingChart data={pieData2} />
                     </Col>
                 </Row>
+            </section>
+            <section>
+                <select style={{"margin" : "10px 0px 10px 0px"}} className="select-pie" value={pieOption} onChange={(e) => {setPieOption(e.target.value);}}>
+                    <option value={0}>{`#1) Activity Breakdown per Page at: ${pieChartNames[0]}`}</option>
+                    <option value={1}>{`#2) Activity Breakdown per Page at: ${pieChartNames[1]}`}</option>
+                    <option value={2}>{`#3) Activity Breakdown per Page at: ${pieChartNames[2]}`}</option>
+                </select>
+
+                <ActivityPerPageGrid pageNames={pieChartNames[pieOption]}></ActivityPerPageGrid>
             </section>
         </div>
         </>

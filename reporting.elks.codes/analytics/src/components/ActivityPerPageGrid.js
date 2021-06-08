@@ -21,38 +21,38 @@ class ActivityPerPageGrid extends Component {
     //Intialize data to grid here 
     componentDidMount() { 
         // Grab 3 most popular page paths ( in terms of popularity)
-        fetch(
-            `https://www.elks.codes/server/api/activity/pages?jwt=${getToken()}`, 
-            { 
-                method: 'GET',
-                headers:{
-                    'Accept': 'application/json'
-                }
-            }
-        ).then( async (data) => {
-            if (data.status === 200) {
-                let respData = await data.json();
+        // fetch(
+        //     `https://www.elks.codes/server/api/activity/pages?jwt=${getToken()}`, 
+        //     { 
+        //         method: 'GET',
+        //         headers:{
+        //             'Accept': 'application/json'
+        //         }
+        //     }
+        // ).then( async (data) => {
+        //     if (data.status === 200) {
+        //         let respData = await data.json();
 
-                let filtered = []; 
-                for (let page of respData) {
-                    if (page._id === null || page._id === "" || page._id.indexOf("public_html") !== -1) {
-                        continue;
-                    }
-                    filtered.push([page._id, page.count]);
-                }
+        //         let filtered = []; 
+        //         for (let page of respData) {
+        //             if (page._id === null || page._id === "" || page._id.indexOf("public_html") !== -1) {
+        //                 continue;
+        //             }
+        //             filtered.push([page._id, page.count]);
+        //         }
         
-                filtered.sort((a, b) => {return b[1] - a[1]});
+        //         filtered.sort((a, b) => {return b[1] - a[1]});
 
-                this.setState(() => {
-                    return {
-                      popPagesNames: [filtered[0][0], filtered[1][0], filtered[2][0]]
-                    }
-                  });
-            } 
-        })
-        .catch((error) => {
-            console.error(error); 
-        })     
+        //         this.setState(() => {
+        //             return {
+        //               popPagesNames: [filtered[0][0], filtered[1][0], filtered[2][0]]
+        //             }
+        //           });
+        //     } 
+        // })
+        // .catch((error) => {
+        //     console.error(error); 
+        // })     
     }
 
     render() {
@@ -67,8 +67,7 @@ class ActivityPerPageGrid extends Component {
                     page-size="10"
                     page-size-options="10" 
                     layout="row" 
-                    layout-controls="disabled" 
-                    width="1000"
+                    layout-controls="disabled"
                     viewport-stop
                     loading>
                         <zg-caption>
