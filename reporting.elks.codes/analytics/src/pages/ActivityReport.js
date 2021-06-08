@@ -67,7 +67,8 @@ export default function Report({ adminState, loginState }) {
         }
 
         setPieChartNames([seriesList[0][0], seriesList[1][0], seriesList[2][0]]);
-        console.log(seriesList)
+
+        
         setPieData({
             type: 'pie', 
             "background-color": colorConfigs.backgroundColor,
@@ -78,7 +79,7 @@ export default function Report({ adminState, loginState }) {
                 y: "10%",
             },
             title: {
-                text: pieChartNames[0],
+                text: seriesList[0][0],
                 fontSize: 20,
                 marginTop: 10
             },
@@ -113,7 +114,7 @@ export default function Report({ adminState, loginState }) {
                 y: "10%",
             },
             title: {
-                text: pieChartNames[1],
+                text: seriesList[1][0],
                 fontSize: 20,
                 marginTop: 10
             },
@@ -148,7 +149,7 @@ export default function Report({ adminState, loginState }) {
                 y: "10%",
             },
             title: {
-                text: pieChartNames[2],
+                text: seriesList[2][0],
                 fontSize: 20,
                 marginTop: 10
             },
