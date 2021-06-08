@@ -29,7 +29,12 @@ export default function Report({ adminState, loginState }) {
     const colorConfigs = {
         fillColor: "#b87b5a",
         backgroundColor: "#ECECEC",
-        pieChartColor: ['#452f1e', '#8c5f3c', '#c99063', '#ff8c30']
+        pieChartColor: {
+            'Idle' : '#452f1e', 
+            'Mouse' : '#8c5f3c', 
+            'Keyboard' : '#c99063', 
+            'Navigation' : '#ff8c30'
+        }
     }
 
 
@@ -53,7 +58,7 @@ export default function Report({ adminState, loginState }) {
                 let a = { 
                     values: [b.count], 
                     text: b._id,
-                    "background-color": colorConfigs.pieChartColor[mySeries.length]
+                    "background-color": colorConfigs.pieChartColor[b._id]
                 } 
                 mySeries.push(a);
                 activityCount += b.count; 
